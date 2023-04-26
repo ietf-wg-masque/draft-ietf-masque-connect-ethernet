@@ -9,19 +9,19 @@ number:
 date:
 consensus: true
 v: 3
-area: AREA
-workgroup: WG Working Group
+area: "Transport"
+workgroup: "Multiplexed Application Substrate over QUIC Encryption"
 keyword:
  - next generation
  - unicorn
  - sparkling distributed ledger
 venue:
-  group: WG
-  type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: USER/REPO
-  latest: https://example.com/LATEST
+  group: "Multiplexed Application Substrate over QUIC Encryption"
+  type: "Working Group"
+  mail: "masque@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/masque/"
+  github: "asedeno/draft-asedeno-masque-connect-l2"
+  latest: "https://asedeno.github.io/draft-asedeno-masque-connect-l2/draft-asedeno-masque-l2.html"
 
 author:
  -
