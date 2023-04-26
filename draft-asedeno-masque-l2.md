@@ -19,12 +19,12 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
-category: info
+title: "Proxying ETHERNET in HTTP"
+abbrev: "L2-MASQUE"
+category: std
 
-docname: draft-todo-yourname-protocol-latest
-submissiontype: IETF  # also: "independent", "IAB", or "IRTF"
+docname: draft-asedeno-masque-l2
+submissiontype: IETF
 number:
 date:
 consensus: true
@@ -45,9 +45,10 @@ venue:
 
 author:
  -
-    fullname: Your Name Here
-    organization: Your Organization Here
-    email: your.email@example.com
+    ins: A. Sedeño
+    name: Alejandro R Sedeño
+    organization: Google LLC
+    email: asedeno@google.com
 
 normative:
 
