@@ -2,10 +2,10 @@
 
 This is the working area for the individual Internet-Draft, "Proxying ETHERNET in HTTP".
 
-* [Editor's Copy](https://asedeno.github.io/draft-asedeno-masque-connect-l2/#go.draft-asedeno-masque-l2.html)
-* [Datatracker Page](https://datatracker.ietf.org/doc/draft-asedeno-masque-l2)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-asedeno-masque-l2)
-* [Compare Editor's Copy to Individual Draft](https://asedeno.github.io/draft-asedeno-masque-connect-l2/#go.draft-asedeno-masque-l2.diff)
+* [Editor's Copy](https://asedeno.github.io/draft-asedeno-masque-connect-l2/#go.draft-asedeno-masque-connect-ethernet.html)
+* [Datatracker Page](https://datatracker.ietf.org/doc/draft-asedeno-masque-connect-ethernet)
+* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-asedeno-masque-connect-ethernet)
+* [Compare Editor's Copy to Individual Draft](https://asedeno.github.io/draft-asedeno-masque-connect-l2/#go.draft-asedeno-masque-connect-ethernet.diff)
 
 
 ## Contributing
@@ -27,4 +27,3 @@ $ make
 
 Command line usage requires that you have the necessary software installed.  See
 [the instructions](https://github.com/martinthomson/i-d-template/blob/main/doc/SETUP.md).
-
