@@ -2,16 +2,16 @@
 
 This is the working area for the individual Internet-Draft, "Proxying ETHERNET in HTTP".
 
-* [Editor's Copy](https://asedeno.github.io/draft-asedeno-masque-connect-l2/#go.draft-asedeno-masque-connect-ethernet.html)
+* [Editor's Copy](https://asedeno.github.io/draft-asedeno-masque-connect-ethernet/#go.draft-asedeno-masque-connect-ethernet.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-asedeno-masque-connect-ethernet)
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-asedeno-masque-connect-ethernet)
-* [Compare Editor's Copy to Individual Draft](https://asedeno.github.io/draft-asedeno-masque-connect-l2/#go.draft-asedeno-masque-connect-ethernet.diff)
+* [Compare Editor's Copy to Individual Draft](https://asedeno.github.io/draft-asedeno-masque-connect-ethernet/#go.draft-asedeno-masque-connect-ethernet.diff)
 
 
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/asedeno/draft-asedeno-masque-connect-l2/blob/main/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/asedeno/draft-asedeno-masque-connect-ethernet/blob/main/CONTRIBUTING.md).
 
 Contributions can be made by creating pull requests.
 The GitHub interface supports creating pull requests using the Edit (✏) button.
