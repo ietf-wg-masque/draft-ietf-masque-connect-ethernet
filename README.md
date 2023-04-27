@@ -1,6 +1,6 @@
-# Proxying ETHERNET in HTTP
+# Proxying Ethernet in HTTP
 
-This is the working area for the individual Internet-Draft, "Proxying ETHERNET in HTTP".
+This is the working area for the individual Internet-Draft, "Proxying Ethernet in HTTP".
 
 * [Editor's Copy](https://asedeno.github.io/draft-asedeno-masque-connect-ethernet/#go.draft-asedeno-masque-connect-ethernet.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-asedeno-masque-connect-ethernet)
