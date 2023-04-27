@@ -1,6 +1,6 @@
 ---
 title: "Proxying Ethernet in HTTP"
-abbrev: "L2-MASQUE"
+abbrev: "CONNECT-ETHERNET"
 category: std
 
 docname: draft-asedeno-masque-connect-ethernet-latest
@@ -21,7 +21,7 @@ venue:
   mail: "masque@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/masque/"
   github: "asedeno/draft-asedeno-masque-connect-ethernet"
-  latest: "https://asedeno.github.io/draft-asedeno-masque-connect-ethernet/draft-asedeno-masque-l2.html"
+  latest: "https://asedeno.github.io/draft-asedeno-masque-connect-ethernet/draft-asedeno-masque-connect-ethernet.html"
 
 author:
  -
