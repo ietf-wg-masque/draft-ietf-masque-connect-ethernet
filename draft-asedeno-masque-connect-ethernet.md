@@ -170,7 +170,7 @@ requirements:
 * the path SHALL be "/.well-known/masque/l2/"
 
 * the request SHALL include a single Host header field containing the host
-  and optional port of the IP proxy.
+  and optional port of the Ethernet proxy.
 
 * the request SHALL include a Connection header field with value "Upgrade"
   (note that this requirement is case-insensitive as per {{Section 7.6.1 of
@@ -389,7 +389,7 @@ In this case, the client connects to the Ethernet proxy and immediately can
 start sending ethernet frames to the attached broadcast domain.
 
 ~~~
-[[ From Client ]]             [[ From IP Proxy ]]
+[[ From Client ]]             [[ From Ethernet Proxy ]]
 
 SETTINGS
   H3_DATAGRAM = 1
