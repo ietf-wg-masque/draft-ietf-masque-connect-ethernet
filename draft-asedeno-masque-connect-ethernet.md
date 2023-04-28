@@ -2,7 +2,6 @@
 title: "Proxying Ethernet in HTTP"
 abbrev: "CONNECT-ETHERNET"
 category: std
-
 docname: draft-asedeno-masque-connect-ethernet-latest
 submissiontype: IETF
 number:
@@ -12,11 +11,18 @@ v: 3
 area: "Transport"
 workgroup: "Multiplexed Application Substrate over QUIC Encryption"
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+ - quic
+ - http
+ - datagram
+ - VPN
+ - proxy
+ - tunnels
+ - masque
+ - http-ng
+ - layer-2
+ - ethernet
 venue:
-  group: "Multiplexed Application Substrate over QUIC Encryption"
+  group: "MASQUE"
   type: "Working Group"
   mail: "masque@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/masque/"
