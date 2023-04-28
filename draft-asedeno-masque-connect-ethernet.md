@@ -47,7 +47,7 @@ informative:
 
 This document describes how to proxy Ethernet frames in HTTP. This
 protocol is similar to IP proxying in HTTP, but allows transmitting arbitrary
-Ethernet frames.  More specifically, this document defines a protocol that
+Ethernet frames. More specifically, this document defines a protocol that
 allows an HTTP client to create Layer 2 Ethernet tunnel through and HTTP server
 that acts as an Ethernet switch.
 
@@ -58,9 +58,10 @@ that acts as an Ethernet switch.
 
 HTTP provides the CONNECT method (see {{Section 9.3.6 of !HTTP=RFC9110}}) for
 creating a TCP {{!TCP=RFC9293}} tunnel to a destination, a similar mechanism for
-UDP {{?CONNECT-UDP=RFC9298}}, and an additional mechanism for IP
-[CONNECT-IP]. However, these mechanisms can't carry layer 2 frames without
-further encapsulation inside of IP, for instance with GUE, which imposes an MTU
+UDP {{!CONNECT-UDP=RFC9298}}, and an additional mechanism for IP
+{{?CONNECT-IP=I-D.ietf-masque-connect-ip}}. However, these mechanisms can't
+carry layer 2 frames without further encapsulation inside of IP, for instance
+with GUE {{?GUE=I-D.ietf-intarea-gue}}or L2TP {{!L2TP=RFC2661}} {{!L2TPv3=RFC3931}}, which imposes an MTU
 cost.
 
 This document describes a protocol for tunnelling Ethernet frames through an
@@ -173,7 +174,7 @@ field. Note that this field can be empty.
 {: spacing="compact"}
 
 Ethernet frames are encoded using HTTP Datagrams with the Context ID set to
-zero.  When the Context ID is set to zero, the Payload field contains a full
+zero. When the Context ID is set to zero, the Payload field contains a full
 Layer 2 Ethernet Frame (from the MAC destination field until the last byte of
 the Frame check sequence field).
 
