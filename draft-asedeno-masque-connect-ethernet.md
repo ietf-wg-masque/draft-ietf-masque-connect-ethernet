@@ -121,7 +121,7 @@ https://${PROXY_HOST}:${PROXY_PORT}/.well-known/masque/l2/${L2_PROTOCOL}/
 
 # Tunnelling Ethernet over HTTP
 
-To allow negotiation of a tunnel for Ethernet over HTTP, this documetn defines
+To allow negotiation of a tunnel for Ethernet over HTTP, this document defines
 the "connect-l2" HTTP upgrade token. The resulting Ethernet tunnels use the
 Capsule Protocol (see {{Section 3.2 of HTTP-DGRAM}}) with HTTP Datagrams in the
 format defined in {{payload-format}}.
@@ -284,7 +284,7 @@ capsule-protocol = ?1
 # Context Identifiers
 
 The mechanism for proxying Ethernet in HTTP defined in this document allows
-futer extensions to exchange HTTP Datagrams that carry different semantics from
+future extensions to exchange HTTP Datagrams that carry different semantics from
 Ethernet frames. Some of these extensions can augment Ethernet payloads with
 additional data or compress Ethernet frame header fields, while others can
 exchange data that is completely separate from Ethernet payloads. In order to
