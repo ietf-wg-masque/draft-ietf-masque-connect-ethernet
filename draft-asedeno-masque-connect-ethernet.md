@@ -106,6 +106,19 @@ Note that, when the HTTP version in use does not support multiplexing streams
 (such as HTTP/1.1), any reference to "stream" in this document represents the
 entire connection.
 
+# Configuration of Clients {#client-config}
+
+Clients are configured to use Ethernet proxying over HTP via a URL.
+
+Examples are shown below:
+
+~~~
+https://example.org/.well-known/masque/ethernet/
+https://proxy.example.org:4443/masque/ethernet/
+https://proxy.example.org:4443/masque/ethernet/
+https://masque.example.org/?user=bob
+~~~
+
 # Tunnelling Ethernet over HTTP
 
 To allow negotiation of a tunnel for Ethernet over HTTP, this document defines
@@ -154,8 +167,6 @@ requirements:
 
 * the method SHALL be "GET".
 
-* the path SHALL be "/.well-known/masque/ethernet/"
-
 * the request SHALL include a single Host header field containing the host
   and optional port of the Ethernet proxy.
 
@@ -168,6 +179,10 @@ requirements:
 An Ethernet proxying request that does not conform to these restrictions is
 malformed. The recipient of such a malformed request MUST respond with an error
 and SHOULD use the 400 (Bad Request) status code.
+
+For example, if the client is configured with the URL
+"https://example.org/.well-known/masque/ethernet/" and wishes to open an
+Ethernet tunnel, it could send the following request.
 
 ~~~ http-message
 GET https://example.org/.well-known/masque/ethernet/ HTTP/1.1
@@ -223,10 +238,15 @@ pseudo-header fields with the following requirements:
   proxy.
 
 * The :path and :scheme pseudo-header fields SHALL NOT be empty. Their values
-  SHALL contain the scheme and path …
+  SHALL contain the scheme and path from the configured URL; see
+  {{client-config}}.
 
 An Ethernet proxying request that does not conform to these restrictions is
 malformed; see {{Section 8.1.1 of H2}} and {{Section 4.1.2 of H3}}.
+
+For example, if the client is configured with the URL
+"https://example.org/.well-known/masque/ethernet/" and wishes to open an
+Ethernet tunnel, it could send the following request.
 
 ~~~ http-message
 HEADERS
