@@ -154,7 +154,7 @@ requirements:
 
 * the method SHALL be "GET".
 
-* the path SHALL be "/.well-known/masque/l2/"
+* the path SHALL be "/.well-known/masque/ethernet/"
 
 * the request SHALL include a single Host header field containing the host
   and optional port of the Ethernet proxy.
@@ -170,7 +170,7 @@ malformed. The recipient of such a malformed request MUST respond with an error
 and SHOULD use the 400 (Bad Request) status code.
 
 ~~~ http-message
-GET https://example.org/.well-known/masque/l2/ HTTP/1.1
+GET https://example.org/.well-known/masque/ethernet/ HTTP/1.1
 Host: example.org
 Connection: Upgrade
 Upgrade: connect-ethernet
@@ -233,7 +233,7 @@ HEADERS
 :method = CONNECT
 :protocol = connect-ethernet
 :scheme = https
-:path = /.well-known/masque/l2/
+:path = /.well-known/masque/ethernet/
 :authority = example.org
 capsule-protocol = ?1
 ~~~
@@ -383,7 +383,7 @@ STREAM(44): HEADERS
 :method = CONNECT
 :protocol = connect-ethernet
 :scheme = https
-:path = /.well-known/masque/l2/
+:path = /.well-known/masque/ethernet/
 :authority = proxy.example.com
 capsule-protocol = ?1
 
