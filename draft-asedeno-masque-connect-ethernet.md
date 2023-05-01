@@ -76,7 +76,9 @@ with EtherIP {{!ETHERIP=RFC3378}}, GUE {{?GUE=I-D.ietf-intarea-gue}} or L2TP
 
 This document describes a protocol for tunnelling Ethernet frames through an
 HTTP server acting as an Ethernet switch over HTTP. This can be used to
-establish a Layer 2 VPN.
+establish a Layer 2 VPN, which can then bridge two Ethernet broadcast
+domains. This can simplify connectivity to network-connected appliances that are
+configured to only interact with peers on the same Ethernet broadcast domain.
 
 This protocol supports all existing versions of HTTP by using HTTP Datagrams
 {{!HTTP-DGRAM=RFC9297}}. When using HTTP/2 {{H2}} or HTTP/3 {{H3}}, it uses
