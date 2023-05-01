@@ -72,11 +72,11 @@ UDP {{!CONNECT-UDP=RFC9298}}, and an additional mechanism for IP
 {{?CONNECT-IP=I-D.ietf-masque-connect-ip}}. However, these mechanisms can't
 carry layer 2 frames without further encapsulation inside of IP, for instance
 with EtherIP {{!ETHERIP=RFC3378}}, GUE {{?GUE=I-D.ietf-intarea-gue}} or L2TP
-{{!L2TP=RFC2661}} {{!L2TPv3=RFC3931}}, which imposes an MTU cost.
+{{!L2TP=RFC2661}} {{!L2TPv3=RFC3931}}, which imposes an additional MTU cost.
 
 This document describes a protocol for tunnelling Ethernet frames through an
-HTTP server acting as an Ethernet switch over HTTP. This can be used to extend
-an Ethernet broadcast domain.
+HTTP server acting as an Ethernet switch over HTTP. This can be used to
+establish a Layer 2 VPN.
 
 This protocol supports all existing versions of HTTP by using HTTP Datagrams
 {{!HTTP-DGRAM=RFC9297}}. When using HTTP/2 {{H2}} or HTTP/3 {{H3}}, it uses
