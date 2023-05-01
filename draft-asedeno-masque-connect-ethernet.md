@@ -46,9 +46,6 @@ normative:
   H3:
     =: RFC9114
     display: HTTP/3
-  TEMPLATE:
-    =: RFC6570
-    display: TEMPLATE
 
 informative:
 
@@ -71,7 +68,7 @@ creating a TCP {{!TCP=RFC9293}} tunnel to a destination, a similar mechanism for
 UDP {{!CONNECT-UDP=RFC9298}}, and an additional mechanism for IP
 {{?CONNECT-IP=I-D.ietf-masque-connect-ip}}. However, these mechanisms can't
 carry layer 2 frames without further encapsulation inside of IP, for instance
-with EtherIP {{!ETHERIP=RFC3378}}, GUE {{?GUE=I-D.ietf-intarea-gue}} or L2TP
+with EtherIP {{?ETHERIP=RFC3378}}, GUE {{?GUE=I-D.ietf-intarea-gue}} or L2TP
 {{!L2TP=RFC2661}} {{!L2TPv3=RFC3931}}, which imposes an additional MTU cost.
 
 This document describes a protocol for tunnelling Ethernet frames through an
