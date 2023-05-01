@@ -71,8 +71,8 @@ creating a TCP {{!TCP=RFC9293}} tunnel to a destination, a similar mechanism for
 UDP {{!CONNECT-UDP=RFC9298}}, and an additional mechanism for IP
 {{?CONNECT-IP=I-D.ietf-masque-connect-ip}}. However, these mechanisms can't
 carry layer 2 frames without further encapsulation inside of IP, for instance
-with GUE {{?GUE=I-D.ietf-intarea-gue}}or L2TP {{!L2TP=RFC2661}}
-{{!L2TPv3=RFC3931}}, which imposes an MTU cost.
+with EtherIP {{!ETHERIP=RFC3378}}, GUE {{?GUE=I-D.ietf-intarea-gue}} or L2TP
+{{!L2TP=RFC2661}} {{!L2TPv3=RFC3931}}, which imposes an MTU cost.
 
 This document describes a protocol for tunnelling Ethernet frames through an
 HTTP server acting as an Ethernet switch over HTTP. This can be used to extend
@@ -106,28 +106,15 @@ Note that, when the HTTP version in use does not support multiplexing streams
 (such as HTTP/1.1), any reference to "stream" in this document represents the
 entire connection.
 
-# Configuration of Clients {#client-config}
-
-_We don't have the same level of configuration as {{CONNECT-IP}}, such that a
-URI Template {{TEMPLATE}} may not make sense. However, if we write this as a
-more generic Layer 2 tunnel with an initial Ethernet implementation and
-extensibility for other Layer 2 protocols, then a template carrying the desired
-Layer 2 protocol may be worthwhile._
-
-~~~
-https://${PROXY_HOST}:${PROXY_PORT}/.well-known/masque/l2/
-https://${PROXY_HOST}:${PROXY_PORT}/.well-known/masque/l2/${L2_PROTOCOL}/
-~~~
-
 # Tunnelling Ethernet over HTTP
 
 To allow negotiation of a tunnel for Ethernet over HTTP, this document defines
-the "connect-l2" HTTP upgrade token. The resulting Ethernet tunnels use the
+the "connect-ethernet" HTTP upgrade token. The resulting Ethernet tunnels use the
 Capsule Protocol (see {{Section 3.2 of HTTP-DGRAM}}) with HTTP Datagrams in the
 format defined in {{payload-format}}.
 
 To initiate an Ethernet tunnel associated with a single HTTP stream, a client
-issues a request containing the "connect-l2" upgrade token.
+issues a request containing the "connect-ethernet" upgrade token.
 
 By virtue of the definition of the Capsule Protocol (see {{Section 3.2 of
 HTTP-DGRAM}}), Ethernet proxying requests do not carry any message content.
@@ -176,19 +163,17 @@ requirements:
   (note that this requirement is case-insensitive as per {{Section 7.6.1 of
   HTTP}}).
 
-* the request SHALL include an Upgrade header field with value "connect-l2".
+* the request SHALL include an Upgrade header field with value "connect-ethernet".
 
 An Ethernet proxying request that does not conform to these restrictions is
 malformed. The recipient of such a malformed request MUST respond with an error
 and SHOULD use the 400 (Bad Request) status code.
 
-_[TODO: Non-Ethernet L2 protocols as an additional path element.]_
-
 ~~~ http-message
 GET https://example.org/.well-known/masque/l2/ HTTP/1.1
 Host: example.org
 Connection: Upgrade
-Upgrade: connect-l2
+Upgrade: connect-ethernet
 Capsule-Protocol: ?1
 ~~~
 {: #fig-req-h1 title="Example HTTP/1.1 Request"}
@@ -205,7 +190,7 @@ requirements:
   HTTP}}).
 
 * the response SHALL include a single Upgrade header field with value
-  "connect-l2".
+  "connect-ethernet".
 
 * the response SHALL meet the requirements of HTTP responses that start the
   Capsule Protocol; see {{Section 3.2 of HTTP-DGRAM}}.
@@ -218,7 +203,7 @@ For example, the server could respond with:
 ~~~ http-message
 HTTP/1.1 101 Switching Protocols
 Connection: Upgrade
-Upgrade: connect-l2
+Upgrade: connect-ethernet
 Capsule-Protocol: ?1
 ~~~
 {: #fig-resp-h1 title="Example HTTP/1.1 Response"}
@@ -232,7 +217,7 @@ pseudo-header fields with the following requirements:
 
 * The :method pseudo-header field SHALL be "CONNECT".
 
-* The :protocol pseudo-header field SHALL be "connect-l2".
+* The :protocol pseudo-header field SHALL be "connect-ethernet".
 
 * The :authority pseudo-header field SHALL contain the authority of the IP
   proxy.
@@ -240,16 +225,13 @@ pseudo-header fields with the following requirements:
 * The :path and :scheme pseudo-header fields SHALL NOT be empty. Their values
   SHALL contain the scheme and path …
 
-_[TODO: uri template, optional layer 2 protocol field, hook for future
-extensions.]_
-
 An Ethernet proxying request that does not conform to these restrictions is
 malformed; see {{Section 8.1.1 of H2}} and {{Section 4.1.2 of H3}}.
 
 ~~~ http-message
 HEADERS
 :method = CONNECT
-:protocol = connect-l2
+:protocol = connect-ethernet
 :scheme = https
 :path = /.well-known/masque/l2/
 :authority = example.org
@@ -353,17 +335,16 @@ the Frame check sequence field).
 
 # Ethernet Frame Handling
 
-_TODO: Expand this._
+This document defines a tunneling mechanism that is conceptually an Ethernet
+link. Implementations might need to handle some of the responsibilities of an
+Ethernet switch if they do not delegate them to another implementation such as
+a kernel.
 
- * Be like a switch, not a hub.
- * Handle broadcast and multicast well.
- * Maybe offload the details to a kernel-level network bridge.
-
-## Error Signalling
-
-_TODO: Expand this._
+## Link Status and Error Signalling
 
  * Maybe borrow some bits from L2TPv3 [L2TPv3] for fault signalling via capsule.
+
+## Broadcast and Multicast
 
 # Examples
 
@@ -400,7 +381,7 @@ SETTINGS
 
 STREAM(44): HEADERS
 :method = CONNECT
-:protocol = connect-l2
+:protocol = connect-ethernet
 :scheme = https
 :path = /.well-known/masque/l2/
 :authority = proxy.example.com
@@ -426,17 +407,48 @@ Payload = Encapsulated Ethernet Frame
 
 TODO Security
 
-* MAC address collisions?
-
 # IANA Considerations
 
-This document has no IANA actions.
+## HTTP Upgrade Token
+
+This document will request IANA to register "connect-ethernet" in the HTTP
+Upgrade Token Registry maintained at
+<[](https://www.iana.org/assignments/http-upgrade-tokens)>.
+
+Value:
+
+: connect-ethernet
+
+Description:
+
+: Proxying of Ethernet Payloads
+
+Expected Version Tokens:
+
+: None
+
+References:
+
+: This document
+{: spacing="compact"}
+
+## Updates to the MASQUE URI Suffixes Registry {#iana-suffix}
+
+This document will request IANA to register "ethernet" in the MASQUE URI
+Suffixes Registry maintained at $IANA_URL_TBD, created by CONNECT-IP
+[CONNECT-IP].
+
+| Path Segment |    Description    |   Reference   |
+|:-------------|:------------------|:--------------|
+|    ethernet  | Ethernet Proxying | This Document |
+{: #iana-suffixes-table title="New MASQUE URI Suffixes"}
 
 --- back
 
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge.
-
 Much of the initial version of this draft borrows heavily from {{CONNECT-IP}}.
+
+The author would like to thank Alexander Chernyakhovsky and David Schinazi
+for their advice while preparing this document.
