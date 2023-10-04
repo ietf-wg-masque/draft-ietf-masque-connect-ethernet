@@ -1,4 +1,4 @@
 # License
 
 See the
-[guidelines for contributions](https://github.com/asedeno/draft-asedeno-masque-connect-l2/blob/main/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/blob/main/CONTRIBUTING.md).
