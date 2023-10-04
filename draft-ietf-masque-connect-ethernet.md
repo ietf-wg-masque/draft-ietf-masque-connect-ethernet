@@ -2,7 +2,7 @@
 title: "Proxying Ethernet in HTTP"
 abbrev: "CONNECT-ETHERNET"
 category: std
-docname: draft-asedeno-masque-connect-ethernet-latest
+docname: draft-ietf-masque-connect-ethernet-latest
 submissiontype: IETF
 number:
 date:
