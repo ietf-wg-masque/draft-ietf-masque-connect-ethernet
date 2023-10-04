@@ -4,7 +4,7 @@ This is the working area for the MASQUE WG Internet-Draft, "Proxying Ethernet in
 
 * [Editor's Copy](https://ietf-wg-masque.github.io/draft-ietf-masque-connect-ethernet/#go.draft-ietf-masque-connect-ethernet.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-masque-connect-ethernet)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-ietf-masque-connect-ethernet)
+* [WG Draft](https://datatracker.ietf.org/doc/html/draft-ietf-masque-connect-ethernet)
 * [Compare Editor's Copy to Individual Draft](https://ietf-wg-masque.github.io/draft-ietf-masque-connect-ethernet/#go.draft-ietf-masque-connect-ethernet.diff)
 
 
