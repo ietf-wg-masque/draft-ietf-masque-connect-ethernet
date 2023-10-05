@@ -1,7 +1,7 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-10-03T01:04:40.510547+00:00",
-  "repo": "asedeno/draft-asedeno-masque-connect-ethernet",
+  "timestamp": "2023-10-05T01:04:18.500770+00:00",
+  "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
       "name": "bug",
