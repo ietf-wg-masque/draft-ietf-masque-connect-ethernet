@@ -7,11 +7,11 @@
 <title>Proxying Ethernet in HTTP</title>
 <meta content="Alejandro R Sedeño" name="author">
 <meta content="
-       This document describes how to proxy Ethernet frames in HTTP. This
-protocol is similar to IP proxying in HTTP, but allows transmitting arbitrary
-Ethernet frames. More specifically, this document defines a protocol that
-allows an HTTP client to create Layer 2 Ethernet tunnel through and HTTP server
-that acts as an Ethernet switch. 
+       This document describes how to proxy Ethernet frames in HTTP. This protocol
+is similar to IP proxying in HTTP, but for Layer 2 instead of Layer 3. More
+specifically, this document defines a protocol that allows an HTTP client to
+create Layer 2 Ethernet tunnel through an HTTP server to an attached
+physical or virtual ethernet segment. 
     " name="description">
 <meta content="xml2rfc 3.18.1" name="generator">
 <meta content="quic" name="keyword">
@@ -1042,7 +1042,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Sedeño</td>
-<td class="center">Expires 6 April 2024</td>
+<td class="center">Expires 16 April 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1055,12 +1055,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-masque-connect-ethernet-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-10-04" class="published">4 October 2023</time>
+<time datetime="2023-10-14" class="published">14 October 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-04-06">6 April 2024</time></dd>
+<dd class="expires"><time datetime="2024-04-16">16 April 2024</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1073,11 +1073,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Proxying Ethernet in HTTP</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document describes how to proxy Ethernet frames in HTTP. This
-protocol is similar to IP proxying in HTTP, but allows transmitting arbitrary
-Ethernet frames. More specifically, this document defines a protocol that
-allows an HTTP client to create Layer 2 Ethernet tunnel through and HTTP server
-that acts as an Ethernet switch.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This document describes how to proxy Ethernet frames in HTTP. This protocol
+is similar to IP proxying in HTTP, but for Layer 2 instead of Layer 3. More
+specifically, this document defines a protocol that allows an HTTP client to
+create Layer 2 Ethernet tunnel through an HTTP server to an attached
+physical or virtual ethernet segment.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1114,7 +1114,7 @@ that acts as an Ethernet switch.<a href="#section-abstract-1" class="pilcrow">¶
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 6 April 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 16 April 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1180,20 +1180,15 @@ that acts as an Ethernet switch.<a href="#section-abstract-1" class="pilcrow">¶
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-ethernet-frame-handling" class="internal xref">Ethernet Frame Handling</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
-                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-link-status-and-error-signa" class="internal xref">Link Status and Error Signalling</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
-                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-broadcast-and-multicast" class="internal xref">Broadcast and Multicast</a></p>
-</li>
-            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
             <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-examples" class="internal xref">Examples</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
-                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-layer-2-vpn" class="internal xref">Layer 2 VPN</a></p>
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-remote-access-l2vpn" class="internal xref">Remote Access L2VPN</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-site-to-site-l2vpn" class="internal xref">Site-to-Site L2VPN</a></p>
 </li>
             </ul>
 </li>
@@ -1244,11 +1239,12 @@ UDP <span>[<a href="#CONNECT-UDP" class="cite xref">CONNECT-UDP</a>]</span>, and
 carry layer 2 frames without further encapsulation inside of IP, for instance
 with EtherIP <span>[<a href="#ETHERIP" class="cite xref">ETHERIP</a>]</span>, GUE <span>[<a href="#GUE" class="cite xref">GUE</a>]</span> or L2TP
 <span>[<a href="#L2TP" class="cite xref">L2TP</a>]</span> <span>[<a href="#L2TPv3" class="cite xref">L2TPv3</a>]</span>, which imposes an additional MTU cost.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">This document describes a protocol for tunnelling Ethernet frames through an
-HTTP server acting as an Ethernet switch over HTTP. This can be used to
-establish a Layer 2 VPN, which can then bridge two Ethernet broadcast
-domains. This can simplify connectivity to network-connected appliances that are
-configured to only interact with peers on the same Ethernet broadcast domain.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-2">This document describe a protocol for exchanging Ethernet frames with an HTTP
+server. Either participant in the HTTP connection can then relay Ethernet
+frames to and from a local or virtual interface, allowing the bridging of two
+Ethernet broadcast domains to establish a Layer 2 VPN. This can simplify
+connectivity to network-connected appliances that are configured to only
+interact with peers on the same Ethernet broadcast domain.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">This protocol supports all existing versions of HTTP by using HTTP Datagrams
 <span>[<a href="#HTTP-DGRAM" class="cite xref">HTTP-DGRAM</a>]</span>. When using HTTP/2 <span>[<a href="#H2" class="cite xref">HTTP/2</a>]</span> or HTTP/3 <span>[<a href="#H3" class="cite xref">HTTP/3</a>]</span>, it uses
 HTTP Extended CONNECT as described in <span>[<a href="#EXT-CONNECT2" class="cite xref">EXT-CONNECT2</a>]</span> and
@@ -1286,7 +1282,7 @@ entire connection.<a href="#section-2-4" class="pilcrow">¶</a></p>
       <h2 id="name-configuration-of-clients">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-configuration-of-clients" class="section-name selfRef">Configuration of Clients</a>
       </h2>
-<p id="section-3-1">Clients are configured to use Ethernet proxying over HTP via a URL.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">Clients are configured to use Ethernet proxying over HTTP via a URL.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">Examples are shown below:<a href="#section-3-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3-3">
 <pre>
@@ -1610,27 +1606,10 @@ the Frame check sequence field).<a href="#section-6-5" class="pilcrow">¶</a></p
       </h2>
 <p id="section-7-1">This document defines a tunneling mechanism that is conceptually an Ethernet
 link. Implementations might need to handle some of the responsibilities of an
-Ethernet switch if they do not delegate them to another implementation such as
-a kernel.<a href="#section-7-1" class="pilcrow">¶</a></p>
-<div id="link-status-and-error-signalling">
-<section id="section-7.1">
-        <h3 id="name-link-status-and-error-signa">
-<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-link-status-and-error-signa" class="section-name selfRef">Link Status and Error Signalling</a>
-        </h3>
-<ul class="normal">
-<li class="normal" id="section-7.1-1.1">
-            <p id="section-7.1-1.1.1">Maybe borrow some bits from L2TPv3 <span>[<a href="#L2TPv3" class="cite xref">L2TPv3</a>]</span> for fault signalling via capsule.<a href="#section-7.1-1.1.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-</section>
-</div>
-<div id="broadcast-and-multicast">
-<section id="section-7.2">
-        <h3 id="name-broadcast-and-multicast">
-<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-broadcast-and-multicast" class="section-name selfRef">Broadcast and Multicast</a>
-      </h3>
-</section>
-</div>
+Ethernet switch or bridge if they do not delegate them to another implementation
+such as a kernel. Those responsibilities are beyond the scope of this document,
+and include, but are not limited to, the handling of broadcast packets and
+multicast groups.<a href="#section-7-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="examples">
@@ -1638,15 +1617,17 @@ a kernel.<a href="#section-7-1" class="pilcrow">¶</a></p>
       <h2 id="name-examples">
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
       </h2>
-<p id="section-8-1">Some examples; if you can, a Layer 3 option is probably better, but hey, Layer 2.<a href="#section-8-1" class="pilcrow">¶</a></p>
-<div id="layer-2-vpn">
+<p id="section-8-1">Ethernet proxying in HTTP enables the bridging of Ethernet broadcast domains.
+These examples are provided to help illustrate some of the ways in which Ethernet
+proxying can be used.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<div id="example-remote">
 <section id="section-8.1">
-        <h3 id="name-layer-2-vpn">
-<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-layer-2-vpn" class="section-name selfRef">Layer 2 VPN</a>
+        <h3 id="name-remote-access-l2vpn">
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-remote-access-l2vpn" class="section-name selfRef">Remote Access L2VPN</a>
         </h3>
-<p id="section-8.1-1">The following example shows how a point to point VPN setup where a client
+<p id="section-8.1-1">The following example shows a point to point VPN setup where a client
 appears to be connected to a remote Layer 2 network.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
-<span id="name-l2-vpn-tunnel-setup"></span><div id="diagram-tunnel">
+<span id="name-l2vpn-tunnel-setup"></span><div id="diagram-tunnel">
 <figure id="figure-6">
           <div id="section-8.1-2.1">
             <div class="alignLeft art-svg artwork" id="section-8.1-2.1.1">
@@ -1685,7 +1666,7 @@ appears to be connected to a remote Layer 2 network.<a href="#section-8.1-1" cla
                   <text x="484" y="68">HOST</text>
                   <text x="512" y="68">2</text>
                   <text x="376" y="84">Broadcast</text>
-                  <text x="372" y="100">Domain</text>
+                  <text x="364" y="100">Domain</text>
                   <text x="484" y="100">HOST</text>
                   <text x="512" y="100">3</text>
                 </g>
@@ -1693,7 +1674,7 @@ appears to be connected to a remote Layer 2 network.<a href="#section-8.1-1" cla
 </div>
 </div>
 <figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
-<a href="#name-l2-vpn-tunnel-setup" class="selfRef">L2 VPN Tunnel Setup</a>
+<a href="#name-l2vpn-tunnel-setup" class="selfRef">L2VPN Tunnel Setup</a>
           </figcaption></figure>
 </div>
 <p id="section-8.1-3">In this case, the client connects to the Ethernet proxy and immediately can
@@ -1740,6 +1721,86 @@ Payload = Encapsulated Ethernet Frame
 </div>
 </section>
 </div>
+<div id="site-to-site-l2vpn">
+<section id="section-8.2">
+        <h3 id="name-site-to-site-l2vpn">
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-site-to-site-l2vpn" class="section-name selfRef">Site-to-Site L2VPN</a>
+        </h3>
+<p id="section-8.2-1">The following example shows a site-to-site VPN setup where a client
+joins a locally attached broadcast domain to a remote broadcast domain
+through the Proxy.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
+<span id="name-site-to-site-l2vpn-example"></span><div id="diagram-s2s">
+<figure id="figure-8">
+          <div id="section-8.2-2.1">
+            <div class="alignLeft art-svg artwork" id="section-8.2-2.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="256" width="432" viewBox="0 0 432 256" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                <path d="M 80,32 L 80,96" fill="none" stroke="black"></path>
+                <path d="M 96,96 L 96,192" fill="none" stroke="black"></path>
+                <path d="M 152,32 L 152,96" fill="none" stroke="black"></path>
+                <path d="M 280,32 L 280,96" fill="none" stroke="black"></path>
+                <path d="M 336,96 L 336,192" fill="none" stroke="black"></path>
+                <path d="M 352,32 L 352,96" fill="none" stroke="black"></path>
+                <path d="M 80,32 L 152,32" fill="none" stroke="black"></path>
+                <path d="M 280,32 L 352,32" fill="none" stroke="black"></path>
+                <path d="M 152,48 L 280,48" fill="none" stroke="black"></path>
+                <path d="M 160,64 L 176,64" fill="none" stroke="black"></path>
+                <path d="M 256,64 L 272,64" fill="none" stroke="black"></path>
+                <path d="M 152,80 L 280,80" fill="none" stroke="black"></path>
+                <path d="M 80,96 L 152,96" fill="none" stroke="black"></path>
+                <path d="M 280,96 L 352,96" fill="none" stroke="black"></path>
+                <path d="M 64,128 L 96,128" fill="none" stroke="black"></path>
+                <path d="M 336,128 L 368,128" fill="none" stroke="black"></path>
+                <path d="M 64,160 L 96,160" fill="none" stroke="black"></path>
+                <path d="M 336,160 L 368,160" fill="none" stroke="black"></path>
+                <path d="M 64,192 L 96,192" fill="none" stroke="black"></path>
+                <path d="M 336,192 L 368,192" fill="none" stroke="black"></path>
+                <polygon class="arrowhead" points="376,192 364,186.4 364,197.6" fill="black" transform="rotate(0,368,192)"></polygon>
+                <polygon class="arrowhead" points="376,160 364,154.4 364,165.6" fill="black" transform="rotate(0,368,160)"></polygon>
+                <polygon class="arrowhead" points="376,128 364,122.4 364,133.6" fill="black" transform="rotate(0,368,128)"></polygon>
+                <polygon class="arrowhead" points="72,192 60,186.4 60,197.6" fill="black" transform="rotate(180,64,192)"></polygon>
+                <polygon class="arrowhead" points="72,160 60,154.4 60,165.6" fill="black" transform="rotate(180,64,160)"></polygon>
+                <polygon class="arrowhead" points="72,128 60,122.4 60,133.6" fill="black" transform="rotate(180,64,128)"></polygon>
+                <g class="text">
+                  <text x="316" y="52">L2</text>
+                  <text x="116" y="68">Client</text>
+                  <text x="188" y="68">L2</text>
+                  <text x="228" y="68">Tunnel</text>
+                  <text x="320" y="68">Proxy</text>
+                  <text x="20" y="132">HOST</text>
+                  <text x="48" y="132">A</text>
+                  <text x="128" y="132">Layer</text>
+                  <text x="160" y="132">2</text>
+                  <text x="288" y="132">Layer</text>
+                  <text x="320" y="132">2</text>
+                  <text x="396" y="132">HOST</text>
+                  <text x="424" y="132">1</text>
+                  <text x="144" y="148">Broadcast</text>
+                  <text x="288" y="148">Broadcast</text>
+                  <text x="20" y="164">HOST</text>
+                  <text x="48" y="164">B</text>
+                  <text x="132" y="164">Domain</text>
+                  <text x="300" y="164">Domain</text>
+                  <text x="396" y="164">HOST</text>
+                  <text x="424" y="164">2</text>
+                  <text x="20" y="196">HOST</text>
+                  <text x="48" y="196">C</text>
+                  <text x="396" y="196">HOST</text>
+                  <text x="424" y="196">3</text>
+                </g>
+              </svg><a href="#section-8.2-2.1.1" class="pilcrow">¶</a>
+</div>
+</div>
+<figcaption><a href="#figure-8" class="selfRef">Figure 8</a>:
+<a href="#name-site-to-site-l2vpn-example" class="selfRef">Site-to-site L2VPN Example</a>
+          </figcaption></figure>
+</div>
+<p id="section-8.2-3">In this case, the client connects to the Ethernet proxy and immediately can
+start relaying Ethernet frames from its attached broadcast domain to the
+proxy. The difference between this example and <a href="#example-remote" class="auto internal xref">Section 8.1</a> is limited to
+what the Client is doing with the the tunnel; the exchange between the Client
+and the Proxy is the same as in <a href="#fig-full-tunnel" class="auto internal xref">Figure 7</a> above.<a href="#section-8.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="security-considerations">
@@ -1747,7 +1808,21 @@ Payload = Encapsulated Ethernet Frame
       <h2 id="name-security-considerations">
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-9-1">TODO Security<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-9-1">There are risks in allowing arbitrary clients to establish a tunnel to a Layer 2
+network. Bad actors could abuse this capability to attack hosts on that network
+that they would otherwise be unable to reach. HTTP servers that support Ethernet
+proxying <span class="bcp14">SHOULD</span> restrict its use to authenticated users. Depending on the
+deployment, possible authentication mechainisms include mutial TLS between IP
+proxying endpoints, HTTP-based authentication via the HTTP Authorization header
+<span>[<a href="#HTTP" class="cite xref">HTTP</a>]</span>, or even bearer tokens. Proxies can enforce policies for authenticated
+users to further constrain client behavior or deal with possible abuse. For
+example, proxies can rate limit individual clients that send an excessively
+large amount of traffic through the proxy.<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-9-2">Users of this protocol may send arbitrary Ethernet frames through the tunnel,
+including frames with falsified source MAC addresses. This could allow
+impersonation of other hosts, poisoning of ARP and CAM tables, and cause a
+denial of service to other hosts on the network. These are the same attacks
+available to an arbitrary client with physical access to the network.<a href="#section-9-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
