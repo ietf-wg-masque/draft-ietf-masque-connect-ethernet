@@ -52,11 +52,11 @@ informative:
 
 --- abstract
 
-This document describes how to proxy Ethernet frames in HTTP. This
-protocol is similar to IP proxying in HTTP, but allows transmitting arbitrary
-Ethernet frames. More specifically, this document defines a protocol that
-allows an HTTP client to create Layer 2 Ethernet tunnel through and HTTP server
-that acts as an Ethernet switch.
+This document describes how to proxy Ethernet frames in HTTP. This protocol
+is similar to IP proxying in HTTP, but for Layer 2 instead of Layer 3. More
+specifically, this document defines a protocol that allows an HTTP client to
+create Layer 2 Ethernet tunnel through an HTTP server to an attached
+physical or virtual ethernet segment.
 
 
 --- middle
@@ -71,11 +71,12 @@ carry layer 2 frames without further encapsulation inside of IP, for instance
 with EtherIP {{?ETHERIP=RFC3378}}, GUE {{?GUE=I-D.ietf-intarea-gue}} or L2TP
 {{!L2TP=RFC2661}} {{!L2TPv3=RFC3931}}, which imposes an additional MTU cost.
 
-This document describes a protocol for tunnelling Ethernet frames through an
-HTTP server acting as an Ethernet switch over HTTP. This can be used to
-establish a Layer 2 VPN, which can then bridge two Ethernet broadcast
-domains. This can simplify connectivity to network-connected appliances that are
-configured to only interact with peers on the same Ethernet broadcast domain.
+This document describe a protocol for exchanging Ethernet frames with an HTTP
+server. Either participant in the HTTP connection can then relay Ethernet
+frames to and from a local or virtual interface, allowing the bridging of two
+Ethernet broadcast domains to establish a Layer 2 VPN. This can simplify
+connectivity to network-connected appliances that are configured to only
+interact with peers on the same Ethernet broadcast domain.
 
 This protocol supports all existing versions of HTTP by using HTTP Datagrams
 {{!HTTP-DGRAM=RFC9297}}. When using HTTP/2 {{H2}} or HTTP/3 {{H3}}, it uses
@@ -107,7 +108,7 @@ entire connection.
 
 # Configuration of Clients {#client-config}
 
-Clients are configured to use Ethernet proxying over HTP via a URL.
+Clients are configured to use Ethernet proxying over HTTP via a URL.
 
 Examples are shown below:
 
@@ -356,22 +357,20 @@ the Frame check sequence field).
 
 This document defines a tunneling mechanism that is conceptually an Ethernet
 link. Implementations might need to handle some of the responsibilities of an
-Ethernet switch if they do not delegate them to another implementation such as
-a kernel.
-
-## Link Status and Error Signalling
-
- * Maybe borrow some bits from L2TPv3 [L2TPv3] for fault signalling via capsule.
-
-## Broadcast and Multicast
+Ethernet switch or bridge if they do not delegate them to another implementation
+such as a kernel. Those responsibilities are beyond the scope of this document,
+and include, but are not limited to, the handling of broadcast packets and
+multicast groups.
 
 # Examples
 
-Some examples; if you can, a Layer 3 option is probably better, but hey, Layer 2.
+Ethernet proxying in HTTP enables the bridging of Ethernet broadcast domains.
+These examples are provided to help illustrate some of the ways in which Ethernet
+proxying can be used.
 
-## Layer 2 VPN
+## Remote Access L2VPN {#example-remote}
 
-The following example shows how a point to point VPN setup where a client
+The following example shows a point to point VPN setup where a client
 appears to be connected to a remote Layer 2 network.
 
 ~~~ aasvg
@@ -380,10 +379,10 @@ appears to be connected to a remote Layer 2 network.
 |        +--------------------+   L2   |  Layer 2   |
 | Client |<--Layer 2 Tunnel---|  Proxy +------------+---> HOST 2
 |        +--------------------+        |  Broadcast |
-+--------+                    +--------+   Domain   +---> HOST 3
++--------+                    +--------+  Domain    +---> HOST 3
 
 ~~~
-{: #diagram-tunnel title="L2 VPN Tunnel Setup"}
+{: #diagram-tunnel title="L2VPN Tunnel Setup"}
 
 In this case, the client connects to the Ethernet proxy and immediately can
 start sending ethernet frames to the attached broadcast domain.
@@ -422,9 +421,56 @@ Payload = Encapsulated Ethernet Frame
 ~~~
 {: #fig-full-tunnel title="VPN Full-Tunnel Example"}
 
+
+## Site-to-Site L2VPN
+
+The following example shows a site-to-site VPN setup where a client
+joins a locally attached broadcast domain to a remote broadcast domain
+through the Proxy.
+
+~~~ aasvg
+
+         +--------+               +--------+
+         |        +---------------+   L2   |
+         | Client |---L2 Tunnel---|  Proxy |
+         |        +---------------+        |
+         +-+------+               +------+-+
+           |                             |
+HOST A <---+ Layer 2             Layer 2 +---> HOST 1
+           | Broadcast         Broadcast |
+HOST B <---+ Domain               Domain +---> HOST 2
+           |                             |
+HOST C <---+                             +---> HOST 3
+
+
+
+~~~
+{: #diagram-s2s title="Site-to-site L2VPN Example"}
+
+In this case, the client connects to the Ethernet proxy and immediately can
+start relaying Ethernet frames from its attached broadcast domain to the
+proxy. The difference between this example and {{example-remote}} is limited to
+what the Client is doing with the the tunnel; the exchange between the Client
+and the Proxy is the same as in {{fig-full-tunnel}} above.
+
 # Security Considerations
 
-TODO Security
+There are risks in allowing arbitrary clients to establish a tunnel to a Layer 2
+network. Bad actors could abuse this capability to attack hosts on that network
+that they would otherwise be unable to reach. HTTP servers that support Ethernet
+proxying SHOULD restrict its use to authenticated users. Depending on the
+deployment, possible authentication mechainisms include mutial TLS between IP
+proxying endpoints, HTTP-based authentication via the HTTP Authorization header
+{{HTTP}}, or even bearer tokens. Proxies can enforce policies for authenticated
+users to further constrain client behavior or deal with possible abuse. For
+example, proxies can rate limit individual clients that send an excessively
+large amount of traffic through the proxy.
+
+Users of this protocol may send arbitrary Ethernet frames through the tunnel,
+including frames with falsified source MAC addresses. This could allow
+impersonation of other hosts, poisoning of ARP and CAM tables, and cause a
+denial of service to other hosts on the network. These are the same attacks
+available to an arbitrary client with physical access to the network.
 
 # IANA Considerations
 
