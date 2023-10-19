@@ -4,8 +4,8 @@
 
 Multiplexed Application Substrate over QUIC Encryption      A. R. Sedeño
 Internet-Draft                                                Google LLC
-Intended status: Standards Track                         14 October 2023
-Expires: 16 April 2024
+Intended status: Standards Track                         19 October 2023
+Expires: 21 April 2024
 
 
                        Proxying Ethernet in HTTP
@@ -17,7 +17,7 @@ Abstract
    protocol is similar to IP proxying in HTTP, but for Layer 2 instead
    of Layer 3.  More specifically, this document defines a protocol that
    allows an HTTP client to create Layer 2 Ethernet tunnel through an
-   HTTP server to an attached physical or virtual ethernet segment.
+   HTTP server to an attached physical or virtual Ethernet segment.
 
 About This Document
 
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 April 2024.
+   This Internet-Draft will expire on 21 April 2024.
 
 Copyright Notice
 
@@ -104,9 +104,9 @@ Table of Contents
    encapsulation inside of IP, for instance with EtherIP [ETHERIP], GUE
    [GUE] or L2TP [L2TP] [L2TPv3], which imposes an additional MTU cost.
 
-   This document describe a protocol for exchanging Ethernet frames with
-   an HTTP server.  Either participant in the HTTP connection can then
-   relay Ethernet frames to and from a local or virtual interface,
+   This document describes a protocol for exchanging Ethernet frames
+   with an HTTP server.  Either participant in the HTTP connection can
+   then relay Ethernet frames to and from a local or virtual interface,
    allowing the bridging of two Ethernet broadcast domains to establish
    a Layer 2 VPN.  This can simplify connectivity to network-connected
    appliances that are configured to only interact with peers on the
@@ -399,7 +399,7 @@ Table of Contents
 
 7.  Ethernet Frame Handling
 
-   This document defines a tunneling mechanism that is conceptually an
+   This document defines a tunnelling mechanism that is conceptually an
    Ethernet link.  Implementations might need to handle some of the
    responsibilities of an Ethernet switch or bridge if they do not
    delegate them to another implementation such as a kernel.  Those
@@ -497,7 +497,7 @@ Table of Contents
    attack hosts on that network that they would otherwise be unable to
    reach.  HTTP servers that support Ethernet proxying SHOULD restrict
    its use to authenticated users.  Depending on the deployment,
-   possible authentication mechainisms include mutial TLS between IP
+   possible authentication mechanisms include mutual TLS between IP
    proxying endpoints, HTTP-based authentication via the HTTP
    Authorization header [HTTP], or even bearer tokens.  Proxies can
    enforce policies for authenticated users to further constrain client
