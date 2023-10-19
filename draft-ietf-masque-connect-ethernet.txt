@@ -543,6 +543,12 @@ Table of Contents
 
 11.1.  Normative References
 
+   [CONNECT-IP]
+              Pauly, T., Ed., Schinazi, D., Chernyakhovsky, A.,
+              Kühlewind, M., and M. Westerlund, "Proxying IP in HTTP",
+              RFC 9484, DOI 10.17487/RFC9484, October 2023,
+              <https://www.rfc-editor.org/rfc/rfc9484>.
+
    [CONNECT-UDP]
               Schinazi, D., "Proxying UDP in HTTP", RFC 9298,
               DOI 10.17487/RFC9298, August 2022,
@@ -608,13 +614,6 @@ Table of Contents
               <https://www.rfc-editor.org/rfc/rfc9293>.
 
 11.2.  Informative References
-
-   [CONNECT-IP]
-              Pauly, T., Schinazi, D., Chernyakhovsky, A., Kühlewind,
-              M., and M. Westerlund, "Proxying IP in HTTP", Work in
-              Progress, Internet-Draft, draft-ietf-masque-connect-ip-13,
-              28 April 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-masque-connect-ip-13>.
 
    [ETHERIP]  Housley, R. and S. Hollenbeck, "EtherIP: Tunneling
               Ethernet Frames in IP Datagrams", RFC 3378,

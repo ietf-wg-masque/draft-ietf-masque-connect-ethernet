@@ -1235,9 +1235,9 @@ physical or virtual Ethernet segment.<a href="#section-abstract-1" class="pilcro
 <p id="section-1-1">HTTP provides the CONNECT method (see <span><a href="https://rfc-editor.org/rfc/rfc9110#section-9.3.6" class="relref">Section 9.3.6</a> of [<a href="#HTTP" class="cite xref">HTTP</a>]</span>) for
 creating a TCP <span>[<a href="#TCP" class="cite xref">TCP</a>]</span> tunnel to a destination, a similar mechanism for
 UDP <span>[<a href="#CONNECT-UDP" class="cite xref">CONNECT-UDP</a>]</span>, and an additional mechanism for IP
-<span>[<a href="#CONNECT-IP" class="cite xref">CONNECT-IP</a>]</span>. However, these mechanisms can't
-carry layer 2 frames without further encapsulation inside of IP, for instance
-with EtherIP <span>[<a href="#ETHERIP" class="cite xref">ETHERIP</a>]</span>, GUE <span>[<a href="#GUE" class="cite xref">GUE</a>]</span> or L2TP
+<span>[<a href="#CONNECT-IP" class="cite xref">CONNECT-IP</a>]</span>. However, these mechanisms can't carry layer 2 frames
+without further encapsulation inside of IP, for instance with EtherIP
+<span>[<a href="#ETHERIP" class="cite xref">ETHERIP</a>]</span>, GUE <span>[<a href="#GUE" class="cite xref">GUE</a>]</span> or L2TP
 <span>[<a href="#L2TP" class="cite xref">L2TP</a>]</span> <span>[<a href="#L2TPv3" class="cite xref">L2TPv3</a>]</span>, which imposes an additional MTU cost.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">This document describes a protocol for exchanging Ethernet frames with an HTTP
 server. Either participant in the HTTP connection can then relay Ethernet
@@ -1906,6 +1906,10 @@ Suffixes Registry maintained at $IANA_URL_TBD, created by CONNECT-IP
 <a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
+<dt id="CONNECT-IP">[CONNECT-IP]</dt>
+        <dd>
+<span class="refAuthor">Pauly, T., Ed.</span>, <span class="refAuthor">Schinazi, D.</span>, <span class="refAuthor">Chernyakhovsky, A.</span>, <span class="refAuthor">Kühlewind, M.</span>, and <span class="refAuthor">M. Westerlund</span>, <span class="refTitle">"Proxying IP in HTTP"</span>, <span class="seriesInfo">RFC 9484</span>, <span class="seriesInfo">DOI 10.17487/RFC9484</span>, <time datetime="2023-10" class="refDate">October 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9484">https://www.rfc-editor.org/rfc/rfc9484</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="CONNECT-UDP">[CONNECT-UDP]</dt>
         <dd>
 <span class="refAuthor">Schinazi, D.</span>, <span class="refTitle">"Proxying UDP in HTTP"</span>, <span class="seriesInfo">RFC 9298</span>, <span class="seriesInfo">DOI 10.17487/RFC9298</span>, <time datetime="2022-08" class="refDate">August 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9298">https://www.rfc-editor.org/rfc/rfc9298</a>&gt;</span>. </dd>
@@ -1971,10 +1975,6 @@ Suffixes Registry maintained at $IANA_URL_TBD, created by CONNECT-IP
 <a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
-<dt id="CONNECT-IP">[CONNECT-IP]</dt>
-        <dd>
-<span class="refAuthor">Pauly, T.</span>, <span class="refAuthor">Schinazi, D.</span>, <span class="refAuthor">Chernyakhovsky, A.</span>, <span class="refAuthor">Kühlewind, M.</span>, and <span class="refAuthor">M. Westerlund</span>, <span class="refTitle">"Proxying IP in HTTP"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-masque-connect-ip-13</span>, <time datetime="2023-04-28" class="refDate">28 April 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-masque-connect-ip-13">https://datatracker.ietf.org/doc/html/draft-ietf-masque-connect-ip-13</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="ETHERIP">[ETHERIP]</dt>
         <dd>
 <span class="refAuthor">Housley, R.</span> and <span class="refAuthor">S. Hollenbeck</span>, <span class="refTitle">"EtherIP: Tunneling Ethernet Frames in IP Datagrams"</span>, <span class="seriesInfo">RFC 3378</span>, <span class="seriesInfo">DOI 10.17487/RFC3378</span>, <time datetime="2002-09" class="refDate">September 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3378">https://www.rfc-editor.org/rfc/rfc3378</a>&gt;</span>. </dd>
