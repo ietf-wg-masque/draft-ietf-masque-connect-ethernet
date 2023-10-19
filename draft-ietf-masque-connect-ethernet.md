@@ -56,7 +56,7 @@ This document describes how to proxy Ethernet frames in HTTP. This protocol
 is similar to IP proxying in HTTP, but for Layer 2 instead of Layer 3. More
 specifically, this document defines a protocol that allows an HTTP client to
 create Layer 2 Ethernet tunnel through an HTTP server to an attached
-physical or virtual ethernet segment.
+physical or virtual Ethernet segment.
 
 
 --- middle
@@ -71,7 +71,7 @@ carry layer 2 frames without further encapsulation inside of IP, for instance
 with EtherIP {{?ETHERIP=RFC3378}}, GUE {{?GUE=I-D.ietf-intarea-gue}} or L2TP
 {{!L2TP=RFC2661}} {{!L2TPv3=RFC3931}}, which imposes an additional MTU cost.
 
-This document describe a protocol for exchanging Ethernet frames with an HTTP
+This document describes a protocol for exchanging Ethernet frames with an HTTP
 server. Either participant in the HTTP connection can then relay Ethernet
 frames to and from a local or virtual interface, allowing the bridging of two
 Ethernet broadcast domains to establish a Layer 2 VPN. This can simplify
@@ -355,7 +355,7 @@ the Frame check sequence field).
 
 # Ethernet Frame Handling
 
-This document defines a tunneling mechanism that is conceptually an Ethernet
+This document defines a tunnelling mechanism that is conceptually an Ethernet
 link. Implementations might need to handle some of the responsibilities of an
 Ethernet switch or bridge if they do not delegate them to another implementation
 such as a kernel. Those responsibilities are beyond the scope of this document,
@@ -459,7 +459,7 @@ There are risks in allowing arbitrary clients to establish a tunnel to a Layer 2
 network. Bad actors could abuse this capability to attack hosts on that network
 that they would otherwise be unable to reach. HTTP servers that support Ethernet
 proxying SHOULD restrict its use to authenticated users. Depending on the
-deployment, possible authentication mechainisms include mutial TLS between IP
+deployment, possible authentication mechanisms include mutual TLS between IP
 proxying endpoints, HTTP-based authentication via the HTTP Authorization header
 {{HTTP}}, or even bearer tokens. Proxies can enforce policies for authenticated
 users to further constrain client behavior or deal with possible abuse. For
