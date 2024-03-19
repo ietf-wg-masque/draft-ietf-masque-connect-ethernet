@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-17T01:07:42.139401+00:00",
+  "timestamp": "2024-03-19T01:04:00.785228+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -162,7 +162,7 @@
       "labels": [],
       "body": "Should this draft be made more generic, and draw more inspiration from the PWE3 WG [^1]?\r\n\r\nAt IETF-118, it was suggested we limit scope, build our minimum viable product, and define our extension points.\r\n\r\nThe `connect-ethernet` method is definitely limiting scope, and invites a plethora of `connect-${my_favorite_L2_protocol_here}` followup documents.\r\n\r\nA `connect-pseudowire` method and associated frame-type negotiation, with an included Ethernet example, could be later extended to support other Layer 2 Protocols. If we go down this path, we should consider the work of the PWE3 WG.\r\n\r\nIndependent of this, I'll be opening some other issues that reference the work of the PWE3 WG.\r\n\r\n[^1]: https://datatracker.ietf.org/wg/pwe3/about/",
       "createdAt": "2024-01-30T22:32:24Z",
-      "updatedAt": "2024-01-31T00:23:46Z",
+      "updatedAt": "2024-03-18T04:18:06Z",
       "closedAt": null,
       "comments": [
         {
@@ -171,6 +171,13 @@
           "body": "My preference would be to keep this scoped to connect-ethernet. Creating connect-something-else when that's needed is a better choice since that'll ensure proper analysis of that specific L2 is performed.",
           "createdAt": "2024-01-31T00:23:46Z",
           "updatedAt": "2024-01-31T00:23:46Z"
+        },
+        {
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Having thought about this some more, I've remembered that we're not implementing a new HTTP method, per se, but using extended connect for H2/H3 and upgrade for H1. We don't need to invent an L2-specific extended-extended-connect. New values for the `Upgrade` / `:protocol` headers are already cheap.",
+          "createdAt": "2024-03-18T04:18:05Z",
+          "updatedAt": "2024-03-18T04:18:05Z"
         }
       ]
     },
