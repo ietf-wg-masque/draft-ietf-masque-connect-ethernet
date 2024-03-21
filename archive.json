@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-19T01:04:00.785228+00:00",
+  "timestamp": "2024-03-21T01:05:10.088878+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -62,7 +62,7 @@
       "labels": [],
       "body": "Standard 802.3 Ethernet frames can be up to 1518 octets in length, 1522 octets when tagged (802.1Q VLANs), and 1526 octets when double-tagged (802.1ad Stacked VLANs).\r\n\r\nThis includes up to 1500 octets of payload, and the L2 framing itself:\r\n\r\n```\r\n- 6 octets       - Destination MAC\r\n- 6 octets       - Source MAC\r\n- (4 octets)     - VLAN Tag (802.1Q)\r\n- (4 octets)     - VLAN Stacking (802.1ad, or QinQ)\r\n- 2 octets       - Ethertype or Length\r\n- 46-1500 octets - Payload\r\n- 4 octets       - Frame Check Sequence (CRC)\r\n```\r\n\r\nThe CRC can be dropped and recomputed. The rest of the framing must be transmitted in one form or another. Assuming a maximal payload plus the required 14 octets of header, and no VLAN tags, we may need to carry a maximal payload of 1514 octets.\r\n\r\nWhen using this draft over HTTP/1.1 or HTTP/2, the underlying transport is TCP, which provides a reliable and ordered stream of octets. Ethernet Frames are transmitted using HTTP Datagrams and the Capsule Protcol defined in RFC9297, and will naturally be fragmented as needed.\r\n\r\nWhen using this draft over HTTP/3, things get interesting. Ideally, Ethernet frames would be transmitted over HTTP Datagrams using QUIC Datagrams (RFC9221). Such Datagrams are required to fit inside a QUIC Packet, and are therefore limited by the underlying network MTU and further limited by the overhead of H3/QUIC/UDP/IP.\r\n\r\nTrivially, if an Ethernet frame is too large to be transmitted this way, we could fall back to Capsules over the connection's HTTP stream. However, this comes with the cost of Head of Line blocking for all frames so transmitted in addition to the overhead of fragmentation.\r\n\r\nI think we should recommend some form of MTU negotiation such that Ethernet frames being proxied are guaranteed to fit within the MTUs of both attached networks and the maximum size H3 Datagram for the connection between them.\r\n\r\nAn added complication is that the path may not be fixed, and so the path MTU may vary over time, and we'll need to think about how to handle that too.\r\n\r\nIf an operator is in full control of the network and both Ethernet proxying endpoints, they should adjust the underlying MTU to support whatever proxied MTU they require.\r\n\r\nWhen the underlying network MTU is not adjustable and the operator requires a larger MTU than would be supported by the underlying network, fragmentation is necessitated.\r\n\r\n- What knobs do we need to provide here?\r\n- What should we recommend with regards to how to tune those knobs?\r\n- What warnings labels should we attach to them?\r\n\r\nLet's discuss.",
       "createdAt": "2024-01-30T22:06:23Z",
-      "updatedAt": "2024-01-31T03:00:00Z",
+      "updatedAt": "2024-03-19T06:49:30Z",
       "closedAt": null,
       "comments": [
         {
@@ -99,6 +99,13 @@
           "body": "AIUI an ethernet frame that is too large for the device's MTU is dropped at the MAC layer, before it even hits any OS or user code. This means that while protocols that do PMTUD can discover and work around this black hole, it won't work for any protocols that expect the local broadcast domain to be \"well-behaved\". I do suspect that a surprisingly large number of protocols for which we'd want a L2-VPN-style connection fall into this category.",
           "createdAt": "2024-01-31T02:59:59Z",
           "updatedAt": "2024-01-31T02:59:59Z"
+        },
+        {
+          "author": "alvestrand",
+          "authorAssociation": "NONE",
+          "body": "Don't we have experience with connecting jumbogram Ethernets to non-jumbogram Ethernets? Shouldn't we emulate that behavior (whatever it is)?",
+          "createdAt": "2024-03-19T06:49:29Z",
+          "updatedAt": "2024-03-19T06:49:29Z"
         }
       ]
     },
