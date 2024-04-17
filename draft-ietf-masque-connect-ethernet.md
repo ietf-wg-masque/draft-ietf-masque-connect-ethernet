@@ -500,8 +500,8 @@ References:
 ## Updates to the MASQUE URI Suffixes Registry {#iana-suffix}
 
 This document will request IANA to register "ethernet" in the MASQUE URI
-Suffixes Registry maintained at $IANA_URL_TBD, created by CONNECT-IP
-[CONNECT-IP].
+Suffixes Registry maintained at <[](https://www.iana.org/assignments/masque)>,
+created by {{CONNECT-IP}}.
 
 | Path Segment |    Description    |   Reference   |
 |:-------------|:------------------|:--------------|
