@@ -453,6 +453,14 @@ proxy. The difference between this example and {{example-remote}} is limited to
 what the Client is doing with the the tunnel; the exchange between the Client
 and the Proxy is the same as in {{fig-full-tunnel}} above.
 
+# Performance Considerations
+
+## 802.1Q VLAN tagging
+
+While the protocol as described can proxy Ethernet frames with 802.1Q VLAN tags,
+it is RECOMMENDED that individual VLANs be proxied in separate connections, and
+VLAN tags be stripped and applied by the Ethernet proxying endpoints as needed.
+
 # Security Considerations
 
 There are risks in allowing arbitrary clients to establish a tunnel to a Layer 2
