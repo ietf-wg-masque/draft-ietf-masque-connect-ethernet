@@ -453,6 +453,38 @@ proxy. The difference between this example and {{example-remote}} is limited to
 what the Client is doing with the the tunnel; the exchange between the Client
 and the Proxy is the same as in {{fig-full-tunnel}} above.
 
+# Performance Considerations
+
+When the protocol running inside the tunnel uses congestion control (e.g.,
+{{TCP}} or {{QUIC}}), the proxied traffic will incur at least two nested
+congestion controllers. When tunneled packets are sent using QUIC DATAGRAM
+frames, the outer HTTP connection MAY disable congestion control for those
+packets that contain only QUIC DATAGRAM frames encapsulating Ethernet frames.
+Implementers will benefit from reading the guidance in {{Section 3.1.11 of
+?UDP-USAGE=RFC8085}}.
+
+When the protocol running inside the tunnel uses loss recovery (e.g., {{TCP}} or
+{{QUIC}}) and the outer HTTP connection runs over TCP, the proxied traffic will
+incur at least two nested loss recovery mechanisms. This can reduce performance,
+as both can sometimes independently retransmit the same data. To avoid this,
+Ethernet proxying SHOULD be performed over HTTP/3 to allow leveraging the QUIC
+DATAGRAM frame.
+
+## MTU Considerations
+
+When using HTTP/3 with the QUIC Datagram extension {{!QUIC-DGRAM=RFC9221}}, Ethernet
+frames may be transmitted in QUIC DATAGRAM frames. Since these frames cannot be
+fragmented, they can only carry Ethernet frames up to a given length determined
+by the QUIC connection configuration and the Path MTU (PMTU).
+
+When using HTTP/1.1 or HTTP/2, and when using HTTP/3 without the QUIC Datagram
+extension {{QUIC-DGRAM}}, Ethernet frames are transmitted in DATAGRAM capsules as
+defined in {{HTTP-DGRAM}}. DATAGRAM capsules are transmitted reliably over an
+underlying stream, and they may be split across multiple QUIC or TCP packets.
+
+The trade-off between supporting a larger MTU and avoiding fragmentation should
+be considered when deciding what mode(s) to operate in.
+
 # Security Considerations
 
 There are risks in allowing arbitrary clients to establish a tunnel to a Layer 2
