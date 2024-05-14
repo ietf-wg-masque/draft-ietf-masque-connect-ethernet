@@ -473,7 +473,7 @@ DATAGRAM frame.
 ## MTU Considerations
 
 When using HTTP/3 with the QUIC Datagram extension {{!QUIC-DGRAM=RFC9221}}, Ethernet
-frames may be transmitted in QUIC DATAGRAM frames. Since these frames cannot be
+frames can be transmitted in QUIC DATAGRAM frames. Since these frames cannot be
 fragmented, they can only carry Ethernet frames up to a given length determined
 by the QUIC connection configuration and the Path MTU (PMTU).
 
