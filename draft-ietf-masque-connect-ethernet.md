@@ -485,6 +485,12 @@ underlying stream, and they may be split across multiple QUIC or TCP packets.
 The trade-off between supporting a larger MTU and avoiding fragmentation should
 be considered when deciding what mode(s) to operate in.
 
+## 802.1Q VLAN tagging
+
+While the protocol as described can proxy Ethernet frames with 802.1Q VLAN tags,
+it is RECOMMENDED that individual VLANs be proxied in separate connections, and
+VLAN tags be stripped and applied by the Ethernet proxying endpoints as needed.
+
 # Security Considerations
 
 There are risks in allowing arbitrary clients to establish a tunnel to a Layer 2
