@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-02T01:12:50.564587+00:00",
+  "timestamp": "2024-07-04T01:12:42.825951+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -121,7 +121,7 @@
       "labels": [],
       "body": "At IETF 118, some kind of MAC address filtering was suggested. Perhaps a client will only ever present traffic from a single MAC address, so that should be registered as part of the connection and packets from a different source address should be dropped, possibly terminating the connection.\r\n\r\nThis could be useful for clients proxying a single user/node, but less so for clients bridging whole networks.\r\n\r\nDo we want to support this? If so, how should it be configured?",
       "createdAt": "2024-01-30T22:08:35Z",
-      "updatedAt": "2024-06-29T22:20:24Z",
+      "updatedAt": "2024-07-02T15:02:24Z",
       "closedAt": "2024-06-29T22:20:23Z",
       "comments": [
         {
@@ -137,6 +137,13 @@
           "body": "If folks want this, I'm not opposed to accepting a PR around it. Otherwise, future extension it is.",
           "createdAt": "2024-06-29T22:20:23Z",
           "updatedAt": "2024-06-29T22:20:23Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "NONE",
+          "body": "Thanks for closing this issue. I just want to note that this was discussed at IETF-119 and there was agreement to leave this to future extensions. Also I note that we do discuss the risk of arbitrary forwarding in the security considerations. I guess we could add another note that proxies could be configured to limit forwarding to only pre-configured addresses but that any dynamic signalling or negotiation of MAC address filtering is left to future extensions...?",
+          "createdAt": "2024-07-02T15:02:22Z",
+          "updatedAt": "2024-07-02T15:02:22Z"
         }
       ]
     },
@@ -252,7 +259,7 @@
       "labels": [],
       "body": "Encapsulation Methods for Transport of Ethernet over MPLS Networks [RFC4448] Section 4.4.3, \"Frame Ordering,\" is interesting.\r\n\r\nhttps://www.rfc-editor.org/rfc/rfc4448.html#section-4.4.3\r\n\r\n> In general, applications running over Ethernet do not require strict frame ordering.  However, the IEEE definition of 802.3 [802.3] requires that frames from the same conversation in the context of link aggregation (clause 43) are delivered in sequence.\r\n\r\nPWE3 provides knobs[^1] to optionally enable frame sequencing and timing if required. Perhaps our this draft should similarly provide for optional frame ordering, and if made more generic than Ethernet, also consider providing more of the features in PWE3.\r\n\r\n[^1]: https://www.rfc-editor.org/rfc/rfc3985.html#section-5.2",
       "createdAt": "2024-01-30T22:38:10Z",
-      "updatedAt": "2024-06-29T22:16:14Z",
+      "updatedAt": "2024-07-02T15:09:53Z",
       "closedAt": "2024-06-29T22:16:14Z",
       "comments": [
         {
@@ -261,6 +268,13 @@
           "body": "I am not sure we need to do anything here -- link aggregation concerns have knock-on effects for e.g., TCP flows. I think that suggests we at most SHOULD try to maintain frame ordering, but we don't have any mechanisms that will intentionally reorder.",
           "createdAt": "2024-01-31T02:42:52Z",
           "updatedAt": "2024-01-31T02:42:52Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "NONE",
+          "body": "Sorry for replying late to a closed issue and I agree we should not do anything explicitly. However, we could note that if ordering needs to be ensured, stream mode can be used.",
+          "createdAt": "2024-07-02T15:09:52Z",
+          "updatedAt": "2024-07-02T15:09:52Z"
         }
       ]
     },
@@ -276,7 +290,7 @@
       "labels": [],
       "body": "More from PWE3: \r\n\r\nhttps://www.rfc-editor.org/rfc/rfc4448.html#section-4.4.5\r\n> In a standard Ethernet network, the flow control mechanism is optional and typically configured between the two nodes on a point-to-point link (e.g., between the CE and the PE).  IEEE 802.3x PAUSE frames MUST NOT be carried across the PW.  See [Appendix A](https://www.rfc-editor.org/rfc/rfc4448.html#appendix-A) for notes on CE-PE flow control.\r\n\r\nhttps://www.rfc-editor.org/rfc/rfc4448.html#appendix-A.2 has the specific notes on PAUSE frame.\r\n\r\nThis does not seem common anymore. We probably still don't want to proxy it. Otherwise emitting or reacting to PAUSE frames do not appear to be in scope for this draft.\r\n\r\n",
       "createdAt": "2024-01-30T22:41:54Z",
-      "updatedAt": "2024-01-31T02:43:28Z",
+      "updatedAt": "2024-07-02T14:56:30Z",
       "closedAt": null,
       "comments": [
         {
@@ -285,6 +299,13 @@
           "body": "I think we should not respect PAUSE frames. That can be left to a future extension if we can define a semantic that makes sense. (PAUSE frames can result in DoS if used incorrectly)",
           "createdAt": "2024-01-31T02:43:27Z",
           "updatedAt": "2024-01-31T02:43:27Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "NONE",
+          "body": "In the draft we say:\r\n\r\n> This document defines a tunnelling mechanism that is conceptually\r\n> an Ethernet link. Implementations might need to handle some of the\r\n> responsibilities of an Ethernet switch or bridge if they do not delegate\r\n> them to another implementation such as a kernel. Those responsibilities\r\n> are beyond the scope of this document\r\n\r\nI think his includes also any handling of PAUSE frames. In other words proxy may decide to forward or not forward a PAUSE frame but it's independent of connect-ethernet functionality to decided that.\r\n\r\nThe only thing we could do is to explicitly name the PAUSE as an example for frames that could be considered. However, currently the document as no dependency on the content of the ethernet frames that being proxies and I think it would be important to keep it that way. That's actually also something we could explicitly mention.",
+          "createdAt": "2024-07-02T14:56:28Z",
+          "updatedAt": "2024-07-02T14:56:28Z"
         }
       ]
     },
