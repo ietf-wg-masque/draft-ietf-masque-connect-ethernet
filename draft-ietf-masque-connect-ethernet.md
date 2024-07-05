@@ -360,7 +360,7 @@ link. Implementations might need to handle some of the responsibilities of an
 Ethernet switch or bridge if they do not delegate them to another implementation
 such as a kernel. Those responsibilities are beyond the scope of this document,
 and include, but are not limited to, the handling of broadcast packets and
-multicast groups.
+multicast groups, or the local termination of PAUSE frames.
 
 # Examples
 
