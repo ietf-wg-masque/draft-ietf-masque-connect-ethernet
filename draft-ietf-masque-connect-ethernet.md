@@ -124,7 +124,9 @@ https://masque.example.org/?user=bob
 To allow negotiation of a tunnel for Ethernet over HTTP, this document defines
 the "connect-ethernet" HTTP upgrade token. The resulting Ethernet tunnels use the
 Capsule Protocol (see {{Section 3.2 of HTTP-DGRAM}}) with HTTP Datagrams in the
-format defined in {{payload-format}}.
+format defined in {{payload-format}}. HTTP Datagrams sent over QUIC DATAGRAMs
+do not gurantee to contain the frame order. If in sequence delivery is required,
+DATAGRAM Capsule can be sent using QUIC STREAMs.
 
 To initiate an Ethernet tunnel associated with a single HTTP stream, a client
 issues a request containing the "connect-ethernet" upgrade token.
