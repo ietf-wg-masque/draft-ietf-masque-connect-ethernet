@@ -502,7 +502,9 @@ proxying endpoints, HTTP-based authentication via the HTTP Authorization header
 {{HTTP}}, or even bearer tokens. Proxies can enforce policies for authenticated
 users to further constrain client behavior or deal with possible abuse. For
 example, proxies can rate limit individual clients that send an excessively
-large amount of traffic through the proxy.
+large amount of traffic through the proxy. Further proxies can be configured
+to limit forwarding to only pre-configured addresses; but dynamic signalling or
+negotiation of MAC address filtering is left to future extensions.
 
 Users of this protocol may send arbitrary Ethernet frames through the tunnel,
 including frames with falsified source MAC addresses. This could allow
