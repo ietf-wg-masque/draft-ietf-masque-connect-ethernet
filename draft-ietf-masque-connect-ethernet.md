@@ -554,4 +554,6 @@ created by {{CONNECT-IP}}.
 Much of the initial version of this draft borrows heavily from {{CONNECT-IP}}.
 
 The author would like to thank Alexander Chernyakhovsky and David Schinazi
-for their advice while preparing this document.
+for their advice while preparing this document, and Etienne Dechamps for
+useful discussion on the subject material. Additionally, Mirja Kühlewind
+provided valuable feedback on the document.
