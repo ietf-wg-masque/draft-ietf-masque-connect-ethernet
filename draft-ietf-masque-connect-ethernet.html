@@ -13,7 +13,7 @@ specifically, this document defines a protocol that allows an HTTP client to
 create Layer 2 Ethernet tunnel through an HTTP server to an attached
 physical or virtual Ethernet segment. 
     " name="description">
-<meta content="xml2rfc 3.21.0" name="generator">
+<meta content="xml2rfc 3.22.0" name="generator">
 <meta content="quic" name="keyword">
 <meta content="http" name="keyword">
 <meta content="datagram" name="keyword">
@@ -26,7 +26,7 @@ physical or virtual Ethernet segment.
 <meta content="ethernet" name="keyword">
 <meta content="draft-ietf-masque-connect-ethernet-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.21.0
+  xml2rfc 3.22.0
     Python 3.12.3
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
@@ -36,9 +36,8 @@ physical or virtual Ethernet segment.
     platformdirs 4.2.2
     pycountry 22.3.5
     PyYAML 6.0.1
-    requests 2.31.0
+    requests 2.32.3
     setuptools 69.5.1
-    six 1.16.0
     wcwidth 0.2.13
 -->
 <link href="draft-ietf-masque-connect-ethernet.xml" rel="alternate" type="application/rfc+xml">
@@ -1042,7 +1041,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Sedeño</td>
-<td class="center">Expires 3 January 2025</td>
+<td class="center">Expires 7 January 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1055,12 +1054,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-masque-connect-ethernet-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-07-02" class="published">2 July 2024</time>
+<time datetime="2024-07-06" class="published">6 July 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-01-03">3 January 2025</time></dd>
+<dd class="expires"><time datetime="2025-01-07">7 January 2025</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1114,7 +1113,7 @@ physical or virtual Ethernet segment.<a href="#section-abstract-1" class="pilcro
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 3 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 7 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1620,7 +1619,7 @@ link. Implementations might need to handle some of the responsibilities of an
 Ethernet switch or bridge if they do not delegate them to another implementation
 such as a kernel. Those responsibilities are beyond the scope of this document,
 and include, but are not limited to, the handling of broadcast packets and
-multicast groups.<a href="#section-7-1" class="pilcrow">¶</a></p>
+multicast groups, or the local termination of PAUSE frames.<a href="#section-7-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="examples">
@@ -2059,7 +2058,9 @@ created by <span>[<a href="#CONNECT-IP" class="cite xref">CONNECT-IP</a>]</span>
       </h2>
 <p id="appendix-A-1">Much of the initial version of this draft borrows heavily from <span>[<a href="#CONNECT-IP" class="cite xref">CONNECT-IP</a>]</span>.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <p id="appendix-A-2">The author would like to thank Alexander Chernyakhovsky and David Schinazi
-for their advice while preparing this document.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+for their advice while preparing this document, and Etienne Dechamps for
+useful discussion on the subject material. Additionally, Mirja Kühlewind
+provided valuable feedback on the document.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">

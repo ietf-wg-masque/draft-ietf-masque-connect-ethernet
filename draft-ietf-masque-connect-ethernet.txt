@@ -4,8 +4,8 @@
 
 Multiplexed Application Substrate over QUIC Encryption      A. R. Sedeño
 Internet-Draft                                                Google LLC
-Intended status: Standards Track                             2 July 2024
-Expires: 3 January 2025
+Intended status: Standards Track                             6 July 2024
+Expires: 7 January 2025
 
 
                        Proxying Ethernet in HTTP
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 January 2025.
+   This Internet-Draft will expire on 7 January 2025.
 
 Copyright Notice
 
@@ -408,7 +408,7 @@ Table of Contents
    delegate them to another implementation such as a kernel.  Those
    responsibilities are beyond the scope of this document, and include,
    but are not limited to, the handling of broadcast packets and
-   multicast groups.
+   multicast groups, or the local termination of PAUSE frames.
 
 8.  Examples
 
@@ -689,7 +689,10 @@ Acknowledgments
    [CONNECT-IP].
 
    The author would like to thank Alexander Chernyakhovsky and David
-   Schinazi for their advice while preparing this document.
+   Schinazi for their advice while preparing this document, and Etienne
+   Dechamps for useful discussion on the subject material.
+   Additionally, Mirja Kühlewind provided valuable feedback on the
+   document.
 
 Author's Address
 
