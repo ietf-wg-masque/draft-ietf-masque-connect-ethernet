@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-04T01:12:42.825951+00:00",
+  "timestamp": "2024-07-07T01:18:40.312612+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -140,7 +140,7 @@
         },
         {
           "author": "mirjak",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Thanks for closing this issue. I just want to note that this was discussed at IETF-119 and there was agreement to leave this to future extensions. Also I note that we do discuss the risk of arbitrary forwarding in the security considerations. I guess we could add another note that proxies could be configured to limit forwarding to only pre-configured addresses but that any dynamic signalling or negotiation of MAC address filtering is left to future extensions...?",
           "createdAt": "2024-07-02T15:02:22Z",
           "updatedAt": "2024-07-02T15:02:22Z"
@@ -271,7 +271,7 @@
         },
         {
           "author": "mirjak",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Sorry for replying late to a closed issue and I agree we should not do anything explicitly. However, we could note that if ordering needs to be ensured, stream mode can be used.",
           "createdAt": "2024-07-02T15:09:52Z",
           "updatedAt": "2024-07-02T15:09:52Z"
@@ -283,15 +283,15 @@
       "id": "I_kwDOJbp2N859s6r7",
       "title": "Special consideration for Ethernet PAUSE frames",
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/issues/7",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "asedeno",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "More from PWE3: \r\n\r\nhttps://www.rfc-editor.org/rfc/rfc4448.html#section-4.4.5\r\n> In a standard Ethernet network, the flow control mechanism is optional and typically configured between the two nodes on a point-to-point link (e.g., between the CE and the PE).  IEEE 802.3x PAUSE frames MUST NOT be carried across the PW.  See [Appendix A](https://www.rfc-editor.org/rfc/rfc4448.html#appendix-A) for notes on CE-PE flow control.\r\n\r\nhttps://www.rfc-editor.org/rfc/rfc4448.html#appendix-A.2 has the specific notes on PAUSE frame.\r\n\r\nThis does not seem common anymore. We probably still don't want to proxy it. Otherwise emitting or reacting to PAUSE frames do not appear to be in scope for this draft.\r\n\r\n",
       "createdAt": "2024-01-30T22:41:54Z",
-      "updatedAt": "2024-07-02T14:56:30Z",
-      "closedAt": null,
+      "updatedAt": "2024-07-06T01:10:19Z",
+      "closedAt": "2024-07-06T01:10:19Z",
       "comments": [
         {
           "author": "achernya",
@@ -302,7 +302,7 @@
         },
         {
           "author": "mirjak",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "In the draft we say:\r\n\r\n> This document defines a tunnelling mechanism that is conceptually\r\n> an Ethernet link. Implementations might need to handle some of the\r\n> responsibilities of an Ethernet switch or bridge if they do not delegate\r\n> them to another implementation such as a kernel. Those responsibilities\r\n> are beyond the scope of this document\r\n\r\nI think his includes also any handling of PAUSE frames. In other words proxy may decide to forward or not forward a PAUSE frame but it's independent of connect-ethernet functionality to decided that.\r\n\r\nThe only thing we could do is to explicitly name the PAUSE as an example for frames that could be considered. However, currently the document as no dependency on the content of the ethernet frames that being proxies and I think it would be important to keep it that way. That's actually also something we could explicitly mention.",
           "createdAt": "2024-07-02T14:56:28Z",
           "updatedAt": "2024-07-02T14:56:28Z"
@@ -431,6 +431,122 @@
           ]
         }
       ]
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOJbp2N850g7Wv",
+      "title": "proposal to note PAUSE frames explicitly",
+      "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/11",
+      "state": "CLOSED",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "fixes #7 \r\n\r\nIs this just a proposal; we could also close the issue without any changes in the document.",
+      "createdAt": "2024-07-05T08:52:09Z",
+      "updatedAt": "2024-07-06T01:10:59Z",
+      "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
+      "baseRefName": "main",
+      "baseRefOid": "767e6686f4e65ac15e7eebaa519eb07173fad65e",
+      "headRepository": "mirjak/draft-ietf-masque-connect-ethernet",
+      "headRefName": "patch-2",
+      "headRefOid": "e055517d3c5d41ba0ee3f903f09a914f1e9e2737",
+      "closedAt": "2024-07-06T01:10:58Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closed in c4b697e7697bee0631c65857d5736ea1c6feb368.",
+          "createdAt": "2024-07-06T01:10:58Z",
+          "updatedAt": "2024-07-06T01:10:58Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbp2N86A02wP",
+          "commit": {
+            "abbreviatedOid": "e055517"
+          },
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-06T00:48:17Z",
+          "updatedAt": "2024-07-06T00:48:17Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOJbp2N850g8Sl",
+      "title": "Note on in-order delivery",
+      "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/12",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This is just a proposal to add a note on in order delivery. Please decide if that is helpful to add or not...",
+      "createdAt": "2024-07-05T08:54:37Z",
+      "updatedAt": "2024-07-06T00:55:30Z",
+      "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
+      "baseRefName": "main",
+      "baseRefOid": "767e6686f4e65ac15e7eebaa519eb07173fad65e",
+      "headRepository": "mirjak/draft-ietf-masque-connect-ethernet",
+      "headRefName": "patch-3",
+      "headRefOid": "acaf4666286419076f74ddae72edffe58e465582",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I like the text, though perhaps it would be better in `Performance Considerations` where we're already discussing the various DATAGRAM options? I'd say in `MTU Considerations` with a reworked title, or immediately after it in a new `Frame Ordering Considerations` section.\r\n\r\nI'm going to think on this one a bit longer, though not too much longer given the looming draft deadline.",
+          "createdAt": "2024-07-06T00:55:28Z",
+          "updatedAt": "2024-07-06T00:55:28Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 13,
+      "id": "PR_kwDOJbp2N850g9ck",
+      "title": "Note on MAC filter in sec considerations",
+      "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/13",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Again, just a proposal that we could add or not.",
+      "createdAt": "2024-07-05T08:57:42Z",
+      "updatedAt": "2024-07-06T01:09:44Z",
+      "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
+      "baseRefName": "main",
+      "baseRefOid": "767e6686f4e65ac15e7eebaa519eb07173fad65e",
+      "headRepository": "mirjak/draft-ietf-masque-connect-ethernet",
+      "headRefName": "patch-4",
+      "headRefOid": "b1b0a74f3375667b946985eef97fc08ca583c12a",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I'm going to think on this one a bit more. I don't know that we need this text, but if we do include something along these lines, I may further want to rework the next paragraph.",
+          "createdAt": "2024-07-06T01:09:43Z",
+          "updatedAt": "2024-07-06T01:09:43Z"
+        }
+      ],
+      "reviews": []
     }
   ]
 }
