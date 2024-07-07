@@ -470,20 +470,25 @@ as both can sometimes independently retransmit the same data. To avoid this,
 Ethernet proxying SHOULD be performed over HTTP/3 to allow leveraging the QUIC
 DATAGRAM frame.
 
-## MTU Considerations
+## MTU and Frame Ordering Considerations
 
 When using HTTP/3 with the QUIC Datagram extension {{!QUIC-DGRAM=RFC9221}}, Ethernet
 frames can be transmitted in QUIC DATAGRAM frames. Since these frames cannot be
 fragmented, they can only carry Ethernet frames up to a given length determined
-by the QUIC connection configuration and the Path MTU (PMTU).
+by the QUIC connection configuration and the Path MTU (PMTU). Furthermore, the
+UDP packets carrying these frames could be reordered by the network.
 
 When using HTTP/1.1 or HTTP/2, and when using HTTP/3 without the QUIC Datagram
 extension {{QUIC-DGRAM}}, Ethernet frames are transmitted in DATAGRAM capsules as
 defined in {{HTTP-DGRAM}}. DATAGRAM capsules are transmitted reliably over an
-underlying stream, and they may be split across multiple QUIC or TCP packets.
+underlying stream, maintaining frame order, though they could be split across
+multiple QUIC or TCP packets,
 
 The trade-off between supporting a larger MTU and avoiding fragmentation should
-be considered when deciding what mode(s) to operate in.
+be considered when deciding what mode(s) to operate in. Implementations SHOULD
+NOT intentionally reorder Ethernet frames, but are not required to provide
+guaranteed in-order delivery. If in-order delivery of Ethernet frames is
+required, DATAGRAM capsules should be used.
 
 ## 802.1Q VLAN tagging
 
