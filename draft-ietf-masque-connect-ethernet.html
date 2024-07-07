@@ -1041,7 +1041,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Sedeño</td>
-<td class="center">Expires 7 January 2025</td>
+<td class="center">Expires 8 January 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1054,12 +1054,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-masque-connect-ethernet-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-07-06" class="published">6 July 2024</time>
+<time datetime="2024-07-07" class="published">7 July 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-01-07">7 January 2025</time></dd>
+<dd class="expires"><time datetime="2025-01-08">8 January 2025</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1113,7 +1113,7 @@ physical or virtual Ethernet segment.<a href="#section-abstract-1" class="pilcro
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 8 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1195,7 +1195,7 @@ physical or virtual Ethernet segment.<a href="#section-abstract-1" class="pilcro
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-performance-considerations" class="internal xref">Performance Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
-                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-mtu-considerations" class="internal xref">MTU Considerations</a></p>
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-mtu-and-frame-ordering-cons" class="internal xref">MTU and Frame Ordering Considerations</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
                 <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-8021q-vlan-tagging" class="internal xref">802.1Q VLAN tagging</a></p>
@@ -1830,21 +1830,25 @@ incur at least two nested loss recovery mechanisms. This can reduce performance,
 as both can sometimes independently retransmit the same data. To avoid this,
 Ethernet proxying <span class="bcp14">SHOULD</span> be performed over HTTP/3 to allow leveraging the QUIC
 DATAGRAM frame.<a href="#section-9-2" class="pilcrow">¶</a></p>
-<div id="mtu-considerations">
+<div id="mtu-and-frame-ordering-considerations">
 <section id="section-9.1">
-        <h3 id="name-mtu-considerations">
-<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-mtu-considerations" class="section-name selfRef">MTU Considerations</a>
+        <h3 id="name-mtu-and-frame-ordering-cons">
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-mtu-and-frame-ordering-cons" class="section-name selfRef">MTU and Frame Ordering Considerations</a>
         </h3>
 <p id="section-9.1-1">When using HTTP/3 with the QUIC Datagram extension <span>[<a href="#QUIC-DGRAM" class="cite xref">QUIC-DGRAM</a>]</span>, Ethernet
 frames can be transmitted in QUIC DATAGRAM frames. Since these frames cannot be
 fragmented, they can only carry Ethernet frames up to a given length determined
-by the QUIC connection configuration and the Path MTU (PMTU).<a href="#section-9.1-1" class="pilcrow">¶</a></p>
+by the QUIC connection configuration and the Path MTU (PMTU). Furthermore, the
+UDP packets carrying these frames could be reordered by the network.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
 <p id="section-9.1-2">When using HTTP/1.1 or HTTP/2, and when using HTTP/3 without the QUIC Datagram
 extension <span>[<a href="#QUIC-DGRAM" class="cite xref">QUIC-DGRAM</a>]</span>, Ethernet frames are transmitted in DATAGRAM capsules as
 defined in <span>[<a href="#HTTP-DGRAM" class="cite xref">HTTP-DGRAM</a>]</span>. DATAGRAM capsules are transmitted reliably over an
-underlying stream, and they may be split across multiple QUIC or TCP packets.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
+underlying stream, maintaining frame order, though they could be split across
+multiple QUIC or TCP packets,<a href="#section-9.1-2" class="pilcrow">¶</a></p>
 <p id="section-9.1-3">The trade-off between supporting a larger MTU and avoiding fragmentation should
-be considered when deciding what mode(s) to operate in.<a href="#section-9.1-3" class="pilcrow">¶</a></p>
+be considered when deciding what mode(s) to operate in. Implementations <span class="bcp14">SHOULD NOT</span> intentionally reorder Ethernet frames, but are not required to provide
+guaranteed in-order delivery. If in-order delivery of Ethernet frames is
+required, DATAGRAM capsules should be used.<a href="#section-9.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="q-vlan-tagging">
@@ -1878,7 +1882,10 @@ large amount of traffic through the proxy.<a href="#section-10-1" class="pilcrow
 including frames with falsified source MAC addresses. This could allow
 impersonation of other hosts, poisoning of ARP and CAM tables, and cause a
 denial of service to other hosts on the network. These are the same attacks
-available to an arbitrary client with physical access to the network.<a href="#section-10-2" class="pilcrow">¶</a></p>
+available to an arbitrary client with physical access to the network. Ethernet
+proxying endpoints could be configured to limit forwarding to pre-configured MAC
+addresses, though such filtering is outside the scope of this protocol. Dynamic
+signalling or negotiation of MAC address filtering is left to future extensions.<a href="#section-10-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">

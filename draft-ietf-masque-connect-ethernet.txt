@@ -4,8 +4,8 @@
 
 Multiplexed Application Substrate over QUIC Encryption      A. R. Sedeño
 Internet-Draft                                                Google LLC
-Intended status: Standards Track                             6 July 2024
-Expires: 7 January 2025
+Intended status: Standards Track                             7 July 2024
+Expires: 8 January 2025
 
 
                        Proxying Ethernet in HTTP
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 January 2025.
+   This Internet-Draft will expire on 8 January 2025.
 
 Copyright Notice
 
@@ -86,7 +86,7 @@ Table of Contents
      8.1.  Remote Access L2VPN
      8.2.  Site-to-Site L2VPN
    9.  Performance Considerations
-     9.1.  MTU Considerations
+     9.1.  MTU and Frame Ordering Considerations
      9.2.  802.1Q VLAN tagging
    10. Security Considerations
    11. IANA Considerations
@@ -511,23 +511,28 @@ Table of Contents
    proxying SHOULD be performed over HTTP/3 to allow leveraging the QUIC
    DATAGRAM frame.
 
-9.1.  MTU Considerations
+9.1.  MTU and Frame Ordering Considerations
 
    When using HTTP/3 with the QUIC Datagram extension [QUIC-DGRAM],
    Ethernet frames can be transmitted in QUIC DATAGRAM frames.  Since
    these frames cannot be fragmented, they can only carry Ethernet
    frames up to a given length determined by the QUIC connection
-   configuration and the Path MTU (PMTU).
+   configuration and the Path MTU (PMTU).  Furthermore, the UDP packets
+   carrying these frames could be reordered by the network.
 
    When using HTTP/1.1 or HTTP/2, and when using HTTP/3 without the QUIC
    Datagram extension [QUIC-DGRAM], Ethernet frames are transmitted in
    DATAGRAM capsules as defined in [HTTP-DGRAM].  DATAGRAM capsules are
-   transmitted reliably over an underlying stream, and they may be split
-   across multiple QUIC or TCP packets.
+   transmitted reliably over an underlying stream, maintaining frame
+   order, though they could be split across multiple QUIC or TCP
+   packets,
 
    The trade-off between supporting a larger MTU and avoiding
    fragmentation should be considered when deciding what mode(s) to
-   operate in.
+   operate in.  Implementations SHOULD NOT intentionally reorder
+   Ethernet frames, but are not required to provide guaranteed in-order
+   delivery.  If in-order delivery of Ethernet frames is required,
+   DATAGRAM capsules should be used.
 
 9.2.  802.1Q VLAN tagging
 
@@ -556,7 +561,11 @@ Table of Contents
    could allow impersonation of other hosts, poisoning of ARP and CAM
    tables, and cause a denial of service to other hosts on the network.
    These are the same attacks available to an arbitrary client with
-   physical access to the network.
+   physical access to the network.  Ethernet proxying endpoints could be
+   configured to limit forwarding to pre-configured MAC addresses,
+   though such filtering is outside the scope of this protocol.  Dynamic
+   signalling or negotiation of MAC address filtering is left to future
+   extensions.
 
 11.  IANA Considerations
 
