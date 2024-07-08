@@ -482,7 +482,7 @@ When using HTTP/1.1 or HTTP/2, and when using HTTP/3 without the QUIC Datagram
 extension {{QUIC-DGRAM}}, Ethernet frames are transmitted in DATAGRAM capsules as
 defined in {{HTTP-DGRAM}}. DATAGRAM capsules are transmitted reliably over an
 underlying stream, maintaining frame order, though they could be split across
-multiple QUIC or TCP packets,
+multiple QUIC or TCP packets.
 
 The trade-off between supporting a larger MTU and avoiding fragmentation should
 be considered when deciding what mode(s) to operate in. Implementations SHOULD
