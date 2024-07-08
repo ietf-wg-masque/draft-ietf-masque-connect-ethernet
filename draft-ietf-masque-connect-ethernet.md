@@ -488,7 +488,7 @@ The trade-off between supporting a larger MTU and avoiding fragmentation should
 be considered when deciding what mode(s) to operate in. Implementations SHOULD
 NOT intentionally reorder Ethernet frames, but are not required to provide
 guaranteed in-order delivery. If in-order delivery of Ethernet frames is
-required, DATAGRAM capsules should be used.
+required, DATAGRAM capsules can be used.
 
 ## 802.1Q VLAN tagging
 
