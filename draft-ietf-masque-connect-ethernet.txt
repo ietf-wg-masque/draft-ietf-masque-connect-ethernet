@@ -4,8 +4,8 @@
 
 Multiplexed Application Substrate over QUIC Encryption      A. R. Sedeño
 Internet-Draft                                                Google LLC
-Intended status: Standards Track                             7 July 2024
-Expires: 8 January 2025
+Intended status: Standards Track                             8 July 2024
+Expires: 9 January 2025
 
 
                        Proxying Ethernet in HTTP
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 January 2025.
+   This Internet-Draft will expire on 9 January 2025.
 
 Copyright Notice
 
@@ -525,7 +525,7 @@ Table of Contents
    DATAGRAM capsules as defined in [HTTP-DGRAM].  DATAGRAM capsules are
    transmitted reliably over an underlying stream, maintaining frame
    order, though they could be split across multiple QUIC or TCP
-   packets,
+   packets.
 
    The trade-off between supporting a larger MTU and avoiding
    fragmentation should be considered when deciding what mode(s) to
