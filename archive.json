@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-07T01:18:40.312612+00:00",
+  "timestamp": "2024-07-09T01:13:45.982786+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -485,21 +485,21 @@
       "id": "PR_kwDOJbp2N850g8Sl",
       "title": "Note on in-order delivery",
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/12",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mirjak",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This is just a proposal to add a note on in order delivery. Please decide if that is helpful to add or not...",
       "createdAt": "2024-07-05T08:54:37Z",
-      "updatedAt": "2024-07-06T00:55:30Z",
+      "updatedAt": "2024-07-07T20:10:25Z",
       "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
       "baseRefName": "main",
       "baseRefOid": "767e6686f4e65ac15e7eebaa519eb07173fad65e",
       "headRepository": "mirjak/draft-ietf-masque-connect-ethernet",
       "headRefName": "patch-3",
       "headRefOid": "acaf4666286419076f74ddae72edffe58e465582",
-      "closedAt": null,
+      "closedAt": "2024-07-07T20:10:25Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -510,6 +510,13 @@
           "body": "I like the text, though perhaps it would be better in `Performance Considerations` where we're already discussing the various DATAGRAM options? I'd say in `MTU Considerations` with a reworked title, or immediately after it in a new `Frame Ordering Considerations` section.\r\n\r\nI'm going to think on this one a bit longer, though not too much longer given the looming draft deadline.",
           "createdAt": "2024-07-06T00:55:28Z",
           "updatedAt": "2024-07-06T00:55:28Z"
+        },
+        {
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I've incorporated this text in 1bd80d776f9169816ecfe89a7d9d2dd53f94181e.",
+          "createdAt": "2024-07-07T20:10:25Z",
+          "updatedAt": "2024-07-07T20:10:25Z"
         }
       ],
       "reviews": []
@@ -519,21 +526,21 @@
       "id": "PR_kwDOJbp2N850g9ck",
       "title": "Note on MAC filter in sec considerations",
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/13",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mirjak",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Again, just a proposal that we could add or not.",
       "createdAt": "2024-07-05T08:57:42Z",
-      "updatedAt": "2024-07-06T01:09:44Z",
+      "updatedAt": "2024-07-07T20:09:58Z",
       "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
       "baseRefName": "main",
       "baseRefOid": "767e6686f4e65ac15e7eebaa519eb07173fad65e",
       "headRepository": "mirjak/draft-ietf-masque-connect-ethernet",
       "headRefName": "patch-4",
       "headRefOid": "b1b0a74f3375667b946985eef97fc08ca583c12a",
-      "closedAt": null,
+      "closedAt": "2024-07-07T20:09:58Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -544,8 +551,43 @@
           "body": "I'm going to think on this one a bit more. I don't know that we need this text, but if we do include something along these lines, I may further want to rework the next paragraph.",
           "createdAt": "2024-07-06T01:09:43Z",
           "updatedAt": "2024-07-06T01:09:43Z"
+        },
+        {
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I've incorporated this text in 77b62fc0ea77768b690bf06354c81002aacb24b0.",
+          "createdAt": "2024-07-07T20:09:58Z",
+          "updatedAt": "2024-07-07T20:09:58Z"
         }
       ],
+      "reviews": []
+    },
+    {
+      "number": 14,
+      "id": "PR_kwDOJbp2N850riWt",
+      "title": "fix , instead of .",
+      "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/14",
+      "state": "MERGED",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-07-08T11:17:12Z",
+      "updatedAt": "2024-07-08T11:25:34Z",
+      "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
+      "baseRefName": "main",
+      "baseRefOid": "77b62fc0ea77768b690bf06354c81002aacb24b0",
+      "headRepository": "mirjak/draft-ietf-masque-connect-ethernet",
+      "headRefName": "patch-5",
+      "headRefOid": "61c71d4d6b56b67f86f7d596bb3196243e5ddbce",
+      "closedAt": "2024-07-08T11:25:34Z",
+      "mergedAt": "2024-07-08T11:25:34Z",
+      "mergedBy": "asedeno",
+      "mergeCommit": {
+        "oid": "61c71d4d6b56b67f86f7d596bb3196243e5ddbce"
+      },
+      "comments": [],
       "reviews": []
     }
   ]
