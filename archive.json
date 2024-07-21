@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-18T01:13:12.986510+00:00",
+  "timestamp": "2024-07-21T01:19:34.972794+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -461,7 +461,7 @@
       "labels": [],
       "body": "I noticed that there are no normative reference to a specific Ethernet version or versions that is to be supported. I think as an example here is support for 802.1Q required or not by the Ethernet processing at the end of the tunnel? ",
       "createdAt": "2024-07-16T12:52:08Z",
-      "updatedAt": "2024-07-17T08:56:49Z",
+      "updatedAt": "2024-07-20T19:52:12Z",
       "closedAt": null,
       "comments": [
         {
@@ -491,6 +491,13 @@
           "body": "Here we might need more Ethernet expertise. Because I have assumed that most Ethernet extensions are compatible within the frame format. However I do think we need to have a normative reference to what encoding 0 really is. \r\n",
           "createdAt": "2024-07-17T08:56:48Z",
           "updatedAt": "2024-07-17T08:56:48Z"
+        },
+        {
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "body": "As I understand it, IEEE 802.3 specifies the Ethernet frame, and the 802.1Q tag is optional. 802.1ad (Q-in-Q) allows multiple tags. Beyond those two, I'm not aware of additional alternatives. The tags are detectable because when they are parsed as an EtherType, they present as a tag.\r\n\r\nThe protocol itself doesn't need to parse the Frame, though implementations might want to inspect them and be clever about something (x-ref: #18).\r\n\r\nWe should perhaps mention 802.3 / Ethernet II, including optional 802.1Q/802.1ad, though reiterate the recommendation that frames carried by the protocol not be tagged, but have VLANs separated into different conections (x-ref: #15).\r\n\r\nDo we need to explicitly mention the other [Ethernet frame types](https://en.wikipedia.org/wiki/Ethernet_frame#Types) here and exclude them? They're not particularly common.\r\n",
+          "createdAt": "2024-07-20T19:52:11Z",
+          "updatedAt": "2024-07-20T19:52:11Z"
         }
       ]
     }
