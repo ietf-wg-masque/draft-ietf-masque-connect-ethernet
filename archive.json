@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-21T01:19:34.972794+00:00",
+  "timestamp": "2024-07-23T01:14:31.646188+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -461,7 +461,7 @@
       "labels": [],
       "body": "I noticed that there are no normative reference to a specific Ethernet version or versions that is to be supported. I think as an example here is support for 802.1Q required or not by the Ethernet processing at the end of the tunnel? ",
       "createdAt": "2024-07-16T12:52:08Z",
-      "updatedAt": "2024-07-20T19:52:12Z",
+      "updatedAt": "2024-07-21T17:21:15Z",
       "closedAt": null,
       "comments": [
         {
@@ -498,6 +498,13 @@
           "body": "As I understand it, IEEE 802.3 specifies the Ethernet frame, and the 802.1Q tag is optional. 802.1ad (Q-in-Q) allows multiple tags. Beyond those two, I'm not aware of additional alternatives. The tags are detectable because when they are parsed as an EtherType, they present as a tag.\r\n\r\nThe protocol itself doesn't need to parse the Frame, though implementations might want to inspect them and be clever about something (x-ref: #18).\r\n\r\nWe should perhaps mention 802.3 / Ethernet II, including optional 802.1Q/802.1ad, though reiterate the recommendation that frames carried by the protocol not be tagged, but have VLANs separated into different conections (x-ref: #15).\r\n\r\nDo we need to explicitly mention the other [Ethernet frame types](https://en.wikipedia.org/wiki/Ethernet_frame#Types) here and exclude them? They're not particularly common.\r\n",
           "createdAt": "2024-07-20T19:52:11Z",
           "updatedAt": "2024-07-20T19:52:11Z"
+        },
+        {
+          "author": "gloinul",
+          "authorAssociation": "NONE",
+          "body": "I think we need to consider if the Connect-Ethernet request at least defaults to Ethernet II, and that if one want to use other formats one would add some request parameter to indicate any other format(s) one want to run. \r\n\r\nReferencing 802.3 appears a good normative reference. Saying this without looking into if there are multiple versions of the spec and we need to point to a particular version. Although I would expect fairly good backwards compatibility. ",
+          "createdAt": "2024-07-21T17:21:14Z",
+          "updatedAt": "2024-07-21T17:21:14Z"
         }
       ]
     }
