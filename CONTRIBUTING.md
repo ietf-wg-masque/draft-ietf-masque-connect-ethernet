@@ -29,3 +29,17 @@ technical issues needs to occur on the mailing list.
 
 You might also like to familiarize yourself with other
 [Working Group documents](https://datatracker.ietf.org/wg/masque/documents/).
+## Working Group Information
+
+Discussion of this work occurs on the [Multiplexed Application Substrate over QUIC Encryption
+Working Group mailing list](mailto:masque@ietf.org)
+([archive](https://mailarchive.ietf.org/arch/browse/masque/),
+[subscribe](https://www.ietf.org/mailman/listinfo/masque)).
+In addition to contributions in GitHub, you are encouraged to participate in
+discussions there.
+
+**Note**: Some working groups adopt a policy whereby substantive discussion of
+technical issues needs to occur on the mailing list.
+
+You might also like to familiarize yourself with other
+[Working Group documents](https://datatracker.ietf.org/wg/masque/documents/).
