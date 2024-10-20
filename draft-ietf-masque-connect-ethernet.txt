@@ -4,8 +4,8 @@
 
 Multiplexed Application Substrate over QUIC Encryption      A. R. Sedeño
 Internet-Draft                                                Google LLC
-Intended status: Standards Track                         17 October 2024
-Expires: 20 April 2025
+Intended status: Standards Track                         20 October 2024
+Expires: 23 April 2025
 
 
                        Proxying Ethernet in HTTP
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 April 2025.
+   This Internet-Draft will expire on 23 April 2025.
 
 Copyright Notice
 
@@ -87,7 +87,7 @@ Table of Contents
      8.2.  Site-to-Site L2VPN
    9.  Performance Considerations
      9.1.  MTU and Frame Ordering Considerations
-     9.2.  802.1Q VLAN tagging
+     9.2.  IEEE 802.1Q VLAN tagging
    10. Security Considerations
    11. IANA Considerations
      11.1.  HTTP Upgrade Token
@@ -151,13 +151,23 @@ Table of Contents
 
 3.  Configuration of Clients
 
-   Clients are configured to use Ethernet proxying over HTTP via a URL.
+   Clients are configured to use Ethernet proxying over HTTP via a URI
+   Template [TEMPLATE].  The URI Templates used by this protocol do not
+   require any variables; implementations or extensions MAY specify
+   their own.  An implementation that supports connecting to different
+   Ethernet segments might add a "vlan-identifier" variable to specify
+   which segment to connect to.  The optionality of variable needs to be
+   considered when defining the template so that the variable is either
+   self-identifying or possible to exclude in the syntax.  URI Templates
+   specified for this protocol MAY use the well-known location
+   [WELL-KNOWN] registered by this document.
 
    Examples are shown below:
 
    https://example.org/.well-known/masque/ethernet/
+   https://example.org/.well-known/masque/ethernet/{vlan-identifier}/
    https://proxy.example.org:4443/masque/ethernet/
-   https://proxy.example.org:4443/masque/ethernet/
+   https://proxy.example.org:4443/masque/ethernet?vlan={vlan-identifier}
    https://masque.example.org/?user=bob
 
 4.  Tunnelling Ethernet over HTTP
@@ -227,7 +237,7 @@ Table of Contents
    MUST respond with an error and SHOULD use the 400 (Bad Request)
    status code.
 
-   For example, if the client is configured with the URL
+   For example, if the client is configured with the URI Template
    "https://example.org/.well-known/masque/ethernet/" and wishes to open
    an Ethernet tunnel, it could send the following request.
 
@@ -292,7 +302,7 @@ Table of Contents
    restrictions is malformed; see Section 8.1.1 of [HTTP/2] and
    Section 4.1.2 of [HTTP/3].
 
-   For example, if the client is configured with the URL
+   For example, if the client is configured with the URI Template
    "https://example.org/.well-known/masque/ethernet/" and wishes to open
    an Ethernet tunnel, it could send the following request.
 
@@ -335,11 +345,11 @@ Table of Contents
    The mechanism for proxying Ethernet in HTTP defined in this document
    allows future extensions to exchange HTTP Datagrams that carry
    different semantics from Ethernet frames.  Some of these extensions
-   can augment Ethernet payloads with additional data or compress
-   Ethernet frame header fields, while others can exchange data that is
-   completely separate from Ethernet payloads.  In order to accomplish
-   this, all HTTP Datagrams associated with Ethernet proxying requests
-   streams start with a Context ID field; see Section 6.
+   could augment Ethernet payloads with additional data or compress
+   Ethernet frame header fields, while others could exchange data that
+   is completely separate from Ethernet payloads.  In order to
+   accomplish this, all HTTP Datagrams associated with Ethernet proxying
+   requests streams start with a Context ID field; see Section 6.
 
    Context IDs are 62-bit integers (0-2^62-1).  Context IDs are encoded
    as variable-length integers; see Section 16 of [QUIC].  The Context
@@ -398,7 +408,9 @@ Table of Contents
    Ethernet frames are encoded using HTTP Datagrams with the Context ID
    set to zero.  When the Context ID is set to zero, the Payload field
    contains a full Layer 2 Ethernet Frame (from the MAC destination
-   field until the last byte of the Frame check sequence field).
+   field until the last byte of the Frame check sequence field), as
+   defined by IEEE 802.3, with support for optional IEEE 802.1Q tagging
+   (see Section 9.2).
 
 7.  Ethernet Frame Handling
 
@@ -534,11 +546,11 @@ Table of Contents
    delivery.  If in-order delivery of Ethernet frames is required,
    DATAGRAM capsules can be used.
 
-9.2.  802.1Q VLAN tagging
+9.2.  IEEE 802.1Q VLAN tagging
 
-   While the protocol as described can proxy Ethernet frames with 802.1Q
-   VLAN tags, it is RECOMMENDED that individual VLANs be proxied in
-   separate connections, and VLAN tags be stripped and applied by the
+   While the protocol as described can proxy Ethernet frames with IEEE
+   802.1Q VLAN tags, it is RECOMMENDED that individual VLANs be proxied
+   in separate connections, and VLAN tags be stripped and applied by the
    Ethernet proxying endpoints as needed.
 
 10.  Security Considerations
@@ -584,7 +596,8 @@ Table of Contents
 
    This document will request IANA to register "ethernet" in the MASQUE
    URI Suffixes Registry maintained at
-   <https://www.iana.org/assignments/masque>, created by [CONNECT-IP].
+   <https://www.iana.org/assignments/masque>, created by Section 12.2 of
+   [CONNECT-IP].
 
            +==============+===================+===============+
            | Path Segment | Description       | Reference     |
@@ -674,6 +687,16 @@ Table of Contents
               STD 7, RFC 9293, DOI 10.17487/RFC9293, August 2022,
               <https://www.rfc-editor.org/rfc/rfc9293>.
 
+   [TEMPLATE] Gregorio, J., Fielding, R., Hadley, M., Nottingham, M.,
+              and D. Orchard, "URI Template", RFC 6570,
+              DOI 10.17487/RFC6570, March 2012,
+              <https://www.rfc-editor.org/rfc/rfc6570>.
+
+   [WELL-KNOWN]
+              Nottingham, M., "Well-Known Uniform Resource Identifiers
+              (URIs)", RFC 8615, DOI 10.17487/RFC8615, May 2019,
+              <https://www.rfc-editor.org/rfc/rfc8615>.
+
 12.2.  Informative References
 
    [ETHERIP]  Housley, R. and S. Hollenbeck, "EtherIP: Tunneling
@@ -700,8 +723,8 @@ Acknowledgments
    The author would like to thank Alexander Chernyakhovsky and David
    Schinazi for their advice while preparing this document, and Etienne
    Dechamps for useful discussion on the subject material.
-   Additionally, Mirja Kühlewind provided valuable feedback on the
-   document.
+   Additionally, Mirja Kühlewind and Magnus Westerlund provided valuable
+   feedback on the document.
 
 Author's Address
 
