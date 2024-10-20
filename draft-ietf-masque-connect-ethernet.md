@@ -287,8 +287,8 @@ capsule-protocol = ?1
 
 The mechanism for proxying Ethernet in HTTP defined in this document allows
 future extensions to exchange HTTP Datagrams that carry different semantics from
-Ethernet frames. Some of these extensions can augment Ethernet payloads with
-additional data or compress Ethernet frame header fields, while others can
+Ethernet frames. Some of these extensions could augment Ethernet payloads with
+additional data or compress Ethernet frame header fields, while others could
 exchange data that is completely separate from Ethernet payloads. In order to
 accomplish this, all HTTP Datagrams associated with Ethernet proxying requests
 streams start with a Context ID field; see {{payload-format}}.
