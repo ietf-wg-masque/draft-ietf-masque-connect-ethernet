@@ -351,7 +351,8 @@ field. Note that this field can be empty.
 Ethernet frames are encoded using HTTP Datagrams with the Context ID set to
 zero. When the Context ID is set to zero, the Payload field contains a full
 Layer 2 Ethernet Frame (from the MAC destination field until the last byte of
-the Frame check sequence field).
+the Frame check sequence field), as defined by IEEE 802.3, with support for
+optional IEEE 802.1Q tagging (see {{vlan-recommendations}}).
 
 # Ethernet Frame Handling
 
@@ -490,11 +491,12 @@ NOT intentionally reorder Ethernet frames, but are not required to provide
 guaranteed in-order delivery. If in-order delivery of Ethernet frames is
 required, DATAGRAM capsules can be used.
 
-## 802.1Q VLAN tagging
+## IEEE 802.1Q VLAN tagging {#vlan-recommendations}
 
-While the protocol as described can proxy Ethernet frames with 802.1Q VLAN tags,
-it is RECOMMENDED that individual VLANs be proxied in separate connections, and
-VLAN tags be stripped and applied by the Ethernet proxying endpoints as needed.
+While the protocol as described can proxy Ethernet frames with IEEE 802.1Q VLAN
+tags, it is RECOMMENDED that individual VLANs be proxied in separate
+connections, and VLAN tags be stripped and applied by the Ethernet proxying
+endpoints as needed.
 
 # Security Considerations
 
