@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-20T01:37:58.745789+00:00",
+  "timestamp": "2024-10-22T01:25:11.303068+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -338,15 +338,15 @@
       "id": "I_kwDOJbp2N86PtbAG",
       "title": "VLAN Tagging",
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/issues/15",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "gloinul",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "My reaction to the text added in regards to VLAN tagging: \r\n\"While the protocol as described can proxy Ethernet frames with 802.1Q VLAN tags, it is RECOMMENDED that individual VLANs be proxied in separate connections, and VLAN tags be stripped and applied by the Ethernet proxying endpoints as needed.\"\r\n\r\nDoes VLAN tagging need to be signalled on HTTP level? If one is to strip and re-insert or map them rathern than transfer them over the Ethernet tunnel then one might need labels on the request for what VLAN tag to apply if any. In one mental model each connect requrest for ethernet creates an additional ethernet port, which local switching/bridging behavior then needs to be applied to, like tagging. Will thus this virtual ports needs labels to handle this, or even explicit tagging instruction on the other side? How are one otherwise expected to keep them seperated from each other? ",
       "createdAt": "2024-07-16T12:44:43Z",
-      "updatedAt": "2024-07-16T13:43:02Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-20T14:50:14Z",
+      "closedAt": "2024-10-20T14:50:14Z",
       "comments": [
         {
           "author": "asedeno",
@@ -361,6 +361,13 @@
           "body": "Okey, so this might relate then to the client configuration (#16)  aspect and how to build URIs. Is this something one can encode into a URI template for example in a reasonable way? ",
           "createdAt": "2024-07-16T13:43:01Z",
           "updatedAt": "2024-07-16T13:43:01Z"
+        },
+        {
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think this was well covered in the changes made when closing #19. Feel free to re-open if more discussion is needed",
+          "createdAt": "2024-10-20T14:50:14Z",
+          "updatedAt": "2024-10-20T14:50:14Z"
         }
       ]
     },
@@ -369,15 +376,15 @@
       "id": "I_kwDOJbp2N86Ptb6s",
       "title": "Client Configuration",
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/issues/16",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "gloinul",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "I would expect that one may still uses URI template to declare how the URI looks like even if there are currently no parameters that require configuration just to make it aligned with the other extended connects. And if one introduce future parameters, like VLAN tags to be applied, then having declared that URI templates is the way to define these URIs would help a lot. \r\n\r\nSecondly, the use of the well known  (.wellknown/masque/ethernet) will require a bit of explanation and a reference to the relevant specs for well known, as well as the URI suffix in connect-ip.\r\n\r\n",
       "createdAt": "2024-07-16T12:46:34Z",
-      "updatedAt": "2024-07-16T14:00:03Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-20T14:45:18Z",
+      "closedAt": "2024-10-20T14:45:18Z",
       "comments": [
         {
           "author": "asedeno",
@@ -407,15 +414,15 @@
       "id": "I_kwDOJbp2N86PtcnP",
       "title": "Context IDs being written as descriptive rather than hypotheticals",
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/issues/17",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "gloinul",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "Section 5: \r\nSome of these extensions can augment Ethernet payloads with additional data or compress Ethernet frame header fields, while others can exchange data that is completely separate from Ethernet payloads.\r\n\r\nThe above is written as it is a fact rathern than a potential extensions that might be defined. Please reformulat as a hypothetical case.\r\n",
       "createdAt": "2024-07-16T12:47:55Z",
-      "updatedAt": "2024-07-16T12:47:55Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-20T14:45:17Z",
+      "closedAt": "2024-10-20T14:45:17Z",
       "comments": []
     },
     {
@@ -454,15 +461,15 @@
       "id": "I_kwDOJbp2N86PtezD",
       "title": "What version of Ethernet is required to be supported",
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/issues/19",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "gloinul",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "I noticed that there are no normative reference to a specific Ethernet version or versions that is to be supported. I think as an example here is support for 802.1Q required or not by the Ethernet processing at the end of the tunnel? ",
       "createdAt": "2024-07-16T12:52:08Z",
-      "updatedAt": "2024-07-21T17:21:15Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-20T14:45:18Z",
+      "closedAt": "2024-10-20T14:45:18Z",
       "comments": [
         {
           "author": "asedeno",
