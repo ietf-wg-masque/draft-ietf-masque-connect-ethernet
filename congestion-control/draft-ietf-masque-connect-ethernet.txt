@@ -4,8 +4,8 @@
 
 Multiplexed Application Substrate over QUIC Encryption      A. R. Sedeño
 Internet-Draft                                                Google LLC
-Intended status: Standards Track                         20 October 2024
-Expires: 23 April 2025
+Intended status: Standards Track                        22 November 2024
+Expires: 26 May 2025
 
 
                        Proxying Ethernet in HTTP
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 April 2025.
+   This Internet-Draft will expire on 26 May 2025.
 
 Copyright Notice
 
@@ -422,6 +422,9 @@ Table of Contents
    but are not limited to, the handling of broadcast packets and
    multicast groups, or the local termination of PAUSE frames.
 
+   If an Ethernet proxying endpoint fails to deliver a frame to an
+   underlying Ethernet segment, the endpoint SHOULD drop the frame.
+
 8.  Examples
 
    Ethernet proxying in HTTP enables the bridging of Ethernet broadcast
@@ -506,14 +509,6 @@ Table of Contents
    in Figure 7 above.
 
 9.  Performance Considerations
-
-   When the protocol running inside the tunnel uses congestion control
-   (e.g., [TCP] or [QUIC]), the proxied traffic will incur at least two
-   nested congestion controllers.  When tunneled packets are sent using
-   QUIC DATAGRAM frames, the outer HTTP connection MAY disable
-   congestion control for those packets that contain only QUIC DATAGRAM
-   frames encapsulating Ethernet frames.  Implementers will benefit from
-   reading the guidance in Section 3.1.11 of [UDP-USAGE].
 
    When the protocol running inside the tunnel uses loss recovery (e.g.,
    [TCP] or [QUIC]) and the outer HTTP connection runs over TCP, the
@@ -709,11 +704,6 @@ Table of Contents
               ietf-intarea-gue-09, 26 October 2019,
               <https://datatracker.ietf.org/doc/html/draft-ietf-intarea-
               gue-09>.
-
-   [UDP-USAGE]
-              Eggert, L., Fairhurst, G., and G. Shepherd, "UDP Usage
-              Guidelines", BCP 145, RFC 8085, DOI 10.17487/RFC8085,
-              March 2017, <https://www.rfc-editor.org/rfc/rfc8085>.
 
 Acknowledgments
 
