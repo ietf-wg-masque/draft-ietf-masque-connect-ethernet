@@ -468,6 +468,11 @@ and the Proxy is the same as in {{fig-full-tunnel}} above.
 
 # Performance Considerations
 
+When the protocol running inside the tunnel uses congestion control (e.g.,
+{{TCP}} or {{QUIC}}), the proxied traffic will incur at least two nested
+congestion controllers. Implementers will benefit from reading the guidance in
+{{Section 3.1.11 of ?UDP-USAGE=RFC8085}}.
+
 When the protocol running inside the tunnel uses loss recovery (e.g., {{TCP}} or
 {{QUIC}}) and the outer HTTP connection runs over TCP, the proxied traffic will
 incur at least two nested loss recovery mechanisms. This can reduce performance,
