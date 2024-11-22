@@ -510,6 +510,11 @@ Table of Contents
 
 9.  Performance Considerations
 
+   When the protocol running inside the tunnel uses congestion control
+   (e.g., [TCP] or [QUIC]), the proxied traffic will incur at least two
+   nested congestion controllers.  Implementers will benefit from
+   reading the guidance in Section 3.1.11 of [UDP-USAGE].
+
    When the protocol running inside the tunnel uses loss recovery (e.g.,
    [TCP] or [QUIC]) and the outer HTTP connection runs over TCP, the
    proxied traffic will incur at least two nested loss recovery
@@ -704,6 +709,11 @@ Table of Contents
               ietf-intarea-gue-09, 26 October 2019,
               <https://datatracker.ietf.org/doc/html/draft-ietf-intarea-
               gue-09>.
+
+   [UDP-USAGE]
+              Eggert, L., Fairhurst, G., and G. Shepherd, "UDP Usage
+              Guidelines", BCP 145, RFC 8085, DOI 10.17487/RFC8085,
+              March 2017, <https://www.rfc-editor.org/rfc/rfc8085>.
 
 Acknowledgments
 

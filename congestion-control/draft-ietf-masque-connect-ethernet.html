@@ -1846,12 +1846,16 @@ and the Proxy is the same as in <a href="#fig-full-tunnel" class="auto internal 
       <h2 id="name-performance-considerations">
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-performance-considerations" class="section-name selfRef">Performance Considerations</a>
       </h2>
-<p id="section-9-1">When the protocol running inside the tunnel uses loss recovery (e.g., <span>[<a href="#TCP" class="cite xref">TCP</a>]</span> or
+<p id="section-9-1">When the protocol running inside the tunnel uses congestion control (e.g.,
+<span>[<a href="#TCP" class="cite xref">TCP</a>]</span> or <span>[<a href="#QUIC" class="cite xref">QUIC</a>]</span>), the proxied traffic will incur at least two nested
+congestion controllers.  Implementers will benefit from reading the guidance in
+<span><a href="https://rfc-editor.org/rfc/rfc8085#section-3.1.11" class="relref">Section 3.1.11</a> of [<a href="#UDP-USAGE" class="cite xref">UDP-USAGE</a>]</span>.<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-9-2">When the protocol running inside the tunnel uses loss recovery (e.g., <span>[<a href="#TCP" class="cite xref">TCP</a>]</span> or
 <span>[<a href="#QUIC" class="cite xref">QUIC</a>]</span>) and the outer HTTP connection runs over TCP, the proxied traffic will
 incur at least two nested loss recovery mechanisms. This can reduce performance,
 as both can sometimes independently retransmit the same data. To avoid this,
 Ethernet proxying <span class="bcp14">SHOULD</span> be performed over HTTP/3 to allow leveraging the QUIC
-DATAGRAM frame.<a href="#section-9-1" class="pilcrow">¶</a></p>
+DATAGRAM frame.<a href="#section-9-2" class="pilcrow">¶</a></p>
 <div id="mtu-and-frame-ordering-considerations">
 <section id="section-9.1">
         <h3 id="name-mtu-and-frame-ordering-cons">
@@ -2079,8 +2083,12 @@ created by <span><a href="https://rfc-editor.org/rfc/rfc9484#section-12.2" class
 <span class="refAuthor">Housley, R.</span> and <span class="refAuthor">S. Hollenbeck</span>, <span class="refTitle">"EtherIP: Tunneling Ethernet Frames in IP Datagrams"</span>, <span class="seriesInfo">RFC 3378</span>, <span class="seriesInfo">DOI 10.17487/RFC3378</span>, <time datetime="2002-09" class="refDate">September 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3378">https://www.rfc-editor.org/rfc/rfc3378</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="GUE">[GUE]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Herbert, T.</span>, <span class="refAuthor">Yong, L.</span>, and <span class="refAuthor">O. Zia</span>, <span class="refTitle">"Generic UDP Encapsulation"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-intarea-gue-09</span>, <time datetime="2019-10-26" class="refDate">26 October 2019</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-intarea-gue-09">https://datatracker.ietf.org/doc/html/draft-ietf-intarea-gue-09</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="UDP-USAGE">[UDP-USAGE]</dt>
+      <dd>
+<span class="refAuthor">Eggert, L.</span>, <span class="refAuthor">Fairhurst, G.</span>, and <span class="refAuthor">G. Shepherd</span>, <span class="refTitle">"UDP Usage Guidelines"</span>, <span class="seriesInfo">BCP 145</span>, <span class="seriesInfo">RFC 8085</span>, <span class="seriesInfo">DOI 10.17487/RFC8085</span>, <time datetime="2017-03" class="refDate">March 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8085">https://www.rfc-editor.org/rfc/rfc8085</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
