@@ -373,7 +373,7 @@ and include, but are not limited to, the handling of broadcast packets and
 multicast groups, or the local termination of PAUSE frames.
 
 If an Ethernet proxying endpoint fails to deliver a frame to an underlying
-Ethernet segment, the endpoint SHOULD drop the frame.
+Ethernet segment, the endpoint MUST drop the frame.
 
 # Examples
 
