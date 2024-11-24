@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-21T01:35:31.941637+00:00",
+  "timestamp": "2024-11-24T01:40:58.755630+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -771,6 +771,112 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 20,
+      "id": "PR_kwDOJbp2N86C2wPX",
+      "title": "First pass at feedback from IETF-121",
+      "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/20",
+      "state": "OPEN",
+      "author": "asedeno",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This removes permission to drop QUIC's congestion control, and adds text about dropping Frames.\r\n\r\nShould the `SHOULD drop` be a `MUST drop`?",
+      "createdAt": "2024-11-22T18:40:49Z",
+      "updatedAt": "2024-11-22T19:22:56Z",
+      "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
+      "baseRefName": "main",
+      "baseRefOid": "79ce43ec89199ffad29d033da23a49db198550c6",
+      "headRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
+      "headRefName": "congestion-control",
+      "headRefOid": "3dfac591a6f297f4009b1cbee4729000f01b209c",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbp2N86SW0Dv",
+          "commit": {
+            "abbreviatedOid": "7d70b13"
+          },
+          "author": "DavidSchinazi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-22T19:17:08Z",
+          "updatedAt": "2024-11-22T19:17:35Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "In general the rule of thumb when adding a SHOULD is to also answer the question \"in what circumstances would you not follow the SHOULD?\". So I'd say either elaborate on that, or switch to MUST.",
+              "createdAt": "2024-11-22T19:17:08Z",
+              "updatedAt": "2024-11-22T19:17:35Z"
+            },
+            {
+              "originalPosition": 14,
+              "body": "I'd recommend keeping the first and third sentences, and only drop the second one",
+              "createdAt": "2024-11-22T19:17:31Z",
+              "updatedAt": "2024-11-22T19:17:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbp2N86SW1FN",
+          "commit": {
+            "abbreviatedOid": "4a55d4b"
+          },
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-22T19:19:27Z",
+          "updatedAt": "2024-11-22T19:19:27Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Done.",
+              "createdAt": "2024-11-22T19:19:27Z",
+              "updatedAt": "2024-11-22T19:19:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbp2N86SW1IS",
+          "commit": {
+            "abbreviatedOid": "4a55d4b"
+          },
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-11-22T19:19:34Z",
+          "updatedAt": "2024-11-22T19:19:34Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "Done.",
+              "createdAt": "2024-11-22T19:19:34Z",
+              "updatedAt": "2024-11-22T19:19:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbp2N86SW2yl",
+          "commit": {
+            "abbreviatedOid": "3dfac59"
+          },
+          "author": "DavidSchinazi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-11-22T19:22:56Z",
+          "updatedAt": "2024-11-22T19:22:56Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
