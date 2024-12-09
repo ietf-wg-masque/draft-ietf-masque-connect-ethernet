@@ -372,6 +372,9 @@ such as a kernel. Those responsibilities are beyond the scope of this document,
 and include, but are not limited to, the handling of broadcast packets and
 multicast groups, or the local termination of PAUSE frames.
 
+If an Ethernet proxying endpoint fails to deliver a frame to an underlying
+Ethernet segment, the endpoint MUST drop the frame.
+
 # Examples
 
 Ethernet proxying in HTTP enables the bridging of Ethernet broadcast domains.
@@ -467,11 +470,8 @@ and the Proxy is the same as in {{fig-full-tunnel}} above.
 
 When the protocol running inside the tunnel uses congestion control (e.g.,
 {{TCP}} or {{QUIC}}), the proxied traffic will incur at least two nested
-congestion controllers. When tunneled packets are sent using QUIC DATAGRAM
-frames, the outer HTTP connection MAY disable congestion control for those
-packets that contain only QUIC DATAGRAM frames encapsulating Ethernet frames.
-Implementers will benefit from reading the guidance in {{Section 3.1.11 of
-?UDP-USAGE=RFC8085}}.
+congestion controllers. Implementers will benefit from reading the guidance in
+{{Section 3.1.11 of ?UDP-USAGE=RFC8085}}.
 
 When the protocol running inside the tunnel uses loss recovery (e.g., {{TCP}} or
 {{QUIC}}) and the outer HTTP connection runs over TCP, the proxied traffic will
