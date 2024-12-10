@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-08T01:45:56.652468+00:00",
+  "timestamp": "2024-12-10T01:41:33.439996+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -777,24 +777,26 @@
       "id": "PR_kwDOJbp2N86C2wPX",
       "title": "First pass at feedback from IETF-121",
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/20",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "asedeno",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "This removes permission to drop QUIC's congestion control, and adds text about dropping Frames.\r\n\r\nShould the `SHOULD drop` be a `MUST drop`?",
       "createdAt": "2024-11-22T18:40:49Z",
-      "updatedAt": "2024-11-22T19:22:56Z",
+      "updatedAt": "2024-12-09T17:53:59Z",
       "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
       "baseRefName": "main",
       "baseRefOid": "79ce43ec89199ffad29d033da23a49db198550c6",
       "headRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
       "headRefName": "congestion-control",
       "headRefOid": "3dfac591a6f297f4009b1cbee4729000f01b209c",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-12-09T17:53:58Z",
+      "mergedAt": "2024-12-09T17:53:58Z",
+      "mergedBy": "asedeno",
+      "mergeCommit": {
+        "oid": "a3e066cb5dc9c7fdaec9d06b9466d8980b3a44c2"
+      },
       "comments": [],
       "reviews": [
         {
@@ -874,6 +876,19 @@
           "body": "",
           "createdAt": "2024-11-22T19:22:56Z",
           "updatedAt": "2024-11-22T19:22:56Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJbp2N86UUnEh",
+          "commit": {
+            "abbreviatedOid": "3dfac59"
+          },
+          "author": "gloinul",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-12-09T10:48:18Z",
+          "updatedAt": "2024-12-09T10:48:18Z",
           "comments": []
         }
       ]
