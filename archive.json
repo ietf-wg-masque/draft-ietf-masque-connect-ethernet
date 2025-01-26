@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-23T01:22:19.733652+00:00",
+  "timestamp": "2025-01-26T01:25:02.222354+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -905,7 +905,7 @@
       "labels": [],
       "body": "This attempts to resolve the issues in #18 with some basic details and constraints.",
       "createdAt": "2025-01-10T16:21:43Z",
-      "updatedAt": "2025-01-10T16:21:43Z",
+      "updatedAt": "2025-01-24T14:56:20Z",
       "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
       "baseRefName": "main",
       "baseRefOid": "a3e066cb5dc9c7fdaec9d06b9466d8980b3a44c2",
@@ -916,8 +916,37 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "comments": [
+        {
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think the first bit is fine, minus the typo `containes`.\r\n\r\nI like what the second bit is trying to say, but not how it's saying it. It's specifically talking about a QUIC congestion controller and is the only use of ingress and egress. I'm going to think about how to rephrase it.",
+          "createdAt": "2025-01-24T14:21:35Z",
+          "updatedAt": "2025-01-24T14:21:35Z"
+        },
+        {
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@gloinul, what do you think of:\r\n\r\n```\r\nSome implementations might find it benefitial to maintain a small buffer of\r\nframes to be sent through the tunnel to smooth out short term variations and\r\nbursts in tunnel capacity. Any such buffer MUST be limited, and when exceeded\r\nany Ethernet frames that would otherwise be buffered MUST be dropped.\r\n```",
+          "createdAt": "2025-01-24T14:56:17Z",
+          "updatedAt": "2025-01-24T14:56:17Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbp2N86ZUVxL",
+          "commit": {
+            "abbreviatedOid": "cc1f9cf"
+          },
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Looks good to me!",
+          "createdAt": "2025-01-24T10:14:47Z",
+          "updatedAt": "2025-01-24T10:14:47Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
