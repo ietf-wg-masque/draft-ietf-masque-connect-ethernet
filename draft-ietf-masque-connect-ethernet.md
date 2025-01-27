@@ -472,16 +472,15 @@ When the protocol running inside the tunnel uses congestion control (e.g.,
 {{TCP}} or {{QUIC}}), the proxied traffic will incur at least two nested
 congestion controllers. Implementers will benefit from reading the guidance in
 {{Section 3.1.11 of ?UDP-USAGE=RFC8085}}. By default the tunneling of Ethernet
-frames MUST NOT assume that the carried Ethernet frames containes congestion
+frames MUST NOT assume that the carried Ethernet frames contain congestion
 controlled traffic. Optimizations for traffic flows carried within the Ethernet
 Frames MAY be done in cases where the content of the Ethernet Frames have been
 identified to be congestion controlled traffic.
 
-The currently supported bit-rate as determined by the congestion control for the
-QUIC connection providing the tunnel between the ingress and egress may be lower
-than that of the traffic to be forwarded into the tunnel. Some amount of ingress
-buffering to handle short term variations and bursts will be necessary but this
-buffer size needs to be limited, and when exceeded the Ethernet frames dropped.
+Some implementations might find it benefitial to maintain a small buffer of
+frames to be sent through the tunnel to smooth out short term variations and
+bursts in tunnel capacity. Any such buffer MUST be limited, and when exceeded
+any Ethernet frames that would otherwise be buffered MUST be dropped.
 
 When the protocol running inside the tunnel uses loss recovery (e.g., {{TCP}} or
 {{QUIC}}) and the outer HTTP connection runs over TCP, the proxied traffic will
