@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-26T01:25:02.222354+00:00",
+  "timestamp": "2025-01-28T01:22:09.281154+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -340,7 +340,7 @@
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/issues/15",
       "state": "CLOSED",
       "author": "gloinul",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "My reaction to the text added in regards to VLAN tagging: \r\n\"While the protocol as described can proxy Ethernet frames with 802.1Q VLAN tags, it is RECOMMENDED that individual VLANs be proxied in separate connections, and VLAN tags be stripped and applied by the Ethernet proxying endpoints as needed.\"\r\n\r\nDoes VLAN tagging need to be signalled on HTTP level? If one is to strip and re-insert or map them rathern than transfer them over the Ethernet tunnel then one might need labels on the request for what VLAN tag to apply if any. In one mental model each connect requrest for ethernet creates an additional ethernet port, which local switching/bridging behavior then needs to be applied to, like tagging. Will thus this virtual ports needs labels to handle this, or even explicit tagging instruction on the other side? How are one otherwise expected to keep them seperated from each other? ",
@@ -357,7 +357,7 @@
         },
         {
           "author": "gloinul",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Okey, so this might relate then to the client configuration (#16)  aspect and how to build URIs. Is this something one can encode into a URI template for example in a reasonable way? ",
           "createdAt": "2024-07-16T13:43:01Z",
           "updatedAt": "2024-07-16T13:43:01Z"
@@ -378,7 +378,7 @@
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/issues/16",
       "state": "CLOSED",
       "author": "gloinul",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "I would expect that one may still uses URI template to declare how the URI looks like even if there are currently no parameters that require configuration just to make it aligned with the other extended connects. And if one introduce future parameters, like VLAN tags to be applied, then having declared that URI templates is the way to define these URIs would help a lot. \r\n\r\nSecondly, the use of the well known  (.wellknown/masque/ethernet) will require a bit of explanation and a reference to the relevant specs for well known, as well as the URI suffix in connect-ip.\r\n\r\n",
@@ -395,7 +395,7 @@
         },
         {
           "author": "gloinul",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "I think a reference to RFC 8615 (replacing RFC 5785) would actually be good. Looking back at RFC 9484 I think its text could have been better and clearer. ",
           "createdAt": "2024-07-16T13:48:21Z",
           "updatedAt": "2024-07-16T13:48:21Z"
@@ -416,7 +416,7 @@
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/issues/17",
       "state": "CLOSED",
       "author": "gloinul",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Section 5: \r\nSome of these extensions can augment Ethernet payloads with additional data or compress Ethernet frame header fields, while others can exchange data that is completely separate from Ethernet payloads.\r\n\r\nThe above is written as it is a fact rathern than a potential extensions that might be defined. Please reformulat as a hypothetical case.\r\n",
@@ -430,15 +430,15 @@
       "id": "I_kwDOJbp2N86Ptd-Y",
       "title": "Layer separation when determining what is congestion controlled",
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/issues/18",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "gloinul",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Section 9: \r\nWhen the protocol running inside the tunnel uses congestion control (e.g., [TCP] or [QUIC]), the proxied traffic will incur at least two nested congestion controllers. When tunneled packets are sent using QUIC DATAGRAM frames, the outer HTTP connection MAY disable congestion control for those packets that contain only QUIC DATAGRAM frames encapsulating Ethernet frames. Implementers will benefit from reading the guidance in Section 3.1.11 of [UDP-USAGE].\r\n\r\nIs there need to discuss the potential need to traverse up the stack from Ethernet frames to determine if traffic flow is congestion controlled or identify flows that are? Or is this an overreaching layer violation to accomplish this. I think we have a bit of a problem here and it depends on how the network is being used. A network that predominately transport IP over Ethernet may be possible to assume that it carries congestion controlled traffic. However if there are usages that not IP and run more directly on Ethernet this may not be true. ",
       "createdAt": "2024-07-16T12:50:31Z",
-      "updatedAt": "2024-07-17T08:54:09Z",
-      "closedAt": null,
+      "updatedAt": "2025-01-27T13:59:54Z",
+      "closedAt": "2025-01-27T13:59:53Z",
       "comments": [
         {
           "author": "asedeno",
@@ -449,10 +449,17 @@
         },
         {
           "author": "gloinul",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Yes, I don't want to forbid anything but also I don't think we can require anything. I think the text can be clearer on that most mechanism we have to affect these would require analyzing several layers on top of Ethernet and that it is up to implementation to select the trade-off here. So I think appendix or seperate section that is clear on the none requirements. ",
           "createdAt": "2024-07-17T08:54:08Z",
           "updatedAt": "2024-07-17T08:54:08Z"
+        },
+        {
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Calling this resolved with #21. We can reopen or start a new issue if there is more to do.",
+          "createdAt": "2025-01-27T13:59:53Z",
+          "updatedAt": "2025-01-27T13:59:53Z"
         }
       ]
     },
@@ -463,7 +470,7 @@
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/issues/19",
       "state": "CLOSED",
       "author": "gloinul",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "I noticed that there are no normative reference to a specific Ethernet version or versions that is to be supported. I think as an example here is support for 802.1Q required or not by the Ethernet processing at the end of the tunnel? ",
@@ -480,7 +487,7 @@
         },
         {
           "author": "gloinul",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "So I think the main core of this question is to answer what normative reference should be included in this section 6 sentence: \r\n\r\n\"When the Context ID is set to zero, the Payload field\r\n   contains a full Layer 2 Ethernet Frame (from the MAC destination\r\n   field until the last byte of the Frame check sequence field).\"\r\n\r\nTo define what a layer 2 Ethernet Frame is. ",
           "createdAt": "2024-07-16T13:45:15Z",
           "updatedAt": "2024-07-16T13:45:15Z"
@@ -494,7 +501,7 @@
         },
         {
           "author": "gloinul",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Here we might need more Ethernet expertise. Because I have assumed that most Ethernet extensions are compatible within the frame format. However I do think we need to have a normative reference to what encoding 0 really is. \r\n",
           "createdAt": "2024-07-17T08:56:48Z",
           "updatedAt": "2024-07-17T08:56:48Z"
@@ -508,7 +515,7 @@
         },
         {
           "author": "gloinul",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "I think we need to consider if the Connect-Ethernet request at least defaults to Ethernet II, and that if one want to use other formats one would add some request parameter to indicate any other format(s) one want to run. \r\n\r\nReferencing 802.3 appears a good normative reference. Saying this without looking into if there are multiple versions of the spec and we need to point to a particular version. Although I would expect fairly good backwards compatibility. ",
           "createdAt": "2024-07-21T17:21:14Z",
           "updatedAt": "2024-07-21T17:21:14Z"
@@ -884,7 +891,7 @@
             "abbreviatedOid": "3dfac59"
           },
           "author": "gloinul",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "APPROVED",
           "body": "",
           "createdAt": "2024-12-09T10:48:18Z",
@@ -898,24 +905,26 @@
       "id": "PR_kwDOJbp2N86HWk0V",
       "title": "Initial proposal to resolve issue with congestion control layering",
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/21",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "gloinul",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This attempts to resolve the issues in #18 with some basic details and constraints.",
       "createdAt": "2025-01-10T16:21:43Z",
-      "updatedAt": "2025-01-24T14:56:20Z",
+      "updatedAt": "2025-01-27T13:58:48Z",
       "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
       "baseRefName": "main",
       "baseRefOid": "a3e066cb5dc9c7fdaec9d06b9466d8980b3a44c2",
       "headRepository": "gloinul/draft-ietf-masque-connect-ethernet",
       "headRefName": "issue18",
-      "headRefOid": "cc1f9cf8294057f0c85aad4ecea1acdaf0cab22d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "83e570427a9d605fba1f11843da184c07abfb6c9",
+      "closedAt": "2025-01-27T13:58:47Z",
+      "mergedAt": "2025-01-27T13:58:47Z",
+      "mergedBy": "asedeno",
+      "mergeCommit": {
+        "oid": "83e570427a9d605fba1f11843da184c07abfb6c9"
+      },
       "comments": [
         {
           "author": "asedeno",
@@ -930,6 +939,13 @@
           "body": "@gloinul, what do you think of:\r\n\r\n```\r\nSome implementations might find it benefitial to maintain a small buffer of\r\nframes to be sent through the tunnel to smooth out short term variations and\r\nbursts in tunnel capacity. Any such buffer MUST be limited, and when exceeded\r\nany Ethernet frames that would otherwise be buffered MUST be dropped.\r\n```",
           "createdAt": "2025-01-24T14:56:17Z",
           "updatedAt": "2025-01-24T14:56:17Z"
+        },
+        {
+          "author": "gloinul",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> @gloinul, what do you think of:\r\n> \r\n> ```\r\n> Some implementations might find it benefitial to maintain a small buffer of\r\n> frames to be sent through the tunnel to smooth out short term variations and\r\n> bursts in tunnel capacity. Any such buffer MUST be limited, and when exceeded\r\n> any Ethernet frames that would otherwise be buffered MUST be dropped.\r\n> ```\r\n\r\nThat looks fine to me. So please update the PR and publish a new version. ",
+          "createdAt": "2025-01-27T13:23:41Z",
+          "updatedAt": "2025-01-27T13:28:34Z"
         }
       ],
       "reviews": [
@@ -945,6 +961,26 @@
           "createdAt": "2025-01-24T10:14:47Z",
           "updatedAt": "2025-01-24T10:14:47Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOJbp2N86ZgdBZ",
+          "commit": {
+            "abbreviatedOid": "cc1f9cf"
+          },
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-27T13:21:00Z",
+          "updatedAt": "2025-01-27T13:21:00Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\nframes MUST NOT assume that the carried Ethernet frames contain congestion\r\n```",
+              "createdAt": "2025-01-27T13:21:00Z",
+              "updatedAt": "2025-01-27T13:21:01Z"
+            }
+          ]
         }
       ]
     }
