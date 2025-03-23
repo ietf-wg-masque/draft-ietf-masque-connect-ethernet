@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-20T01:36:31.075320+00:00",
+  "timestamp": "2025-03-23T01:42:48.739413+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -521,6 +521,22 @@
           "updatedAt": "2024-07-21T17:21:14Z"
         }
       ]
+    },
+    {
+      "number": 22,
+      "id": "I_kwDOJbp2N86vGbsE",
+      "title": "MTU signaling and probing",
+      "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/issues/22",
+      "state": "OPEN",
+      "author": "c-taylor",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "The document should probably make a stronger reference to PLPMTUD probing and discovery to discover MTU.\n\nThis connect-ethernet there is also ability and benefit to express the probed value to the client.\nClient implementation can then either update psuedo-interface mtu or routing information with tested the MTU, useful for both performance and TCP.\n\nIt's also conceivable that MTU can change over time on an l2vpn of this type; This should probably be mentioned, also perhaps also a strategy to detect and update any signaling.\n\n",
+      "createdAt": "2025-03-21T08:41:38Z",
+      "updatedAt": "2025-03-21T08:41:38Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
