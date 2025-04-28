@@ -491,11 +491,14 @@ DATAGRAM frame.
 
 ## MTU and Frame Ordering Considerations
 
-When using HTTP/3 with the QUIC Datagram extension {{!QUIC-DGRAM=RFC9221}}, Ethernet
-frames can be transmitted in QUIC DATAGRAM frames. Since these frames cannot be
-fragmented, they can only carry Ethernet frames up to a given length determined
-by the QUIC connection configuration and the Path MTU (PMTU). Furthermore, the
-UDP packets carrying these frames could be reordered by the network.
+When using HTTP/3 with the QUIC Datagram extension {{!QUIC-DGRAM=RFC9221}},
+Ethernet frames can be transmitted in QUIC DATAGRAM frames. Since DATAGRAM
+frames cannot be fragmented, they can only carry Ethernet frames up to a given
+length determined by the QUIC connection configuration and the Path MTU
+(PMTU). Implementations MAY rely on {{QUIC}}'s use of {{!DPLPMTUD=RFC8899}} to
+probe and discover the PMTU over the connection's lifetime, and adjust any
+associated interface MTU as needed. Furthermore, the UDP packets carrying these
+frames could be reordered by the network.
 
 When using HTTP/1.1 or HTTP/2, and when using HTTP/3 without the QUIC Datagram
 extension {{QUIC-DGRAM}}, Ethernet frames are transmitted in DATAGRAM capsules as
