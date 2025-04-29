@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-30T01:45:01.101974+00:00",
+  "timestamp": "2025-04-29T01:43:33.285837+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -999,6 +999,54 @@
           ]
         }
       ]
+    },
+    {
+      "number": 23,
+      "id": "PR_kwDOJbp2N86UL22Z",
+      "title": "Refer to QUIC's use of DPLPMTUD",
+      "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/23",
+      "state": "OPEN",
+      "author": "asedeno",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes: #22",
+      "createdAt": "2025-04-28T15:10:08Z",
+      "updatedAt": "2025-04-28T16:18:17Z",
+      "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
+      "baseRefName": "main",
+      "baseRefOid": "287e6862570eb0402e9b6ecbc5ee6ea4f85fe0c4",
+      "headRepository": "asedeno/draft-ietf-masque-connect-ethernet",
+      "headRefName": "plpmtud",
+      "headRefOid": "04686501b171a6d7d0b32b76122b1d0630ac7c69",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@c-taylor how does this sound?",
+          "createdAt": "2025-04-28T15:10:52Z",
+          "updatedAt": "2025-04-28T15:10:52Z"
+        },
+        {
+          "author": "c-taylor",
+          "authorAssociation": "NONE",
+          "body": "imo the reordering sentence is 'stranded' in the middle of a related section. I also think MAY over SHOULD, as conceivable that some implementations won't be able to change size over time (guess).\r\n\r\n```\r\nWhen using HTTP/3 with the QUIC Datagram extension {{!QUIC-DGRAM=RFC9221}}, Ethernet\r\nframes can be transmitted in QUIC DATAGRAM frames.\r\n\r\nSince these frames cannot be fragmented, they can only carry Ethernet frames up to a given\r\nlength determined by the QUIC connection configuration and the Path MTU (PMTU).\r\nImplementations MAY rely on {{QUIC}}'s use of {{!DPLPMTUD=RFC8899}} to probe and discover\r\nthe PMTU over the connections lifetime, and adjust any associated interface or route MTU as\r\nneeded.\r\n```\r\n\r\n\r\nI think this needs bringing out into it's own complete consideration:\r\n\r\n> Furthermore, the UDP packets carrying these frames could be reordered by the network.",
+          "createdAt": "2025-04-28T15:46:10Z",
+          "updatedAt": "2025-04-28T15:46:55Z"
+        },
+        {
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Is that to say, break this paragraph into three parts?\r\n\r\nI had similar feelings about the re-ordering sentence, though I'm not sure how much more I have to say about it to make it worth fleshing out into a larger paragraph.",
+          "createdAt": "2025-04-28T16:06:34Z",
+          "updatedAt": "2025-04-28T16:06:34Z"
+        }
+      ],
+      "reviews": []
     }
   ]
 }
