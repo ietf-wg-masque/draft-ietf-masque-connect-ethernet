@@ -4,8 +4,8 @@
 
 Multiplexed Application Substrate over QUIC Encryption      A. R. Sedeño
 Internet-Draft                                                Google LLC
-Intended status: Standards Track                         27 January 2025
-Expires: 31 July 2025
+Intended status: Standards Track                           30 April 2025
+Expires: 1 November 2025
 
 
                        Proxying Ethernet in HTTP
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 July 2025.
+   This Internet-Draft will expire on 1 November 2025.
 
 Copyright Notice
 
@@ -538,10 +538,13 @@ Table of Contents
 
    When using HTTP/3 with the QUIC Datagram extension [QUIC-DGRAM],
    Ethernet frames can be transmitted in QUIC DATAGRAM frames.  Since
-   these frames cannot be fragmented, they can only carry Ethernet
+   DATAGRAM frames cannot be fragmented, they can only carry Ethernet
    frames up to a given length determined by the QUIC connection
-   configuration and the Path MTU (PMTU).  Furthermore, the UDP packets
-   carrying these frames could be reordered by the network.
+   configuration and the Path MTU (PMTU).  Implementations MAY rely on
+   [QUIC]'s use of [DPLPMTUD] to probe and discover the PMTU over the
+   connection's lifetime, and adjust any associated interface MTU as
+   needed.  Furthermore, the UDP packets carrying these frames could be
+   reordered by the network.
 
    When using HTTP/1.1 or HTTP/2, and when using HTTP/3 without the QUIC
    Datagram extension [QUIC-DGRAM], Ethernet frames are transmitted in
@@ -632,6 +635,11 @@ Table of Contents
               Schinazi, D., "Proxying UDP in HTTP", RFC 9298,
               DOI 10.17487/RFC9298, August 2022,
               <https://www.rfc-editor.org/rfc/rfc9298>.
+
+   [DPLPMTUD] Fairhurst, G., Jones, T., Tüxen, M., Rüngeler, I., and T.
+              Völker, "Packetization Layer Path MTU Discovery for
+              Datagram Transports", RFC 8899, DOI 10.17487/RFC8899,
+              September 2020, <https://www.rfc-editor.org/rfc/rfc8899>.
 
    [EXT-CONNECT2]
               McManus, P., "Bootstrapping WebSockets with HTTP/2",
