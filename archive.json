@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-29T01:43:33.285837+00:00",
+  "timestamp": "2025-05-01T01:51:24.165470+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -527,15 +527,15 @@
       "id": "I_kwDOJbp2N86vGbsE",
       "title": "MTU signaling and probing",
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/issues/22",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "c-taylor",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "The document should probably make a stronger reference to PLPMTUD probing and discovery to discover MTU.\n\nThis connect-ethernet there is also ability and benefit to express the probed value to the client.\nClient implementation can then either update psuedo-interface mtu or routing information with tested the MTU, useful for both performance and TCP.\n\nIt's also conceivable that MTU can change over time on an l2vpn of this type; This should probably be mentioned, also perhaps also a strategy to detect and update any signaling.\n\n",
       "createdAt": "2025-03-21T08:41:38Z",
-      "updatedAt": "2025-03-21T08:41:38Z",
-      "closedAt": null,
+      "updatedAt": "2025-04-30T18:22:56Z",
+      "closedAt": "2025-04-30T18:22:56Z",
       "comments": []
     }
   ],
@@ -1005,24 +1005,26 @@
       "id": "PR_kwDOJbp2N86UL22Z",
       "title": "Refer to QUIC's use of DPLPMTUD",
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/23",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "asedeno",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Fixes: #22",
       "createdAt": "2025-04-28T15:10:08Z",
-      "updatedAt": "2025-04-28T16:18:17Z",
+      "updatedAt": "2025-04-30T18:58:00Z",
       "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
       "baseRefName": "main",
       "baseRefOid": "287e6862570eb0402e9b6ecbc5ee6ea4f85fe0c4",
       "headRepository": "asedeno/draft-ietf-masque-connect-ethernet",
       "headRefName": "plpmtud",
-      "headRefOid": "04686501b171a6d7d0b32b76122b1d0630ac7c69",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "4d426b4ef441722b361001e88417a62e2cc16bcf",
+      "closedAt": "2025-04-30T18:22:57Z",
+      "mergedAt": "2025-04-30T18:22:57Z",
+      "mergedBy": "asedeno",
+      "mergeCommit": {
+        "oid": "4d426b4ef441722b361001e88417a62e2cc16bcf"
+      },
       "comments": [
         {
           "author": "asedeno",
@@ -1046,7 +1048,28 @@
           "updatedAt": "2025-04-28T16:06:34Z"
         }
       ],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbp2N86nXgkg",
+          "commit": {
+            "abbreviatedOid": "0468650"
+          },
+          "author": "DavidSchinazi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-04-30T17:47:48Z",
+          "updatedAt": "2025-04-30T17:48:08Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "```suggestion\r\nEthernet frames can be transmitted in QUIC DATAGRAM frames. Since DATAGRAM frames\r\n```",
+              "createdAt": "2025-04-30T17:47:48Z",
+              "updatedAt": "2025-04-30T17:48:08Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
