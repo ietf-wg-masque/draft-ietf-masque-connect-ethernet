@@ -151,13 +151,13 @@ authentication.
 
 Upon receiving an Ethernet proxying request:
 
- * if the recipient is configured to use another HTTP proxy, it will act as an
+ * If the recipient is configured to use another HTTP proxy, it will act as an
    intermediary by forwarding the request to another HTTP server. Note that
    such intermediaries may need to re-encode the request if they forward it
    using a version of HTTP that is different from the one used to receive it,
    as the request encoding differs by version (see below).
 
- * otherwise, the recipient will act as an Ethernet proxy. The Ethernet proxy
+ * Otherwise, the recipient will act as an Ethernet proxy. The Ethernet proxy
    can choose to reject the Ethernet proxying request or establish an Ethernet
    tunnel.
 
@@ -174,16 +174,16 @@ indicates that the request has failed; thus, the client MUST abort the request.
 When using HTTP/1.1 {{H1}}, an Ethernet proxying request will meet the following
 requirements:
 
-* the method SHALL be "GET".
+* The method SHALL be "GET".
 
-* the request SHALL include a single Host header field containing the host
+* The request SHALL include a single Host header field containing the host
   and optional port of the Ethernet proxy.
 
-* the request SHALL include a Connection header field with value "Upgrade"
+* The request SHALL include a Connection header field with value "Upgrade"
   (note that this requirement is case-insensitive as per {{Section 7.6.1 of
   HTTP}}).
 
-* the request SHALL include an Upgrade header field with value "connect-ethernet".
+* The request SHALL include an Upgrade header field with value "connect-ethernet".
 
 An Ethernet proxying request that does not conform to these restrictions is
 malformed. The recipient of such a malformed request MUST respond with an error
@@ -207,16 +207,16 @@ Capsule-Protocol: ?1
 The server indicates a successful response by replying with the following
 requirements:
 
-* the HTTP status code on the response SHALL be 101 (Switching Protocols).
+* The HTTP status code on the response SHALL be 101 (Switching Protocols).
 
-* the response SHALL include a Connection header field with value "Upgrade"
+* The response SHALL include a Connection header field with value "Upgrade"
   (note that this requirement is case-insensitive as per {{Section 7.6.1 of
   HTTP}}).
 
-* the response SHALL include a single Upgrade header field with value
+* The response SHALL include a single Upgrade header field with value
   "connect-ethernet".
 
-* the response SHALL meet the requirements of HTTP responses that start the
+* The response SHALL meet the requirements of HTTP responses that start the
   Capsule Protocol; see {{Section 3.2 of HTTP-DGRAM}}.
 
 If any of these requirements are not met, the client MUST treat this proxying
@@ -273,9 +273,9 @@ capsule-protocol = ?1
 The server indicates a successful response by replying with the following
 requirements:
 
-* the HTTP status code on the response SHALL be in the 2xx (Successful) range.
+* The HTTP status code on the response SHALL be in the 2xx (Successful) range.
 
-* the response SHALL meet the requirements of HTTP responses that start the
+* The response SHALL meet the requirements of HTTP responses that start the
   Capsule Protocol; see {{Section 3.2 of HTTP-DGRAM}}.
 
 If any of these requirements are not met, the client MUST treat this proxying
