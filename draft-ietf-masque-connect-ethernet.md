@@ -204,8 +204,8 @@ Capsule-Protocol: ?1
 
 ## HTTP/1.1 Response {#resp1}
 
-The server indicates a successful response by replying with the following
-requirements:
+The server indicates success by replying with a response that conforms to the
+following requirements:
 
 * The HTTP status code on the response SHALL be 101 (Switching Protocols).
 
@@ -270,8 +270,8 @@ capsule-protocol = ?1
 
 ## HTTP/2 and HTTP/3 Responses {#resp23}
 
-The server indicates a successful response by replying with the following
-requirements:
+The server indicates success by replying with a response that conforms to the
+following requirements:
 
 * The HTTP status code on the response SHALL be in the 2xx (Successful) range.
 
