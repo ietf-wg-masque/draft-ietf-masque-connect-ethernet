@@ -115,14 +115,11 @@ implementation that supports connecting to different Ethernet segments might add
 a "vlan-identifier" variable to specify which segment to connect to. The
 optionality of variable needs to be considered when defining the template so
 that the variable is either self-identifying or possible to exclude in the
-syntax. URI Templates specified for this protocol MAY use the well-known
-location {{!WELL-KNOWN=RFC8615}} registered by this document.
+syntax.
 
 Examples are shown below:
 
 ~~~
-https://example.org/.well-known/masque/ethernet/
-https://example.org/.well-known/masque/ethernet/{vlan-identifier}/
 https://proxy.example.org:4443/masque/ethernet/
 https://proxy.example.org:4443/masque/ethernet?vlan={vlan-identifier}
 https://masque.example.org/?user=bob
@@ -190,12 +187,12 @@ malformed. The recipient of such a malformed request MUST respond with an error
 and SHOULD use the 400 (Bad Request) status code.
 
 For example, if the client is configured with the URI Template
-"https://example.org/.well-known/masque/ethernet/" and wishes to open an
+"https://proxy.example.org/masque/ethernet/" and wishes to open an
 Ethernet tunnel, it could send the following request.
 
 ~~~ http-message
-GET https://example.org/.well-known/masque/ethernet/ HTTP/1.1
-Host: example.org
+GET /masque/ethernet/ HTTP/1.1
+Host: proxy.example.org
 Connection: Upgrade
 Upgrade: connect-ethernet
 Capsule-Protocol: ?1
@@ -254,7 +251,7 @@ An Ethernet proxying request that does not conform to these restrictions is
 malformed; see {{Section 8.1.1 of H2}} and {{Section 4.1.2 of H3}}.
 
 For example, if the client is configured with the URI Template
-"https://example.org/.well-known/masque/ethernet/" and wishes to open an
+"https://proxy.example.org/masque/ethernet/" and wishes to open an
 Ethernet tunnel, it could send the following request.
 
 ~~~ http-message
@@ -262,8 +259,8 @@ HEADERS
 :method = CONNECT
 :protocol = connect-ethernet
 :scheme = https
-:path = /.well-known/masque/ethernet/
-:authority = example.org
+:path = /masque/ethernet/
+:authority = proxy.example.org
 capsule-protocol = ?1
 ~~~
 {: #fig-req-h2 title="Example HTTP/2 or HTTP/3 Request"}
@@ -414,7 +411,7 @@ STREAM(44): HEADERS
 :method = CONNECT
 :protocol = connect-ethernet
 :scheme = https
-:path = /.well-known/masque/ethernet/
+:path = /masque/ethernet/
 :authority = proxy.example.com
 capsule-protocol = ?1
 
@@ -565,17 +562,6 @@ References:
 
 : This document
 {: spacing="compact"}
-
-## Updates to the MASQUE URI Suffixes Registry {#iana-suffix}
-
-This document will request IANA to register "ethernet" in the MASQUE URI
-Suffixes Registry maintained at <[](https://www.iana.org/assignments/masque)>,
-created by {{Section 12.2 of CONNECT-IP}}.
-
-| Path Segment |    Description    |   Reference   |
-|:-------------|:------------------|:--------------|
-|    ethernet  | Ethernet Proxying | This Document |
-{: #iana-suffixes-table title="New MASQUE URI Suffixes"}
 
 --- back
 
