@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-01T01:51:24.165470+00:00",
+  "timestamp": "2025-06-08T01:56:14.047423+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -1070,6 +1070,40 @@
           ]
         }
       ]
+    },
+    {
+      "number": 24,
+      "id": "PR_kwDOJbp2N86ZZ0eY",
+      "title": "Remove .well-known URIs",
+      "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/24",
+      "state": "OPEN",
+      "author": "asedeno",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Per @martinthomson's early Httpdir review. Is this a change we're okay with, or does someone actually have a usecase for it?",
+      "createdAt": "2025-06-06T14:44:28Z",
+      "updatedAt": "2025-06-06T18:17:33Z",
+      "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
+      "baseRefName": "main",
+      "baseRefOid": "4d426b4ef441722b361001e88417a62e2cc16bcf",
+      "headRepository": "asedeno/draft-ietf-masque-connect-ethernet",
+      "headRefName": "no-well-known",
+      "headRefOid": "75376e1410f94c5efcd7fa5af2da95134723d2da",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "DavidSchinazi",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think we should stay consistent with connect-ip here. The well-known registration is free, we even have [our own IANA registry](https://www.iana.org/assignments/masque/masque.xhtml#masque-uri-suffixes), and it might be useful.",
+          "createdAt": "2025-06-06T18:17:31Z",
+          "updatedAt": "2025-06-06T18:17:31Z"
+        }
+      ],
+      "reviews": []
     }
   ]
 }
