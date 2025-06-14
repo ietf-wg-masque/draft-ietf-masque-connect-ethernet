@@ -84,6 +84,9 @@ HTTP Extended CONNECT as described in {{!EXT-CONNECT2=RFC8441}} and
 {{!EXT-CONNECT3=RFC9220}}. When using HTTP/1.x {{H1}}, it uses HTTP Upgrade as
 defined in {{Section 7.8 of HTTP}}.
 
+This protocol necessarily involves additional framing overhead. When possible,
+users should use higher-level proxying protocols.
+
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
