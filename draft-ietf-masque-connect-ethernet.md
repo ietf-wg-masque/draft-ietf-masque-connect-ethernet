@@ -545,12 +545,20 @@ large amount of traffic through the proxy.
 
 Users of this protocol may send arbitrary Ethernet frames through the tunnel,
 including frames with arbitrary source MAC addresses. This could allow
-impersonation of other hosts, poisoning of ARP and CAM tables, and cause a
-denial of service to other hosts on the network. These are the same attacks
-available to an arbitrary client with physical access to the network. Ethernet
-proxying endpoints could be configured to limit forwarding to pre-configured MAC
-addresses, though such filtering is outside the scope of this protocol. Dynamic
-signalling or negotiation of MAC address filtering is left to future extensions.
+impersonation of other hosts, poisoning of ARP {{!RFC826}}, NDP {{!RFC4861}} and
+CAM (Content Addressable Memory) tables, and cause a denial of service to other
+hosts on the network. These are the same attacks available to an arbitrary
+client with physical access to the network. An implementation that is intended
+for point-to-site connections might limit clients to a single source MAC
+address, or Ethernet proxying endpoints might be configured to limit forwarding
+to pre-configured MAC addresses, though such filtering is outside the scope of
+this protocol. Dynamic signalling or negotiation of MAC address filtering is
+left to future extensions.
+
+This protocol is agnostic to where on the Ethernet segment a gateway for
+higher-level routing might be located. A client may connect via an Ethernet
+proxy and discover an existing gateway on the Ethernet segment, supply a new
+gateway to the Ethernet segment, both, or neither.
 
 # IANA Considerations
 
