@@ -110,22 +110,30 @@ entire connection.
 
 Clients are configured to use Ethernet proxying over HTTP via a URI Template
 {{!TEMPLATE=RFC6570}}. The URI Templates used by this protocol do not require
-any variables; implementations or extensions MAY specify their own. An
-implementation that supports connecting to different Ethernet segments might add
-a "vlan-identifier" variable to specify which segment to connect to. The
-optionality of variable needs to be considered when defining the template so
-that the variable is either self-identifying or possible to exclude in the
-syntax. URI Templates specified for this protocol MAY use the well-known
-location {{!WELL-KNOWN=RFC8615}} registered by this document.
+any variables; implementations or extensions MAY specify their own. URI
+Templates specified for this protocol MAY use the well-known location
+{{!WELL-KNOWN=RFC8615}} registered by this document.
 
 Examples are shown below:
 
 ~~~
 https://example.org/.well-known/masque/ethernet/
-https://example.org/.well-known/masque/ethernet/{vlan-identifier}/
 https://proxy.example.org:4443/masque/ethernet/
-https://proxy.example.org:4443/masque/ethernet?vlan={vlan-identifier}
 https://masque.example.org/?user=bob
+~~~
+
+An implementation that supports connecting to different Ethernet segments might
+add a "vlan-identifier" variable to specify which segment to connect to. The
+optionality of variables needs to be considered when defining the template so
+that variables are either self-identifying or possible to exclude in the syntax.
+How valid values for such variables are communicated to the client is not a part
+of this protocol.
+
+Hypothetical examples are shown below:
+
+~~~
+https://proxy.example.org:4443/masque/ethernet?vlan={vlan-identifier}
+https://etherproxy.example.org/{vlan-identifier}
 ~~~
 
 # Tunnelling Ethernet over HTTP
