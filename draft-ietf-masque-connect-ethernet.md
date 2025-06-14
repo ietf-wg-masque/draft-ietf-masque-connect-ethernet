@@ -544,7 +544,7 @@ example, proxies can rate limit individual clients that send an excessively
 large amount of traffic through the proxy.
 
 Users of this protocol may send arbitrary Ethernet frames through the tunnel,
-including frames with falsified source MAC addresses. This could allow
+including frames with arbitrary source MAC addresses. This could allow
 impersonation of other hosts, poisoning of ARP and CAM tables, and cause a
 denial of service to other hosts on the network. These are the same attacks
 available to an arbitrary client with physical access to the network. Ethernet
