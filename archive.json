@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-08T01:56:14.047423+00:00",
+  "timestamp": "2025-06-15T01:58:32.495769+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -1076,21 +1076,21 @@
       "id": "PR_kwDOJbp2N86ZZ0eY",
       "title": "Remove .well-known URIs",
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/24",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "asedeno",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Per @martinthomson's early Httpdir review. Is this a change we're okay with, or does someone actually have a usecase for it?",
       "createdAt": "2025-06-06T14:44:28Z",
-      "updatedAt": "2025-06-06T18:17:33Z",
+      "updatedAt": "2025-06-14T18:44:42Z",
       "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
       "baseRefName": "main",
       "baseRefOid": "4d426b4ef441722b361001e88417a62e2cc16bcf",
       "headRepository": "asedeno/draft-ietf-masque-connect-ethernet",
       "headRefName": "no-well-known",
       "headRefOid": "75376e1410f94c5efcd7fa5af2da95134723d2da",
-      "closedAt": null,
+      "closedAt": "2025-06-14T18:44:41Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -1101,8 +1101,48 @@
           "body": "I think we should stay consistent with connect-ip here. The well-known registration is free, we even have [our own IANA registry](https://www.iana.org/assignments/masque/masque.xhtml#masque-uri-suffixes), and it might be useful.",
           "createdAt": "2025-06-06T18:17:31Z",
           "updatedAt": "2025-06-06T18:17:31Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I would also like to keep it. I think this is a general purpose protocol and this would make it more flexible for future deployments.",
+          "createdAt": "2025-06-13T14:18:19Z",
+          "updatedAt": "2025-06-13T14:18:19Z"
+        },
+        {
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "body": "There's been more interest in keeping this than dropping it, so I'm going to keep it for now.",
+          "createdAt": "2025-06-14T18:44:41Z",
+          "updatedAt": "2025-06-14T18:44:41Z"
         }
       ],
+      "reviews": []
+    },
+    {
+      "number": 25,
+      "id": "PR_kwDOJbp2N86ai7Wm",
+      "title": "Incorporate httpdir early review feedback",
+      "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/25",
+      "state": "OPEN",
+      "author": "asedeno",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-06-14T18:43:32Z",
+      "updatedAt": "2025-06-14T18:43:32Z",
+      "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
+      "baseRefName": "main",
+      "baseRefOid": "4d426b4ef441722b361001e88417a62e2cc16bcf",
+      "headRepository": "asedeno/draft-ietf-masque-connect-ethernet",
+      "headRefName": "httpdir-review",
+      "headRefOid": "0e04d51171c8b0aa28d1df8d19fb299bfb365222",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
       "reviews": []
     }
   ]
