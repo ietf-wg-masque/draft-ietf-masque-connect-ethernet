@@ -85,7 +85,8 @@ HTTP Extended CONNECT as described in {{!EXT-CONNECT2=RFC8441}} and
 defined in {{Section 7.8 of HTTP}}.
 
 This protocol necessarily involves additional framing overhead. When possible,
-users should use higher-level proxying protocols.
+users should use higher-level proxying protocols, such as connect-ip or
+connect-udp.
 
 # Conventions and Definitions
 
