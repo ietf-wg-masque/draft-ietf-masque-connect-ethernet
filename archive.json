@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-15T01:58:32.495769+00:00",
+  "timestamp": "2025-06-17T01:49:35.409135+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -1131,19 +1131,40 @@
       "labels": [],
       "body": "",
       "createdAt": "2025-06-14T18:43:32Z",
-      "updatedAt": "2025-06-14T18:43:32Z",
+      "updatedAt": "2025-06-16T23:49:31Z",
       "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
       "baseRefName": "main",
       "baseRefOid": "4d426b4ef441722b361001e88417a62e2cc16bcf",
       "headRepository": "asedeno/draft-ietf-masque-connect-ethernet",
       "headRefName": "httpdir-review",
-      "headRefOid": "0e04d51171c8b0aa28d1df8d19fb299bfb365222",
+      "headRefOid": "689d7a650c341f2cd0a35743701bf76584002584",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbp2N86u3c83",
+          "commit": {
+            "abbreviatedOid": "0e04d51"
+          },
+          "author": "DavidSchinazi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-16T23:32:45Z",
+          "updatedAt": "2025-06-16T23:33:45Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "\"higher-level\" might be unclear\r\n```suggestion\r\nusers should use higher-level proxying protocols, such as connect-ip or connect-udp.\r\n```",
+              "createdAt": "2025-06-16T23:32:46Z",
+              "updatedAt": "2025-06-16T23:33:45Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
