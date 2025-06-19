@@ -13,7 +13,7 @@ specifically, this document defines a protocol that allows an HTTP client to
 create Layer 2 Ethernet tunnel through an HTTP server to an attached
 physical or virtual Ethernet segment. 
     " name="description">
-<meta content="xml2rfc 3.28.1" name="generator">
+<meta content="xml2rfc 3.29.0" name="generator">
 <meta content="quic" name="keyword">
 <meta content="http" name="keyword">
 <meta content="datagram" name="keyword">
@@ -26,18 +26,18 @@ physical or virtual Ethernet segment.
 <meta content="ethernet" name="keyword">
 <meta content="draft-ietf-masque-connect-ethernet-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.28.1
-    Python 3.12.10
+  xml2rfc 3.29.0
+    Python 3.12.11
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
-    lxml 5.3.0
-    platformdirs 4.3.7
+    lxml 5.3.1
+    platformdirs 4.3.8
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.3
-    setuptools 70.3.0
+    requests 2.32.4
+    setuptools 80.9.0
     wcwidth 0.2.13
 -->
 <link href="draft-ietf-masque-connect-ethernet.xml" rel="alternate" type="application/rfc+xml">
@@ -1057,11 +1057,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">CONNECT-ETHERNET</td>
-<td class="right">April 2025</td>
+<td class="right">June 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Sedeño</td>
-<td class="center">Expires 1 November 2025</td>
+<td class="center">Expires 21 December 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1074,12 +1074,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-masque-connect-ethernet-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-04-30" class="published">30 April 2025</time>
+<time datetime="2025-06-19" class="published">19 June 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-11-01">1 November 2025</time></dd>
+<dd class="expires"><time datetime="2025-12-21">21 December 2025</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1133,7 +1133,7 @@ physical or virtual Ethernet segment.<a href="#section-abstract-1" class="pilcro
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 1 November 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 21 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1280,6 +1280,9 @@ interact with peers on the same Ethernet broadcast domain.<a href="#section-1-2"
 HTTP Extended CONNECT as described in <span>[<a href="#EXT-CONNECT2" class="cite xref">EXT-CONNECT2</a>]</span> and
 <span>[<a href="#EXT-CONNECT3" class="cite xref">EXT-CONNECT3</a>]</span>. When using HTTP/1.x <span>[<a href="#H1" class="cite xref">HTTP/1.1</a>]</span>, it uses HTTP Upgrade as
 defined in <span><a href="https://rfc-editor.org/rfc/rfc9110#section-7.8" class="relref">Section 7.8</a> of [<a href="#HTTP" class="cite xref">HTTP</a>]</span>.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">This protocol necessarily involves additional framing overhead. When possible,
+users should use higher-level proxying protocols, such as connect-ip or
+connect-udp.<a href="#section-1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1314,22 +1317,29 @@ entire connection.<a href="#section-2-4" class="pilcrow">¶</a></p>
       </h2>
 <p id="section-3-1">Clients are configured to use Ethernet proxying over HTTP via a URI Template
 <span>[<a href="#TEMPLATE" class="cite xref">TEMPLATE</a>]</span>. The URI Templates used by this protocol do not require
-any variables; implementations or extensions <span class="bcp14">MAY</span> specify their own. An
-implementation that supports connecting to different Ethernet segments might add
-a "vlan-identifier" variable to specify which segment to connect to. The
-optionality of variable needs to be considered when defining the template so
-that the variable is either self-identifying or possible to exclude in the
-syntax. URI Templates specified for this protocol <span class="bcp14">MAY</span> use the well-known
-location <span>[<a href="#WELL-KNOWN" class="cite xref">WELL-KNOWN</a>]</span> registered by this document.<a href="#section-3-1" class="pilcrow">¶</a></p>
+any variables; implementations or extensions <span class="bcp14">MAY</span> specify their own. URI
+Templates specified for this protocol <span class="bcp14">MAY</span> use the well-known location
+<span>[<a href="#WELL-KNOWN" class="cite xref">WELL-KNOWN</a>]</span> registered by this document.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">Examples are shown below:<a href="#section-3-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3-3">
 <pre>
 https://example.org/.well-known/masque/ethernet/
-https://example.org/.well-known/masque/ethernet/{vlan-identifier}/
 https://proxy.example.org:4443/masque/ethernet/
-https://proxy.example.org:4443/masque/ethernet?vlan={vlan-identifier}
 https://masque.example.org/?user=bob
 </pre><a href="#section-3-3" class="pilcrow">¶</a>
+</div>
+<p id="section-3-4">An implementation that supports connecting to different Ethernet segments might
+add a "vlan-identifier" variable to specify which segment to connect to. The
+optionality of variables needs to be considered when defining the template so
+that variables are either self-identifying or possible to exclude in the syntax.
+How valid values for such variables are communicated to the client is not a part
+of this protocol.<a href="#section-3-4" class="pilcrow">¶</a></p>
+<p id="section-3-5">Hypothetical examples are shown below:<a href="#section-3-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3-6">
+<pre>
+https://proxy.example.org:4443/masque/ethernet?vlan={vlan-identifier}
+https://etherproxy.example.org/{vlan-identifier}
+</pre><a href="#section-3-6" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -1358,14 +1368,14 @@ authentication.<a href="#section-4-4" class="pilcrow">¶</a></p>
 <p id="section-4.1-1">Upon receiving an Ethernet proxying request:<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.1-2.1">
-            <p id="section-4.1-2.1.1">if the recipient is configured to use another HTTP proxy, it will act as an
+            <p id="section-4.1-2.1.1">If the recipient is configured to use another HTTP proxy, it will act as an
 intermediary by forwarding the request to another HTTP server. Note that
 such intermediaries may need to re-encode the request if they forward it
 using a version of HTTP that is different from the one used to receive it,
 as the request encoding differs by version (see below).<a href="#section-4.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.1-2.2">
-            <p id="section-4.1-2.2.1">otherwise, the recipient will act as an Ethernet proxy. The Ethernet proxy
+            <p id="section-4.1-2.2.1">Otherwise, the recipient will act as an Ethernet proxy. The Ethernet proxy
 can choose to reject the Ethernet proxying request or establish an Ethernet
 tunnel.<a href="#section-4.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
@@ -1387,18 +1397,18 @@ indicates that the request has failed; thus, the client <span class="bcp14">MUST
 requirements:<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.2-2.1">
-            <p id="section-4.2-2.1.1">the method <span class="bcp14">SHALL</span> be "GET".<a href="#section-4.2-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-4.2-2.1.1">The method <span class="bcp14">SHALL</span> be "GET".<a href="#section-4.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.2-2.2">
-            <p id="section-4.2-2.2.1">the request <span class="bcp14">SHALL</span> include a single Host header field containing the host
+            <p id="section-4.2-2.2.1">The request <span class="bcp14">SHALL</span> include a single Host header field containing the host
 and optional port of the Ethernet proxy.<a href="#section-4.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.2-2.3">
-            <p id="section-4.2-2.3.1">the request <span class="bcp14">SHALL</span> include a Connection header field with value "Upgrade"
+            <p id="section-4.2-2.3.1">The request <span class="bcp14">SHALL</span> include a Connection header field with value "Upgrade"
 (note that this requirement is case-insensitive as per <span><a href="https://rfc-editor.org/rfc/rfc9110#section-7.6.1" class="relref">Section 7.6.1</a> of [<a href="#HTTP" class="cite xref">HTTP</a>]</span>).<a href="#section-4.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.2-2.4">
-            <p id="section-4.2-2.4.1">the request <span class="bcp14">SHALL</span> include an Upgrade header field with value "connect-ethernet".<a href="#section-4.2-2.4.1" class="pilcrow">¶</a></p>
+            <p id="section-4.2-2.4.1">The request <span class="bcp14">SHALL</span> include an Upgrade header field with value "connect-ethernet".<a href="#section-4.2-2.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-4.2-3">An Ethernet proxying request that does not conform to these restrictions is
@@ -1429,22 +1439,22 @@ Capsule-Protocol: ?1
         <h3 id="name-http-11-response">
 <a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-http-11-response" class="section-name selfRef">HTTP/1.1 Response</a>
         </h3>
-<p id="section-4.3-1">The server indicates a successful response by replying with the following
-requirements:<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.3-1">The server indicates success by replying with a response that conforms to the
+following requirements:<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.3-2.1">
-            <p id="section-4.3-2.1.1">the HTTP status code on the response <span class="bcp14">SHALL</span> be 101 (Switching Protocols).<a href="#section-4.3-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-4.3-2.1.1">The HTTP status code on the response <span class="bcp14">SHALL</span> be 101 (Switching Protocols).<a href="#section-4.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.3-2.2">
-            <p id="section-4.3-2.2.1">the response <span class="bcp14">SHALL</span> include a Connection header field with value "Upgrade"
+            <p id="section-4.3-2.2.1">The response <span class="bcp14">SHALL</span> include a Connection header field with value "Upgrade"
 (note that this requirement is case-insensitive as per <span><a href="https://rfc-editor.org/rfc/rfc9110#section-7.6.1" class="relref">Section 7.6.1</a> of [<a href="#HTTP" class="cite xref">HTTP</a>]</span>).<a href="#section-4.3-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.3-2.3">
-            <p id="section-4.3-2.3.1">the response <span class="bcp14">SHALL</span> include a single Upgrade header field with value
+            <p id="section-4.3-2.3.1">The response <span class="bcp14">SHALL</span> include a single Upgrade header field with value
 "connect-ethernet".<a href="#section-4.3-2.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.3-2.4">
-            <p id="section-4.3-2.4.1">the response <span class="bcp14">SHALL</span> meet the requirements of HTTP responses that start the
+            <p id="section-4.3-2.4.1">The response <span class="bcp14">SHALL</span> meet the requirements of HTTP responses that start the
 Capsule Protocol; see <span><a href="https://rfc-editor.org/rfc/rfc9297#section-3.2" class="relref">Section 3.2</a> of [<a href="#HTTP-DGRAM" class="cite xref">HTTP-DGRAM</a>]</span>.<a href="#section-4.3-2.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
@@ -1522,14 +1532,14 @@ capsule-protocol = ?1
         <h3 id="name-http-2-and-http-3-responses">
 <a href="#section-4.5" class="section-number selfRef">4.5. </a><a href="#name-http-2-and-http-3-responses" class="section-name selfRef">HTTP/2 and HTTP/3 Responses</a>
         </h3>
-<p id="section-4.5-1">The server indicates a successful response by replying with the following
-requirements:<a href="#section-4.5-1" class="pilcrow">¶</a></p>
+<p id="section-4.5-1">The server indicates success by replying with a response that conforms to the
+following requirements:<a href="#section-4.5-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.5-2.1">
-            <p id="section-4.5-2.1.1">the HTTP status code on the response <span class="bcp14">SHALL</span> be in the 2xx (Successful) range.<a href="#section-4.5-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-4.5-2.1.1">The HTTP status code on the response <span class="bcp14">SHALL</span> be in the 2xx (Successful) range.<a href="#section-4.5-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.5-2.2">
-            <p id="section-4.5-2.2.1">the response <span class="bcp14">SHALL</span> meet the requirements of HTTP responses that start the
+            <p id="section-4.5-2.2.1">The response <span class="bcp14">SHALL</span> meet the requirements of HTTP responses that start the
 Capsule Protocol; see <span><a href="https://rfc-editor.org/rfc/rfc9297#section-3.2" class="relref">Section 3.2</a> of [<a href="#HTTP-DGRAM" class="cite xref">HTTP-DGRAM</a>]</span>.<a href="#section-4.5-2.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
@@ -1921,13 +1931,20 @@ users to further constrain client behavior or deal with possible abuse. For
 example, proxies can rate limit individual clients that send an excessively
 large amount of traffic through the proxy.<a href="#section-10-1" class="pilcrow">¶</a></p>
 <p id="section-10-2">Users of this protocol may send arbitrary Ethernet frames through the tunnel,
-including frames with falsified source MAC addresses. This could allow
-impersonation of other hosts, poisoning of ARP and CAM tables, and cause a
-denial of service to other hosts on the network. These are the same attacks
-available to an arbitrary client with physical access to the network. Ethernet
-proxying endpoints could be configured to limit forwarding to pre-configured MAC
-addresses, though such filtering is outside the scope of this protocol. Dynamic
-signalling or negotiation of MAC address filtering is left to future extensions.<a href="#section-10-2" class="pilcrow">¶</a></p>
+including frames with arbitrary source MAC addresses. This could allow
+impersonation of other hosts, poisoning of ARP <span>[<a href="#RFC826" class="cite xref">RFC826</a>]</span>, NDP <span>[<a href="#RFC4861" class="cite xref">RFC4861</a>]</span> and
+CAM (Content Addressable Memory) tables, and cause a denial of service to other
+hosts on the network. These are the same attacks available to an arbitrary
+client with physical access to the network. An implementation that is intended
+for point-to-site connections might limit clients to a single source MAC
+address, or Ethernet proxying endpoints might be configured to limit forwarding
+to pre-configured MAC addresses, though such filtering is outside the scope of
+this protocol. Dynamic signalling or negotiation of MAC address filtering is
+left to future extensions.<a href="#section-10-2" class="pilcrow">¶</a></p>
+<p id="section-10-3">This protocol is agnostic to where on the Ethernet segment a gateway for
+higher-level routing might be located. A client may connect via an Ethernet
+proxy and discover an existing gateway on the Ethernet segment, supply a new
+gateway to the Ethernet segment, both, or neither.<a href="#section-10-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -2072,9 +2089,17 @@ created by <span><a href="https://rfc-editor.org/rfc/rfc9484#section-12.2" class
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC4861">[RFC4861]</dt>
+        <dd>
+<span class="refAuthor">Narten, T.</span>, <span class="refAuthor">Nordmark, E.</span>, <span class="refAuthor">Simpson, W.</span>, and <span class="refAuthor">H. Soliman</span>, <span class="refTitle">"Neighbor Discovery for IP version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 4861</span>, <span class="seriesInfo">DOI 10.17487/RFC4861</span>, <time datetime="2007-09" class="refDate">September 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4861">https://www.rfc-editor.org/rfc/rfc4861</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC826">[RFC826]</dt>
+        <dd>
+<span class="refAuthor">Plummer, D.</span>, <span class="refTitle">"An Ethernet Address Resolution Protocol: Or Converting Network Protocol Addresses to 48.bit Ethernet Address for Transmission on Ethernet Hardware"</span>, <span class="seriesInfo">STD 37</span>, <span class="seriesInfo">RFC 826</span>, <span class="seriesInfo">DOI 10.17487/RFC0826</span>, <time datetime="1982-11" class="refDate">November 1982</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc826">https://www.rfc-editor.org/rfc/rfc826</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="TCP">[TCP]</dt>
         <dd>
@@ -2122,8 +2147,9 @@ created by <span><a href="https://rfc-editor.org/rfc/rfc9484#section-12.2" class
 <p id="appendix-A-1">Much of the initial version of this draft borrows heavily from <span>[<a href="#CONNECT-IP" class="cite xref">CONNECT-IP</a>]</span>.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <p id="appendix-A-2">The author would like to thank Alexander Chernyakhovsky and David Schinazi
 for their advice while preparing this document, and Etienne Dechamps for
-useful discussion on the subject material. Additionally, Mirja Kühlewind and
-Magnus Westerlund provided valuable feedback on the document.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+useful discussion on the subject material. Additionally, Mirja Kühlewind,
+Magnus Westerlund, and Martin Thompson provided valuable feedback on the
+document.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
