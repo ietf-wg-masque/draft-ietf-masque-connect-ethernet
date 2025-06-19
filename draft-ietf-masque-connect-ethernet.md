@@ -84,6 +84,10 @@ HTTP Extended CONNECT as described in {{!EXT-CONNECT2=RFC8441}} and
 {{!EXT-CONNECT3=RFC9220}}. When using HTTP/1.x {{H1}}, it uses HTTP Upgrade as
 defined in {{Section 7.8 of HTTP}}.
 
+This protocol necessarily involves additional framing overhead. When possible,
+users should use higher-level proxying protocols, such as connect-ip or
+connect-udp.
+
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
@@ -110,22 +114,30 @@ entire connection.
 
 Clients are configured to use Ethernet proxying over HTTP via a URI Template
 {{!TEMPLATE=RFC6570}}. The URI Templates used by this protocol do not require
-any variables; implementations or extensions MAY specify their own. An
-implementation that supports connecting to different Ethernet segments might add
-a "vlan-identifier" variable to specify which segment to connect to. The
-optionality of variable needs to be considered when defining the template so
-that the variable is either self-identifying or possible to exclude in the
-syntax. URI Templates specified for this protocol MAY use the well-known
-location {{!WELL-KNOWN=RFC8615}} registered by this document.
+any variables; implementations or extensions MAY specify their own. URI
+Templates specified for this protocol MAY use the well-known location
+{{!WELL-KNOWN=RFC8615}} registered by this document.
 
 Examples are shown below:
 
 ~~~
 https://example.org/.well-known/masque/ethernet/
-https://example.org/.well-known/masque/ethernet/{vlan-identifier}/
 https://proxy.example.org:4443/masque/ethernet/
-https://proxy.example.org:4443/masque/ethernet?vlan={vlan-identifier}
 https://masque.example.org/?user=bob
+~~~
+
+An implementation that supports connecting to different Ethernet segments might
+add a "vlan-identifier" variable to specify which segment to connect to. The
+optionality of variables needs to be considered when defining the template so
+that variables are either self-identifying or possible to exclude in the syntax.
+How valid values for such variables are communicated to the client is not a part
+of this protocol.
+
+Hypothetical examples are shown below:
+
+~~~
+https://proxy.example.org:4443/masque/ethernet?vlan={vlan-identifier}
+https://etherproxy.example.org/{vlan-identifier}
 ~~~
 
 # Tunnelling Ethernet over HTTP
@@ -151,13 +163,13 @@ authentication.
 
 Upon receiving an Ethernet proxying request:
 
- * if the recipient is configured to use another HTTP proxy, it will act as an
+ * If the recipient is configured to use another HTTP proxy, it will act as an
    intermediary by forwarding the request to another HTTP server. Note that
    such intermediaries may need to re-encode the request if they forward it
    using a version of HTTP that is different from the one used to receive it,
    as the request encoding differs by version (see below).
 
- * otherwise, the recipient will act as an Ethernet proxy. The Ethernet proxy
+ * Otherwise, the recipient will act as an Ethernet proxy. The Ethernet proxy
    can choose to reject the Ethernet proxying request or establish an Ethernet
    tunnel.
 
@@ -174,16 +186,16 @@ indicates that the request has failed; thus, the client MUST abort the request.
 When using HTTP/1.1 {{H1}}, an Ethernet proxying request will meet the following
 requirements:
 
-* the method SHALL be "GET".
+* The method SHALL be "GET".
 
-* the request SHALL include a single Host header field containing the host
+* The request SHALL include a single Host header field containing the host
   and optional port of the Ethernet proxy.
 
-* the request SHALL include a Connection header field with value "Upgrade"
+* The request SHALL include a Connection header field with value "Upgrade"
   (note that this requirement is case-insensitive as per {{Section 7.6.1 of
   HTTP}}).
 
-* the request SHALL include an Upgrade header field with value "connect-ethernet".
+* The request SHALL include an Upgrade header field with value "connect-ethernet".
 
 An Ethernet proxying request that does not conform to these restrictions is
 malformed. The recipient of such a malformed request MUST respond with an error
@@ -204,19 +216,19 @@ Capsule-Protocol: ?1
 
 ## HTTP/1.1 Response {#resp1}
 
-The server indicates a successful response by replying with the following
-requirements:
+The server indicates success by replying with a response that conforms to the
+following requirements:
 
-* the HTTP status code on the response SHALL be 101 (Switching Protocols).
+* The HTTP status code on the response SHALL be 101 (Switching Protocols).
 
-* the response SHALL include a Connection header field with value "Upgrade"
+* The response SHALL include a Connection header field with value "Upgrade"
   (note that this requirement is case-insensitive as per {{Section 7.6.1 of
   HTTP}}).
 
-* the response SHALL include a single Upgrade header field with value
+* The response SHALL include a single Upgrade header field with value
   "connect-ethernet".
 
-* the response SHALL meet the requirements of HTTP responses that start the
+* The response SHALL meet the requirements of HTTP responses that start the
   Capsule Protocol; see {{Section 3.2 of HTTP-DGRAM}}.
 
 If any of these requirements are not met, the client MUST treat this proxying
@@ -270,12 +282,12 @@ capsule-protocol = ?1
 
 ## HTTP/2 and HTTP/3 Responses {#resp23}
 
-The server indicates a successful response by replying with the following
-requirements:
+The server indicates success by replying with a response that conforms to the
+following requirements:
 
-* the HTTP status code on the response SHALL be in the 2xx (Successful) range.
+* The HTTP status code on the response SHALL be in the 2xx (Successful) range.
 
-* the response SHALL meet the requirements of HTTP responses that start the
+* The response SHALL meet the requirements of HTTP responses that start the
   Capsule Protocol; see {{Section 3.2 of HTTP-DGRAM}}.
 
 If any of these requirements are not met, the client MUST treat this proxying
@@ -533,13 +545,21 @@ example, proxies can rate limit individual clients that send an excessively
 large amount of traffic through the proxy.
 
 Users of this protocol may send arbitrary Ethernet frames through the tunnel,
-including frames with falsified source MAC addresses. This could allow
-impersonation of other hosts, poisoning of ARP and CAM tables, and cause a
-denial of service to other hosts on the network. These are the same attacks
-available to an arbitrary client with physical access to the network. Ethernet
-proxying endpoints could be configured to limit forwarding to pre-configured MAC
-addresses, though such filtering is outside the scope of this protocol. Dynamic
-signalling or negotiation of MAC address filtering is left to future extensions.
+including frames with arbitrary source MAC addresses. This could allow
+impersonation of other hosts, poisoning of ARP {{!RFC826}}, NDP {{!RFC4861}} and
+CAM (Content Addressable Memory) tables, and cause a denial of service to other
+hosts on the network. These are the same attacks available to an arbitrary
+client with physical access to the network. An implementation that is intended
+for point-to-site connections might limit clients to a single source MAC
+address, or Ethernet proxying endpoints might be configured to limit forwarding
+to pre-configured MAC addresses, though such filtering is outside the scope of
+this protocol. Dynamic signalling or negotiation of MAC address filtering is
+left to future extensions.
+
+This protocol is agnostic to where on the Ethernet segment a gateway for
+higher-level routing might be located. A client may connect via an Ethernet
+proxy and discover an existing gateway on the Ethernet segment, supply a new
+gateway to the Ethernet segment, both, or neither.
 
 # IANA Considerations
 
@@ -586,5 +606,6 @@ Much of the initial version of this draft borrows heavily from {{CONNECT-IP}}.
 
 The author would like to thank Alexander Chernyakhovsky and David Schinazi
 for their advice while preparing this document, and Etienne Dechamps for
-useful discussion on the subject material. Additionally, Mirja Kühlewind and
-Magnus Westerlund provided valuable feedback on the document.
+useful discussion on the subject material. Additionally, Mirja Kühlewind,
+Magnus Westerlund, and Martin Thompson provided valuable feedback on the
+document.
