@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-17T01:49:35.409135+00:00",
+  "timestamp": "2025-06-22T01:57:32.040553+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -1124,24 +1124,26 @@
       "id": "PR_kwDOJbp2N86ai7Wm",
       "title": "Incorporate httpdir early review feedback",
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/25",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "asedeno",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-06-14T18:43:32Z",
-      "updatedAt": "2025-06-16T23:49:31Z",
+      "updatedAt": "2025-06-19T02:16:14Z",
       "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
       "baseRefName": "main",
       "baseRefOid": "4d426b4ef441722b361001e88417a62e2cc16bcf",
       "headRepository": "asedeno/draft-ietf-masque-connect-ethernet",
       "headRefName": "httpdir-review",
       "headRefOid": "689d7a650c341f2cd0a35743701bf76584002584",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-06-19T02:16:14Z",
+      "mergedAt": "2025-06-19T02:16:14Z",
+      "mergedBy": "asedeno",
+      "mergeCommit": {
+        "oid": "dc70721f0867eeec5b48c3ee8fc5c79505d6134e"
+      },
       "comments": [],
       "reviews": [
         {
