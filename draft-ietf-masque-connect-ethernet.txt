@@ -4,8 +4,8 @@
 
 Multiplexed Application Substrate over QUIC Encryption      A. R. Sedeño
 Internet-Draft                                                Google LLC
-Intended status: Standards Track                            19 June 2025
-Expires: 21 December 2025
+Intended status: Standards Track                             5 July 2025
+Expires: 6 January 2026
 
 
                        Proxying Ethernet in HTTP
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 December 2025.
+   This Internet-Draft will expire on 6 January 2026.
 
 Copyright Notice
 
@@ -103,7 +103,7 @@ Table of Contents
    HTTP provides the CONNECT method (see Section 9.3.6 of [HTTP]) for
    creating a TCP [TCP] tunnel to a destination, a similar mechanism for
    UDP [CONNECT-UDP], and an additional mechanism for IP [CONNECT-IP].
-   However, these mechanisms can't carry layer 2 frames without further
+   However, these mechanisms can't carry Layer 2 frames without further
    encapsulation inside of IP, for instance with EtherIP [ETHERIP], GUE
    [GUE] or L2TP [L2TP] [L2TPv3], which imposes an additional MTU cost.
 
@@ -179,6 +179,36 @@ Table of Contents
 
    https://proxy.example.org:4443/masque/ethernet?vlan={vlan-identifier}
    https://etherproxy.example.org/{vlan-identifier}
+
+   The following requirements apply to the URI Template:
+
+   *  The URI Template MUST be a level 3 template or lower.
+
+   *  The URI Template MUST be in absolute form and MUST include non-
+      empty scheme, authority, and path components.
+
+   *  The path component of the URI Template MUST start with a slash
+      "/".
+
+   *  All template variables MUST be within the path or query components
+      of the URI.
+
+   *  The URI Template MUST NOT contain any non-ASCII Unicode characters
+      and MUST only contain ASCII characters in the range 0x21-0x7E
+      inclusive (note that percent-encoding is allowed; see Section 2.1
+      of [URI]).
+
+   *  The URI Template MUST NOT use Reserved Expansion ("+" operator),
+      Fragment Expansion ("#" operator), Label Expansion with Dot-
+      Prefix, Path Segment Expansion with Slash-Prefix, nor Path-Style
+      Parameter Expansion with Semicolon-Prefix.
+
+   Clients SHOULD validate the requirements above; however, clients MAY
+   use a general-purpose URI Template implementation that lacks this
+   specific validation.  If a client detects that any of the
+   requirements above are not met by a URI Template, the client MUST
+   reject its configuration and abort the request without sending it to
+   the Ethernet proxy.
 
 4.  Tunnelling Ethernet over HTTP
 
@@ -306,7 +336,7 @@ Table of Contents
 
    *  The :path and :scheme pseudo-header fields SHALL NOT be empty.
       Their values SHALL contain the scheme and path from the configured
-      URL; see Section 3.
+      URI Template; see Section 3.
 
    An Ethernet proxying request that does not conform to these
    restrictions is malformed; see Section 8.1.1 of [HTTP/2] and
@@ -611,6 +641,14 @@ Table of Contents
    segment, supply a new gateway to the Ethernet segment, both, or
    neither.
 
+   Opportunistic sending of Ethernet frames is not allowed in HTTP/1.x
+   because a server could reject the HTTP Upgrade and attempt to parse
+   the Ethernet frames as a subsequent HTTP request, allowing request
+   smuggling attacks; see [OPTIMISTIC].  In particular, an intermediary
+   that re-encodes a request from HTTP/2 or 3 to HTTP/1.1 MUST NOT
+   forward any received capsules until it has parsed a successful
+   Ethernet proxying response.
+
 11.  IANA Considerations
 
 11.1.  HTTP Upgrade Token
@@ -690,16 +728,6 @@ Table of Contents
    [HTTP/3]   Bishop, M., Ed., "HTTP/3", RFC 9114, DOI 10.17487/RFC9114,
               June 2022, <https://www.rfc-editor.org/rfc/rfc9114>.
 
-   [L2TP]     Townsley, W., Valencia, A., Rubens, A., Pall, G., Zorn,
-              G., and B. Palter, "Layer Two Tunneling Protocol "L2TP"",
-              RFC 2661, DOI 10.17487/RFC2661, August 1999,
-              <https://www.rfc-editor.org/rfc/rfc2661>.
-
-   [L2TPv3]   Lau, J., Ed., Townsley, M., Ed., and I. Goyret, Ed.,
-              "Layer Two Tunneling Protocol - Version 3 (L2TPv3)",
-              RFC 3931, DOI 10.17487/RFC3931, March 2005,
-              <https://www.rfc-editor.org/rfc/rfc3931>.
-
    [QUIC]     Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", RFC 9000,
               DOI 10.17487/RFC9000, May 2021,
@@ -716,20 +744,9 @@ Table of Contents
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
-   [RFC4861]  Narten, T., Nordmark, E., Simpson, W., and H. Soliman,
-              "Neighbor Discovery for IP version 6 (IPv6)", RFC 4861,
-              DOI 10.17487/RFC4861, September 2007,
-              <https://www.rfc-editor.org/rfc/rfc4861>.
-
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
-
-   [RFC826]   Plummer, D., "An Ethernet Address Resolution Protocol: Or
-              Converting Network Protocol Addresses to 48.bit Ethernet
-              Address for Transmission on Ethernet Hardware", STD 37,
-              RFC 826, DOI 10.17487/RFC0826, November 1982,
-              <https://www.rfc-editor.org/rfc/rfc826>.
 
    [TCP]      Eddy, W., Ed., "Transmission Control Protocol (TCP)",
               STD 7, RFC 9293, DOI 10.17487/RFC9293, August 2022,
@@ -739,6 +756,11 @@ Table of Contents
               and D. Orchard, "URI Template", RFC 6570,
               DOI 10.17487/RFC6570, March 2012,
               <https://www.rfc-editor.org/rfc/rfc6570>.
+
+   [URI]      Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
+              Resource Identifier (URI): Generic Syntax", STD 66,
+              RFC 3986, DOI 10.17487/RFC3986, January 2005,
+              <https://www.rfc-editor.org/rfc/rfc3986>.
 
    [WELL-KNOWN]
               Nottingham, M., "Well-Known Uniform Resource Identifiers
@@ -757,6 +779,34 @@ Table of Contents
               ietf-intarea-gue-09, 26 October 2019,
               <https://datatracker.ietf.org/doc/html/draft-ietf-intarea-
               gue-09>.
+
+   [L2TP]     Townsley, W., Valencia, A., Rubens, A., Pall, G., Zorn,
+              G., and B. Palter, "Layer Two Tunneling Protocol "L2TP"",
+              RFC 2661, DOI 10.17487/RFC2661, August 1999,
+              <https://www.rfc-editor.org/rfc/rfc2661>.
+
+   [L2TPv3]   Lau, J., Ed., Townsley, M., Ed., and I. Goyret, Ed.,
+              "Layer Two Tunneling Protocol - Version 3 (L2TPv3)",
+              RFC 3931, DOI 10.17487/RFC3931, March 2005,
+              <https://www.rfc-editor.org/rfc/rfc3931>.
+
+   [OPTIMISTIC]
+              Schwartz, B. M., "Security Considerations for Optimistic
+              Protocol Transitions in HTTP/1.1", Work in Progress,
+              Internet-Draft, draft-ietf-httpbis-optimistic-upgrade-04,
+              11 June 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-httpbis-optimistic-upgrade-04>.
+
+   [RFC4861]  Narten, T., Nordmark, E., Simpson, W., and H. Soliman,
+              "Neighbor Discovery for IP version 6 (IPv6)", RFC 4861,
+              DOI 10.17487/RFC4861, September 2007,
+              <https://www.rfc-editor.org/rfc/rfc4861>.
+
+   [RFC826]   Plummer, D., "An Ethernet Address Resolution Protocol: Or
+              Converting Network Protocol Addresses to 48.bit Ethernet
+              Address for Transmission on Ethernet Hardware", STD 37,
+              RFC 826, DOI 10.17487/RFC0826, November 1982,
+              <https://www.rfc-editor.org/rfc/rfc826>.
 
    [UDP-USAGE]
               Eggert, L., Fairhurst, G., and G. Shepherd, "UDP Usage
