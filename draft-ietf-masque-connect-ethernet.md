@@ -66,10 +66,10 @@ physical or virtual Ethernet segment.
 HTTP provides the CONNECT method (see {{Section 9.3.6 of !HTTP=RFC9110}}) for
 creating a TCP {{!TCP=RFC9293}} tunnel to a destination, a similar mechanism for
 UDP {{!CONNECT-UDP=RFC9298}}, and an additional mechanism for IP
-{{!CONNECT-IP=RFC9484}}. However, these mechanisms can't carry layer 2 frames
+{{!CONNECT-IP=RFC9484}}. However, these mechanisms can't carry Layer 2 frames
 without further encapsulation inside of IP, for instance with EtherIP
 {{?ETHERIP=RFC3378}}, GUE {{?GUE=I-D.ietf-intarea-gue}} or L2TP
-{{!L2TP=RFC2661}} {{!L2TPv3=RFC3931}}, which imposes an additional MTU cost.
+{{?L2TP=RFC2661}} {{?L2TPv3=RFC3931}}, which imposes an additional MTU cost.
 
 This document describes a protocol for exchanging Ethernet frames with an HTTP
 server. Either participant in the HTTP connection can then relay Ethernet
@@ -139,6 +139,32 @@ Hypothetical examples are shown below:
 https://proxy.example.org:4443/masque/ethernet?vlan={vlan-identifier}
 https://etherproxy.example.org/{vlan-identifier}
 ~~~
+
+The following requirements apply to the URI Template:
+
+* The URI Template MUST be a level 3 template or lower.
+
+* The URI Template MUST be in absolute form and MUST include non-empty scheme,
+  authority, and path components.
+
+* The path component of the URI Template MUST start with a slash "/".
+
+* All template variables MUST be within the path or query components of the URI.
+
+* The URI Template MUST NOT contain any non-ASCII Unicode characters and MUST
+  only contain ASCII characters in the range 0x21-0x7E inclusive (note that
+  percent-encoding is allowed; see {{Section 2.1 of !URI=RFC3986}}).
+
+* The URI Template MUST NOT use Reserved Expansion ("+" operator), Fragment
+  Expansion ("#" operator), Label Expansion with Dot-Prefix, Path Segment
+  Expansion with Slash-Prefix, nor Path-Style Parameter Expansion with
+  Semicolon-Prefix.
+
+Clients SHOULD validate the requirements above; however, clients MAY use a
+general-purpose URI Template implementation that lacks this specific
+validation. If a client detects that any of the requirements above are not met
+by a URI Template, the client MUST reject its configuration and abort the
+request without sending it to the Ethernet proxy.
 
 # Tunnelling Ethernet over HTTP
 
@@ -259,7 +285,7 @@ pseudo-header fields with the following requirements:
   proxy.
 
 * The :path and :scheme pseudo-header fields SHALL NOT be empty. Their values
-  SHALL contain the scheme and path from the configured URL; see
+  SHALL contain the scheme and path from the configured URI Template; see
   {{client-config}}.
 
 An Ethernet proxying request that does not conform to these restrictions is
@@ -546,7 +572,7 @@ large amount of traffic through the proxy.
 
 Users of this protocol may send arbitrary Ethernet frames through the tunnel,
 including frames with arbitrary source MAC addresses. This could allow
-impersonation of other hosts, poisoning of ARP {{!RFC826}}, NDP {{!RFC4861}} and
+impersonation of other hosts, poisoning of ARP {{?RFC826}}, NDP {{?RFC4861}} and
 CAM (Content Addressable Memory) tables, and cause a denial of service to other
 hosts on the network. These are the same attacks available to an arbitrary
 client with physical access to the network. An implementation that is intended
@@ -560,6 +586,15 @@ This protocol is agnostic to where on the Ethernet segment a gateway for
 higher-level routing might be located. A client may connect via an Ethernet
 proxy and discover an existing gateway on the Ethernet segment, supply a new
 gateway to the Ethernet segment, both, or neither.
+
+Opportunistic sending of Ethernet frames is not allowed in HTTP/1.x
+because a server could reject the HTTP Upgrade and attempt to parse
+the Ethernet frames as a subsequent HTTP request, allowing request
+smuggling attacks; see
+{{?OPTIMISTIC=I-D.draft-ietf-httpbis-optimistic-upgrade}}. In
+particular, an intermediary that re-encodes a request from HTTP/2 or 3
+to HTTP/1.1 MUST NOT forward any received capsules until it has parsed
+a successful Ethernet proxying response.
 
 # IANA Considerations
 
