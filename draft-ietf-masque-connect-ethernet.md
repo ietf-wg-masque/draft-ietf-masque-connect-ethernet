@@ -259,7 +259,7 @@ pseudo-header fields with the following requirements:
   proxy.
 
 * The :path and :scheme pseudo-header fields SHALL NOT be empty. Their values
-  SHALL contain the scheme and path from the configured URL; see
+  SHALL contain the scheme and path from the configured URI Template; see
   {{client-config}}.
 
 An Ethernet proxying request that does not conform to these restrictions is
