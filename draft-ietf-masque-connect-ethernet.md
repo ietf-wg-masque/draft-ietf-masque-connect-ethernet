@@ -140,6 +140,32 @@ https://proxy.example.org:4443/masque/ethernet?vlan={vlan-identifier}
 https://etherproxy.example.org/{vlan-identifier}
 ~~~
 
+The following requirements apply to the URI Template:
+
+* The URI Template MUST be a level 3 template or lower.
+
+* The URI Template MUST be in absolute form and MUST include non-empty scheme,
+  authority, and path components.
+
+* The path component of the URI Template MUST start with a slash "/".
+
+* All template variables MUST be within the path or query components of the URI.
+
+* The URI Template MUST NOT contain any non-ASCII Unicode characters and MUST
+  only contain ASCII characters in the range 0x21-0x7E inclusive (note that
+  percent-encoding is allowed; see {{Section 2.1 of !URI=RFC3986}}).
+
+* The URI Template MUST NOT use Reserved Expansion ("+" operator), Fragment
+  Expansion ("#" operator), Label Expansion with Dot-Prefix, Path Segment
+  Expansion with Slash-Prefix, nor Path-Style Parameter Expansion with
+  Semicolon-Prefix.
+
+Clients SHOULD validate the requirements above; however, clients MAY use a
+general-purpose URI Template implementation that lacks this specific
+validation. If a client detects that any of the requirements above are not met
+by a URI Template, the client MUST reject its configuration and abort the
+request without sending it to the Ethernet proxy.
+
 # Tunnelling Ethernet over HTTP
 
 To allow negotiation of a tunnel for Ethernet over HTTP, this document defines
