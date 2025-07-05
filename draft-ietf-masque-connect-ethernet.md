@@ -66,7 +66,7 @@ physical or virtual Ethernet segment.
 HTTP provides the CONNECT method (see {{Section 9.3.6 of !HTTP=RFC9110}}) for
 creating a TCP {{!TCP=RFC9293}} tunnel to a destination, a similar mechanism for
 UDP {{!CONNECT-UDP=RFC9298}}, and an additional mechanism for IP
-{{!CONNECT-IP=RFC9484}}. However, these mechanisms can't carry layer 2 frames
+{{!CONNECT-IP=RFC9484}}. However, these mechanisms can't carry Layer 2 frames
 without further encapsulation inside of IP, for instance with EtherIP
 {{?ETHERIP=RFC3378}}, GUE {{?GUE=I-D.ietf-intarea-gue}} or L2TP
 {{!L2TP=RFC2661}} {{!L2TPv3=RFC3931}}, which imposes an additional MTU cost.
