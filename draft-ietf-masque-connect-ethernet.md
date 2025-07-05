@@ -587,6 +587,15 @@ higher-level routing might be located. A client may connect via an Ethernet
 proxy and discover an existing gateway on the Ethernet segment, supply a new
 gateway to the Ethernet segment, both, or neither.
 
+Opportunistic sending of Ethernet frames is not allowed in HTTP/1.x
+because a server could reject the HTTP Upgrade and attempt to parse
+the Ethernet frames as a subsequent HTTP request, allowing request
+smuggling attacks; see
+{{?OPTIMISTIC=I-D.draft-ietf-httpbis-optimistic-upgrade}}. In
+particular, an intermediary that re-encodes a request from HTTP/2 or 3
+to HTTP/1.1 MUST NOT forward any received capsules until it has parsed
+a successful Ethernet proxying response.
+
 # IANA Considerations
 
 ## HTTP Upgrade Token
