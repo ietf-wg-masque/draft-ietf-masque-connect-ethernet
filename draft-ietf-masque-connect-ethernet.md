@@ -69,7 +69,7 @@ UDP {{!CONNECT-UDP=RFC9298}}, and an additional mechanism for IP
 {{!CONNECT-IP=RFC9484}}. However, these mechanisms can't carry Layer 2 frames
 without further encapsulation inside of IP, for instance with EtherIP
 {{?ETHERIP=RFC3378}}, GUE {{?GUE=I-D.ietf-intarea-gue}} or L2TP
-{{!L2TP=RFC2661}} {{!L2TPv3=RFC3931}}, which imposes an additional MTU cost.
+{{?L2TP=RFC2661}} {{?L2TPv3=RFC3931}}, which imposes an additional MTU cost.
 
 This document describes a protocol for exchanging Ethernet frames with an HTTP
 server. Either participant in the HTTP connection can then relay Ethernet
@@ -546,7 +546,7 @@ large amount of traffic through the proxy.
 
 Users of this protocol may send arbitrary Ethernet frames through the tunnel,
 including frames with arbitrary source MAC addresses. This could allow
-impersonation of other hosts, poisoning of ARP {{!RFC826}}, NDP {{!RFC4861}} and
+impersonation of other hosts, poisoning of ARP {{?RFC826}}, NDP {{?RFC4861}} and
 CAM (Content Addressable Memory) tables, and cause a denial of service to other
 hosts on the network. These are the same attacks available to an arbitrary
 client with physical access to the network. An implementation that is intended
