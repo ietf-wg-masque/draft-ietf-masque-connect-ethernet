@@ -436,7 +436,7 @@ appears to be connected to a remote Layer 2 network.
 {: #diagram-tunnel title="L2VPN Tunnel Setup"}
 
 In this case, the client connects to the Ethernet proxy and immediately can
-start sending ethernet frames to the attached broadcast domain.
+start sending Ethernet frames to the attached broadcast domain.
 
 ~~~
 [[ From Client ]]             [[ From Ethernet Proxy ]]
