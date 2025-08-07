@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-31T01:59:10.821321+00:00",
+  "timestamp": "2025-08-07T02:00:53.150325+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -550,7 +550,7 @@
       "labels": [],
       "body": "Generating an issue for @gorryfair from [email](https://mailarchive.ietf.org/arch/msg/masque/G9USoURXa7AcBZJUvrxRtjpAY3I/) on the masque WG [mailing list](https://mailarchive.ietf.org/arch/browse/masque/).\n\nhttps://www.ietf.org/archive/id/draft-ietf-masque-connect-ethernet-07.html#section-4-4\n>Ethernet proxying over HTTP MUST be operated over TLS or QUIC encryption, or another equivalent encryption protocol, to provide confidentiality, integrity, and authentication.\n\nPlease add reference. I expect TLS 1.3? (or do you explicitly allow TLS 1.2 depending?) Please explain.",
       "createdAt": "2025-07-29T17:12:59Z",
-      "updatedAt": "2025-07-29T20:33:30Z",
+      "updatedAt": "2025-08-05T16:10:04Z",
       "closedAt": null,
       "comments": [
         {
@@ -559,6 +559,13 @@
           "body": "This text was taken nearly verbatim from RFC 9484.\n\nhttps://www.rfc-editor.org/rfc/rfc9484#section-4-5\n> IP proxying over HTTP MUST be operated over TLS or QUIC encryption, or another equivalent encryption protocol, to provide confidentiality, integrity, and authentication.\n\nIt's just mandating a secure underlying transport. I don't think we need a change here, but if we can add a reference to TLS if there's demand for it.",
           "createdAt": "2025-07-29T20:33:15Z",
           "updatedAt": "2025-07-29T20:33:30Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I think it's actually better to not have a reference to a specific version. And I would think TLS is well-know enough that it doesn't need a reference.",
+          "createdAt": "2025-08-05T16:10:04Z",
+          "updatedAt": "2025-08-05T16:10:04Z"
         }
       ]
     },
@@ -574,7 +581,7 @@
       "labels": [],
       "body": "Generating an issue for @gorryfair from [email](https://mailarchive.ietf.org/arch/msg/masque/G9USoURXa7AcBZJUvrxRtjpAY3I/) on the masque WG [mailing list](https://mailarchive.ietf.org/arch/browse/masque/).\n\nhttps://www.ietf.org/archive/id/draft-ietf-masque-connect-ethernet-07.html#section-5-1\n> The mechanism for proxying Ethernet in HTTP defined in this document allows future extensions to exchange HTTP Datagrams that carry different semantics from Ethernet frames.\n\nThe I-D title leads a reader to think this is about Ethernet frames, but actually it could be other forms of PDU. Section 5 starts with the \nabove text, however the abstract and the introduction do not yet say this.  Please amend the abstract and also add an explanatory text to the introduction.",
       "createdAt": "2025-07-29T17:15:17Z",
-      "updatedAt": "2025-07-29T17:21:53Z",
+      "updatedAt": "2025-08-05T18:40:08Z",
       "closedAt": null,
       "comments": [
         {
@@ -583,6 +590,20 @@
           "body": "I believe this text is being misinterpreted. This is not meant to extend to other Layer 2 protocols beyond Ethernet, but rather to facilitate extensions to improve the efficiency of carrying Ethernet frames.\n\nThis text is borrowed from other MASQUE WG RFCs.\nhttps://datatracker.ietf.org/doc/html/rfc9484#name-context-identifiers\nhttps://datatracker.ietf.org/doc/html/rfc9298#name-context-identifiers\n\nSome datagrams that are not carrying a raw Ethernet frame could instead be carrying a Capsule for some not-yet-written extension, or some form of compressed Ethernet frame payload that needs to be combined with negotiated state to regenerate the raw Ethernet frame before delivering it to the attached Ethernet segment.\n\n",
           "createdAt": "2025-07-29T17:21:53Z",
           "updatedAt": "2025-07-29T17:21:53Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Yes, this sentence means that you cannot automatically assume that a HTTPP datagram contains Ethernet frame as you could negotiate different semantics for a context ID. However, as @asedeno said there is no intention to extend the scope of this document beyond ethernet. So this is a misunderstanding. Maybe a simple tweak would help:\n\n> ... Datagrams that carry different semantics than a context ID and an Ethernet frame as defined in this document.\n\nWould that help?",
+          "createdAt": "2025-08-05T16:15:26Z",
+          "updatedAt": "2025-08-05T16:15:26Z"
+        },
+        {
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "body": "Maybe - but somehow the document has to clearly indicate the scope of this document is only to forward Ethernet frames.",
+          "createdAt": "2025-08-05T18:40:08Z",
+          "updatedAt": "2025-08-05T18:40:08Z"
         }
       ]
     },
@@ -598,7 +619,7 @@
       "labels": [],
       "body": "Generating an issue for @gorryfair from [email](https://mailarchive.ietf.org/arch/msg/masque/G9USoURXa7AcBZJUvrxRtjpAY3I/) on the masque WG [mailing list](https://mailarchive.ietf.org/arch/browse/masque/).\n\nAt the end of section ~~6~~ 5 there is some text that seems to imply this is not yet an interoperable specification. I find this worrying and confusing.\n\nhttps://www.ietf.org/archive/id/draft-ietf-masque-connect-ethernet-07.html#section-5-3\n> Registration is the action by which an endpoint informs its peer of the semantics and format of a given Context ID. This document does not define how registration occurs. Future extensions MAY use HTTP header fields or capsules to register Context IDs. Depending on the method being used, it is possible for datagrams to be received with Context IDs that have not yet been registered. For instance, this can be due to reordering of the packet containing the datagram and the packet containing the registration message during transmission.\n\nWhy is the working group not finishing at least one baseline method (or does it?) and how to negotiate so that interoperability is possible. Does this mean the spec ought not to be a PS?",
       "createdAt": "2025-07-29T17:24:35Z",
-      "updatedAt": "2025-07-29T17:35:53Z",
+      "updatedAt": "2025-08-05T16:17:42Z",
       "closedAt": null,
       "comments": [
         {
@@ -607,6 +628,13 @@
           "body": "This text is borrowed from other MASQUE WG RFCs.\nhttps://datatracker.ietf.org/doc/html/rfc9484#name-context-identifiers\nhttps://datatracker.ietf.org/doc/html/rfc9298#name-context-identifiers\n\nThe only Context ID that endpoints must support for this draft is `0`, which indicates that the payload is an Ethernet frame.\nhttps://www.ietf.org/archive/id/draft-ietf-masque-connect-ethernet-07.html#name-http-datagram-payload-forma\n\nNegotiation of other Context IDs is left to future work, and their registration is specified to occur using HTTP header fields or capsules. The specifics of those headers or capsules is also the subject of that future work.\n\nAs an example of this from elsewhere in the WG, for [CONNECT-UDP](https://datatracker.ietf.org/doc/html/rfc9298), the [Proxying Bound UDP in HTTP](https://datatracker.ietf.org/doc/draft-ietf-masque-connect-udp-listen/) draft adds a header, Connect-UDP-Bind[^1] to negotiate the feature, and new capsules[^3][^4] to register and unregister contexts[^2].\n\n[^1]: https://www.ietf.org/archive/id/draft-ietf-masque-connect-udp-listen-07.html#name-the-connect-udp-bind-header\n[^2]: https://www.ietf.org/archive/id/draft-ietf-masque-connect-udp-listen-07.html#name-context-identifiers\n[^3]: https://www.ietf.org/archive/id/draft-ietf-masque-connect-udp-listen-07.html#name-the-compression_assign-caps\n[^4]: https://www.ietf.org/archive/id/draft-ietf-masque-connect-udp-listen-07.html#name-the-compression_close-capsu\n",
           "createdAt": "2025-07-29T17:35:53Z",
           "updatedAt": "2025-07-29T17:35:53Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "This is simply the extensibility mechanism used for all MASQUE CONNECT methods but there is no further extension needed to support the basic forwarding as as specified in the document. This is the same for all MASQUE CONNECT methods (where we already work on extensions).",
+          "createdAt": "2025-08-05T16:17:42Z",
+          "updatedAt": "2025-08-05T16:17:42Z"
         }
       ]
     },
@@ -622,7 +650,7 @@
       "labels": [],
       "body": "Generating an issue for @gorryfair from [email](https://mailarchive.ietf.org/arch/msg/masque/G9USoURXa7AcBZJUvrxRtjpAY3I/) on the masque WG [mailing list](https://mailarchive.ietf.org/arch/browse/masque/).\n\nI think this is underspecified.\nhttps://www.ietf.org/archive/id/draft-ietf-masque-connect-ethernet-07.html#section-6-4.2.1\n> If an HTTP/3 datagram which carries an unknown Context ID is received, the receiver SHALL either drop that datagram silently or buffer it temporarily (on the order of a round trip) while awaiting the registration of the corresponding Context ID.\n \n- How does the receiver know the RTT (please explain).\n- Can we finish saying what happens\u2026 I was presuming that all packets that were buffered SHOULD be finally delivered in order, or MUST be  discarded after the timeout.\n- Ought a failure resulting in a timeout discard result also in an error code or at least logging event?",
       "createdAt": "2025-07-29T17:39:42Z",
-      "updatedAt": "2025-07-29T17:45:20Z",
+      "updatedAt": "2025-08-06T08:42:27Z",
       "closedAt": null,
       "comments": [
         {
@@ -631,6 +659,20 @@
           "body": "This text is borrowed from other MASQUE WG RFCs.\nhttps://www.rfc-editor.org/rfc/rfc9298.html#section-5-3.2.1\nhttps://www.rfc-editor.org/rfc/rfc9484.html#section-6-4.2.1\n\nI don't think this requires any changes.",
           "createdAt": "2025-07-29T17:45:20Z",
           "updatedAt": "2025-07-29T17:45:20Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I agree that I don't think we need to be more specific here or should even try to; it's okay to leave this to the implementation. If you don't have an idea about the RTT or any good value for how long to wait, just drop it.\n\nDatagrams are not delivered reliably or in order. So there is no requirement to order or ensure that all packets get delivered. Re-ordering is explicitly what should NOT be done here and therefore the text does not say that.\n\nOf course you could log if you drop a packet because of an unknown Context ID, however, again this is left to the implementation as I think we generally don't specify this level of logging. Note that the text is explicitly there to say this is not a protocol error because as I said datagram are not reliable anyway and could get drop anywhere at anytime no matter what.",
+          "createdAt": "2025-08-05T16:24:15Z",
+          "updatedAt": "2025-08-05T16:24:15Z"
+        },
+        {
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "body": "OK, but this was not immediately clear. So, after reading more, I understand how this could work! I  suspect that I tripped over the last para on context IDs, and in particular this sentence:\n\n \u201cDepending on the\n   method being used, it is possible for datagrams to be received with\n   Context IDs that have not yet been registered.\u201d\n\nand I think the draft could be more helpful in that last para. \n\n I agree that it would  be helpful reference a \"similar\" mechanism for Connect-UDP: https://www.rfc-editor.org/rfc/rfc9298.html#section-5-3.2.1; that would have saved me this issue.\n\nAnd in particular, I\u2019d value adding this to the draft - based on the above:\n\nNote that buffering datagrams (either because the request was not yet received or because the Context ID is not yet known) consumes resources. Receivers that buffer datagrams SHOULD apply buffering limits to reduce the risk of resource exhaustion occurring. For example, receivers can limit the total number of buffered datagrams or the cumulative size of buffered datagrams on a per-stream, per-context, or per-connection basis.\n\n\u2014 although personally, I\u2019d also ADD that excessive buffering can also increase jitter and latency to the transported flow.\n",
+          "createdAt": "2025-08-06T08:42:27Z",
+          "updatedAt": "2025-08-06T08:42:27Z"
         }
       ]
     },
@@ -646,7 +688,7 @@
       "labels": [],
       "body": "Generating an issue for @gorryfair from [email](https://mailarchive.ietf.org/arch/msg/masque/G9USoURXa7AcBZJUvrxRtjpAY3I/) on the masque WG [mailing list](https://mailarchive.ietf.org/arch/browse/masque/).\n\nhttps://www.ietf.org/archive/id/draft-ietf-masque-connect-ethernet-07.html#section-6-5\n> Ethernet frames are encoded using HTTP Datagrams with the Context ID set to zero. When the Context ID is set to zero, the Payload field contains a full Layer 2 Ethernet Frame (from the MAC destination field until the last byte of the Frame check sequence field), as defined by IEEE 802.3, with support for optional IEEE 802.1Q tagging (see [Section 9.2](https://www.ietf.org/archive/id/draft-ietf-masque-connect-ethernet-07.html#vlan-recommendations)).\n\n- Do you strip padding of small frames?\n- Do you forward runt frames (too short)?\n\nI assume the answer to both is \u201cno\u201d? - please add text.",
       "createdAt": "2025-07-29T17:47:30Z",
-      "updatedAt": "2025-07-29T18:10:48Z",
+      "updatedAt": "2025-08-05T18:44:18Z",
       "closedAt": null,
       "comments": [
         {
@@ -655,6 +697,20 @@
           "body": "Do we strip padding? No; if there is padding, it is between the MAC destination field and the Frame check sequence field, so it is defined as included in the quoted text.\n\nDo we forward runt frames? Yes, but also no. If we were creating frames, we might have to worry about this. As it is, runt frames\nshould neither successfully enter or exit the proxying endpoints, but can be carried between them.\n\nI don't believe either of these needs additional text, though I am open to adding text to explicitly drop runt frames if others think that is a useful clarification. We would also need to decide if such frames should be dropped on ingress, egress, or both, and it does add overhead of checking each frame's size even though that was probably already done by some other Ethernet-specific bit of hardware or driver with which we are exchanging frames.",
           "createdAt": "2025-07-29T18:10:47Z",
           "updatedAt": "2025-07-29T18:10:47Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I think we should not be dropping runt frames, the egress or ingress tunnel might phase/check the frames but the connect logic should just forward whatever it gets without modifying it (it might drop something because of buffer overflow reasons but that's not different than any other random drop anywhere else on a link). I also think we should not add specific text because we also decided to not add any specific text for another other ethernet specific checks/things.\n\nNote that effectively the connect method does not even check if it gets an ethernet frame at all; in other words this is not a protocol function to enforce that. However, the protocol is designed for forwarding ethernet frames and therefore might not work as intended if it would be used with anything else.",
+          "createdAt": "2025-08-05T16:36:45Z",
+          "updatedAt": "2025-08-05T16:37:07Z"
+        },
+        {
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "body": "I asked this so that it has been asked. The point is that while other things might be allowed or not, sending runt frames is illegal, except in specific circumstances. The correct answer might be that the egress will only forward frames that the Ethernet specifications allow.",
+          "createdAt": "2025-08-05T18:44:18Z",
+          "updatedAt": "2025-08-05T18:44:18Z"
         }
       ]
     },
@@ -670,7 +726,7 @@
       "labels": [],
       "body": "Generating an issue for @gorryfair from [email](https://mailarchive.ietf.org/arch/msg/masque/G9USoURXa7AcBZJUvrxRtjpAY3I/) on the masque WG [mailing list](https://mailarchive.ietf.org/arch/browse/masque/).\n\nA layer 2 PDU will be received at ingress proxy, encapsulated over the tunnel, transported, decapsulated at the egress, and transmitted out on an interface at the egress.\n\nhttps://www.ietf.org/archive/id/draft-ietf-masque-connect-ethernet-07.html#name-ethernet-frame-handling\n> This document defines a tunnelling mechanism that is conceptually an Ethernet link. Implementations might need to handle some of the responsibilities of an Ethernet switch or bridge if they do not delegate them to another implementation such as a kernel. Those responsibilities are beyond the scope of this document, and include, but are not limited to, the handling of broadcast packets and multicast groups, or the local termination of PAUSE frames.\n\nI suggest to add something like the following (adapted form the PWE work that Lars mentioned):\n\nNEW:\n> An Ethernet proxy emulates a single Ethernet link between exactly two endpoints. This provides an Ethernet MAC service that will deliver each Ethernet frame that is received at the ingress, unaltered, to the egress at the other end of the tunnel.\n\nNEW:\n> The tunnel forwards unicast/multicast/broadcast frames.\n\nI don\u2019t see how this can work with Ethernet frames with IETF protocols unless you forward them, you may of course wish to perform some sort of filtering as well, but that\u2019s covered by the next point.\n\nNEW:\n> The tunnel endpoint may provide functions that include stripping, overwriting or adding VLAN tags, physical port multiplexing and demultiplexing, bridging, L2 encapsulation, shaping, filtering, policing, etc.  These functions are specific to the Ethernet technology, and may not be required for this service. These are outside of the scope of ~~PWE3~~ this document and are not defined here.\n\n",
       "createdAt": "2025-07-29T18:15:12Z",
-      "updatedAt": "2025-07-29T18:33:02Z",
+      "updatedAt": "2025-08-05T16:41:14Z",
       "closedAt": null,
       "comments": [
         {
@@ -679,6 +735,13 @@
           "body": "> An Ethernet proxy emulates a single Ethernet link between exactly two endpoints. This provides an Ethernet MAC service that will deliver each Ethernet frame that is received at the ingress, unaltered, to the egress at the other end of the tunnel.\n\nI like the second sentence here.\n\nWe can explicitly specify that we carry multicast and broadcast frames, though nothing here says we don't. We just don't speak to what if anything needs to be done to handle those frames. Either it's delegated to a TAP interface or similar, or you know how to handle that yourself because you're implementing Ethernet on the other side of the Ethernet proxying endpoint. Either way, the details are out of scope for this protocol.\n\nThe third point appears to be expanding on the list of things that are out of scope. I feel they are already implicitly covered, though we can explicitly expand the list if there is interest.",
           "createdAt": "2025-07-29T18:33:02Z",
           "updatedAt": "2025-07-29T18:33:02Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "+1 on adding the first sentence!\n\nI'm okay to add more things we support or don't support explicitly as we already mention somethings explicitly (broadcast packets and multicast groups, or the local termination of PAUSE frames) which are the things that we discussed in some issue in past and explicitly decided to not add any specific handling. However, just naming a few things but not other might be confusing. I guess the other option would be to also remove those things currently explicitly listed and make the text more general instead.",
+          "createdAt": "2025-08-05T16:41:14Z",
+          "updatedAt": "2025-08-05T16:41:14Z"
         }
       ]
     },
@@ -694,9 +757,24 @@
       "labels": [],
       "body": "Generating an issue for @gorryfair from [email](https://mailarchive.ietf.org/arch/msg/masque/G9USoURXa7AcBZJUvrxRtjpAY3I/) on the masque WG [mailing list](https://mailarchive.ietf.org/arch/browse/masque/).\n\nhttps://www.ietf.org/archive/id/draft-ietf-masque-connect-ethernet-07.html#name-ieee-8021q-vlan-tagging\n> While the protocol as described can proxy Ethernet frames with IEEE 802.1Q VLAN tags, it is RECOMMENDED that individual VLANs be proxied in separate connections, and VLAN tags be stripped and applied by the Ethernet proxying endpoints as needed.\n\nSect 9.2: On VLANs, some tighter text could be:\n\nNEW:\n> When an Ethernet PDU contains VLAN tags, these are passed transparently through the tunnel.  When an ingress and/or egress interprets the tags that can be present there must be agreement (signaled or manually configured) on how to process each tag at the ingress and the egress. This is not defined in this document.\n\nQuestion: Can the ingress/egress respect the PRI? (This could be useful to permit). e.g.:\n\n> The ingress MAY consider the user priority (PRI) field [802.1Q] of the outer VLAN tag header when queuing  the encapsulating PDU.  In a similar way, the egress MAY consider the QoS field of the PDY when queuing the frame for transmission.",
       "createdAt": "2025-07-29T18:35:16Z",
-      "updatedAt": "2025-07-29T18:35:16Z",
+      "updatedAt": "2025-08-05T17:46:39Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "The new proposed text by Gorry does not keep the one important bit of information here which is that the client application (that uses connect-ethernet and might parse and interpret the ethernet frames and vlan tags) should use separate tunnel connections per VLAN tag. What we don't say here and maybe want to add is that this would enable differential treatment in the network using e.g. DSCP.\n\nThe confusing part of the current sentence is maybe the \"stripped and applied by the Ethernet proxying endpoints\" part. These are the proxying ingress or egress that use connect-ethernet and might parse and interpret ethernet frames but not the actually ethernet-connect layer endpoint. I think we have not defined the terminology well here and could be more careful in phrasing this (inline with Gorry's proposed text). Similarly it would the those functions that would consider the PRI _before_ passing the frame to the ethernet-connect layer.  ",
+          "createdAt": "2025-08-05T16:54:59Z",
+          "updatedAt": "2025-08-05T16:54:59Z"
+        },
+        {
+          "author": "gorryfair",
+          "authorAssociation": "NONE",
+          "body": "The new text was NOT intended to replace the way frames were transported, only how the ingress and egress were described. One tag per tunnel seems good to me.",
+          "createdAt": "2025-08-05T17:46:39Z",
+          "updatedAt": "2025-08-05T17:46:39Z"
+        }
+      ]
     },
     {
       "number": 33,
@@ -710,9 +788,17 @@
       "labels": [],
       "body": "Generating an issue for @gorryfair from [email](https://mailarchive.ietf.org/arch/msg/masque/G9USoURXa7AcBZJUvrxRtjpAY3I/) on the masque WG [mailing list](https://mailarchive.ietf.org/arch/browse/masque/).\n\nConsider adding the following to the Security Considerations:\n\n>Security achieved by access control of MAC addresses is out of the scope of this document.",
       "createdAt": "2025-07-29T18:56:54Z",
-      "updatedAt": "2025-07-29T18:57:07Z",
+      "updatedAt": "2025-08-05T16:08:33Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I don't see this as part of the PR. However, I would say this text is already there. The current document says:\n\n>  ...limit forwarding to pre-configured MAC addresses, though such filtering is outside the scope of this protocol.",
+          "createdAt": "2025-08-05T16:08:33Z",
+          "updatedAt": "2025-08-05T16:08:33Z"
+        }
+      ]
     },
     {
       "number": 34,
@@ -726,9 +812,17 @@
       "labels": [],
       "body": "Generating an issue for @gorryfair from [email](https://mailarchive.ietf.org/arch/msg/masque/G9USoURXa7AcBZJUvrxRtjpAY3I/) on the masque WG [mailing list](https://mailarchive.ietf.org/arch/browse/masque/).\n\nIs GUE[^1] required as a reference? - I see this work has expired and the draft was last updated 2019. Can it be removed?\n\n[^1]: https://datatracker.ietf.org/doc/html/draft-ietf-intarea-gue-09",
       "createdAt": "2025-07-29T18:58:05Z",
-      "updatedAt": "2025-07-29T18:58:15Z",
+      "updatedAt": "2025-08-05T15:47:04Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Yes, fine to remove!",
+          "createdAt": "2025-08-05T15:47:03Z",
+          "updatedAt": "2025-08-05T15:47:03Z"
+        }
+      ]
     },
     {
       "number": 36,
@@ -742,7 +836,7 @@
       "labels": [],
       "body": "Generating an issue for @gorryfair from [email](https://mailarchive.ietf.org/arch/msg/masque/G9USoURXa7AcBZJUvrxRtjpAY3I/) on the masque WG [mailing list](https://mailarchive.ietf.org/arch/browse/masque/).\n\nhttps://www.ietf.org/archive/id/draft-ietf-masque-connect-ethernet-07.html#section-9-2\n> Some implementations might find it benefitial to maintain a small buffer of frames to be sent through the tunnel to smooth out short term variations and bursts in tunnel capacity. Any such buffer MUST be limited, and when exceeded any Ethernet frames that would otherwise be buffered MUST be dropped.\n\n- How is this an interoperable test - because there is no size specified?\n- I think this could be a place where a SHOULD is better and explain why this is an excellent idea. If the packet is dropped, is the MUST a silent drop; or is this a normal router drop that triggers ICMP when appropriate.",
       "createdAt": "2025-07-29T19:32:38Z",
-      "updatedAt": "2025-07-30T08:21:22Z",
+      "updatedAt": "2025-08-05T15:46:31Z",
       "closedAt": null,
       "comments": [
         {
@@ -758,6 +852,13 @@
           "body": "I agree the tunnel endpoints would, if implemented, generate the ICMP messages, and that would be normal for an endpoint to an IP device. This seems a little out of scope. ",
           "createdAt": "2025-07-30T08:21:22Z",
           "updatedAt": "2025-07-30T08:21:22Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Maybe we don't need any normative language here at all. At least the first must is not a protocol requirement but a matter of fact and therefore should not be a MUST. Also that if a buffer overflows, the only option is to drop a packet; so that isn't a protocol function either. The only thing, as Gorry said, that a protocol could define is what to do after the drop, either nothing (silently drop) or some alert/ICMP but I would agree that we don't want to specify this here. Therefore I would recommend to remove the normative language entirely and maybe add a sentence that any actions taken on drop are out of scope for this spec.",
+          "createdAt": "2025-08-05T15:46:31Z",
+          "updatedAt": "2025-08-05T15:46:31Z"
         }
       ]
     }
@@ -1403,7 +1504,7 @@
       "labels": [],
       "body": "Changes coming out of [email](https://mailarchive.ietf.org/arch/msg/masque/G9USoURXa7AcBZJUvrxRtjpAY3I/) from @gorryfair on the masque WG [mailing list](https://mailarchive.ietf.org/arch/browse/masque/). This PR is a work in progress that incorporate further changes from @gorryfair's review, as we handle #26, #27, #28, #29, #30, #31, #32, #33, #34, and #36.",
       "createdAt": "2025-07-29T19:23:41Z",
-      "updatedAt": "2025-07-29T19:33:01Z",
+      "updatedAt": "2025-08-05T16:04:08Z",
       "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
       "baseRefName": "main",
       "baseRefOid": "f70854e6f36ea8c000327ff6e85530b9f2523c24",
@@ -1415,7 +1516,21 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbp2N864G_OP",
+          "commit": {
+            "abbreviatedOid": "4b5e161"
+          },
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-08-05T16:04:08Z",
+          "updatedAt": "2025-08-05T16:04:08Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
