@@ -554,9 +554,9 @@ required, DATAGRAM capsules can be used.
 ## IEEE 802.1Q VLAN tagging {#vlan-recommendations}
 
 While the protocol as described can proxy Ethernet frames with IEEE 802.1Q VLAN
-tags, it is RECOMMENDED that individual VLANs be proxied in separate streams,
-and VLAN tags be stripped and applied by the Ethernet proxying endpoints as
-needed.
+tags, it is RECOMMENDED that individual VLANs be proxied in separate Ethernet
+proxying requests, and VLAN tags be stripped and applied by the Ethernet
+proxying endpoints as needed.
 
 # Security Considerations
 
