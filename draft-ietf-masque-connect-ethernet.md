@@ -55,8 +55,8 @@ informative:
 This document describes how to proxy Ethernet frames in HTTP. This protocol
 is similar to IP proxying in HTTP, but for Layer 2 instead of Layer 3. More
 specifically, this document defines a protocol that allows an HTTP client to
-create Layer 2 Ethernet tunnel through an HTTP server to an attached
-physical or virtual Ethernet segment.
+create a tunnel to exchange Layer 2 Ethernet frames through an HTTP server
+with an attached physical or virtual Ethernet segment.
 
 
 --- middle
@@ -68,8 +68,8 @@ creating a TCP {{!TCP=RFC9293}} tunnel to a destination, a similar mechanism for
 UDP {{!CONNECT-UDP=RFC9298}}, and an additional mechanism for IP
 {{!CONNECT-IP=RFC9484}}. However, these mechanisms can't carry Layer 2 frames
 without further encapsulation inside of IP, for instance with EtherIP
-{{?ETHERIP=RFC3378}}, GUE {{?GUE=I-D.ietf-intarea-gue}} or L2TP
-{{?L2TP=RFC2661}} {{?L2TPv3=RFC3931}}, which imposes an additional MTU cost.
+{{?ETHERIP=RFC3378}} or L2TP {{?L2TP=RFC2661}} {{?L2TPv3=RFC3931}}, which
+consume additional header bytes, reducing the available MTU.
 
 This document describes a protocol for exchanging Ethernet frames with an HTTP
 server. Either participant in the HTTP connection can then relay Ethernet
@@ -437,7 +437,7 @@ appears to be connected to a remote Layer 2 network.
 {: #diagram-tunnel title="L2VPN Tunnel Setup"}
 
 In this case, the client connects to the Ethernet proxy and immediately can
-start sending ethernet frames to the attached broadcast domain.
+start sending Ethernet frames to the attached broadcast domain.
 
 ~~~
 [[ From Client ]]             [[ From Ethernet Proxy ]]
@@ -643,5 +643,5 @@ Much of the initial version of this draft borrows heavily from {{CONNECT-IP}}.
 The author would like to thank Alexander Chernyakhovsky and David Schinazi
 for their advice while preparing this document, and Etienne Dechamps for
 useful discussion on the subject material. Additionally, Mirja Kühlewind,
-Magnus Westerlund, and Martin Thompson provided valuable feedback on the
-document.
+Magnus Westerlund, Martin Thompson, and Gorry Fairhurst provided valuable
+feedback on the document.
