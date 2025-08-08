@@ -73,11 +73,11 @@ without further encapsulation inside of IP, for instance with EtherIP
 
 This document describes a protocol for exchanging Ethernet frames with an HTTP
 server. Either participant in the HTTP connection can then relay Ethernet
-frames to and from a local or virtual interface. This
-can be used by a node to support remote bridging of two
-Ethernet broadcast domains to establish a Layer 2 VPN. This can simplify
-connectivity to network-connected appliances that are configured to only
-interact with peers connected to the same Ethernet broadcast domain.
+frames to and from a local or virtual interface. This can be used by a node to
+support remote bridging of two Ethernet broadcast domains to establish a Layer
+2 VPN. This can simplify connectivity to network-connected appliances that are
+configured to only interact with peers connected to the same Ethernet
+broadcast domain.
 
 This protocol supports all existing versions of HTTP by using HTTP Datagrams
 {{!HTTP-DGRAM=RFC9297}}. When using HTTP/2 {{H2}} or HTTP/3 {{H3}}, it uses
