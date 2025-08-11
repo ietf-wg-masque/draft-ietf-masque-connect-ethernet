@@ -400,7 +400,7 @@ Ethernet frames are encoded using HTTP Datagrams with the Context ID set to
 zero. When the Context ID is set to zero, the Payload field contains a full
 Layer 2 Ethernet Frame (from the MAC destination field until the last byte of
 the Frame check sequence field), as defined by IEEE 802.3. A complete
-frame could include include an IEEE 802.1Q tagging (see {{-recommendations}}).
+frame could include include an IEEE 802.1Q tag (see {{-recommendations}}).
 
 # Ethernet Frame Handling
 
