@@ -128,7 +128,7 @@ https://masque.example.org/?user=bob
 ~~~
 
 An implementation that supports connecting to different Ethernet segments might
-add a "vlan-identifier" variable to specify which segment to connect to. The
+add a "-identifier" variable to specify which segment to connect to. The
 optionality of variables needs to be considered when defining the template so
 that variables are either self-identifying or possible to exclude in the syntax.
 How valid values for such variables are communicated to the client is not a part
@@ -137,8 +137,8 @@ of this protocol.
 Hypothetical examples are shown below:
 
 ~~~
-https://proxy.example.org:4443/masque/ethernet?vlan={vlan-identifier}
-https://etherproxy.example.org/{vlan-identifier}
+https://proxy.example.org:4443/masque/ethernet?={-identifier}
+https://etherproxy.example.org/{-identifier}
 ~~~
 
 The following requirements apply to the URI Template:
@@ -399,8 +399,8 @@ field. Note that this field can be empty.
 Ethernet frames are encoded using HTTP Datagrams with the Context ID set to
 zero. When the Context ID is set to zero, the Payload field contains a full
 Layer 2 Ethernet Frame (from the MAC destination field until the last byte of
-the Frame check sequence field), as defined by IEEE 802.3, with support for
-optional IEEE 802.1Q tagging (see {{vlan-recommendations}}).
+the Frame check sequence field), as defined by IEEE 802.3. A complete
+frame could include include an IEEE 802.1Q tagging (see {{-recommendations}}).
 
 # Ethernet Frame Handling
 
@@ -551,12 +551,21 @@ NOT intentionally reorder Ethernet frames, but are not required to provide
 guaranteed in-order delivery. If in-order delivery of Ethernet frames is
 required, DATAGRAM capsules can be used.
 
-## IEEE 802.1Q VLAN tagging {#vlan-recommendations}
+## IEEE 802.1Q  tagging {#vlan-recommendations}
 
-While the protocol as described can proxy Ethernet frames with IEEE 802.1Q VLAN
-tags, it is RECOMMENDED that individual VLANs be proxied in separate
-connections, and VLAN tags be stripped and applied by the Ethernet proxying
-endpoints as needed.
+When the proxy transports Etherent frames that carry an IEEE 802.1Q VLAN
+tag, these are by default transparently forwarded through the tunnel. 
+When the tunnel ingress and/or egress interprets the tags, 
+there must be agreement (signaled or manually configured) on how to 
+consistently process each tag at the ingress and the egress. 
+The procedure for this signalling/configuration is not defined in this document.
+
+A proxy MAY map an individual VLAN to a separate proxy
+connection. This provides flexibility in forwarding, while meeting the
+requirements for the relative priority and ordering between frames asscaited
+with a VLAN. To reduce overhead, the IEEE 802.1Q field could be stripped and,
+when required, could be reapplied at the egress associating the frame
+with the appropriate priority and VLAN.
 
 # Security Considerations
 
