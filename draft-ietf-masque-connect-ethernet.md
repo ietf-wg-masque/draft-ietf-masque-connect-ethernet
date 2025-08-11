@@ -137,7 +137,7 @@ of this protocol.
 Hypothetical examples are shown below:
 
 ~~~
-https://proxy.example.org:4443/masque/ethernet?={vlan-identifier}
+https://proxy.example.org:4443/masque/ethernet?vlan={vlan-identifier}
 https://etherproxy.example.org/{vlan-identifier}
 ~~~
 
