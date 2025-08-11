@@ -127,7 +127,7 @@ https://proxy.example.org:4443/masque/ethernet/
 https://masque.example.org/?user=bob
 ~~~
 
-An implementation that supports connecting to different Ethernet segments might
+An implementation that supports connecting to  Ethernet segments might
 add a "vlan-identifier" variable to specify which segment to connect to. The
 optionality of variables needs to be considered when defining the template so
 that variables are either self-identifying or possible to exclude in the syntax.
@@ -193,7 +193,7 @@ Upon receiving an Ethernet proxying request:
  * If the recipient is configured to use another HTTP proxy, it will act as an
    intermediary by forwarding the request to another HTTP server. Note that
    such intermediaries may need to re-encode the request if they forward it
-   using a version of HTTP that is different from the one used to receive it,
+   using a version of HTTP that is  from the one used to receive it,
    as the request encoding differs by version (see below).
 
  * Otherwise, the recipient will act as an Ethernet proxy. The Ethernet proxy
@@ -334,11 +334,11 @@ capsule-protocol = ?1
 # Context Identifiers
 
 The mechanism for proxying Ethernet in HTTP defined in this document allows
-future extensions to exchange HTTP Datagrams that carry different semantics from
-Ethernet frames. Some of these extensions could augment Ethernet payloads with
+future extensions to exchange HTTP Datagrams that with different semantics. 
+Some of these extensions could augment Ethernet payloads with
 additional data or compress Ethernet frame header fields, while others could
-exchange data that is completely separate from Ethernet payloads. In order to
-accomplish this, all HTTP Datagrams associated with Ethernet proxying requests
+exchange data related to the Ethernet Service. To provide this extension
+point, all HTTP Datagrams associated with Ethernet proxying request
 streams start with a Context ID field; see {{payload-format}}.
 
 Context IDs are 62-bit integers (0-2<sup>62</sup>-1). Context IDs are encoded as
