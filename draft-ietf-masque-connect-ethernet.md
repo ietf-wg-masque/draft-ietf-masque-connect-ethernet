@@ -193,7 +193,7 @@ Upon receiving an Ethernet proxying request:
  * If the recipient is configured to use another HTTP proxy, it will act as an
    intermediary by forwarding the request to another HTTP server. Note that
    such intermediaries may need to re-encode the request if they forward it
-   using a version of HTTP that is differet from the one used to receive it,
+   using a version of HTTP that is different from the one used to receive it,
    as the request encoding differs by version (see below).
 
  * Otherwise, the recipient will act as an Ethernet proxy. The Ethernet proxy
