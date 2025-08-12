@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-10T02:03:56.910334+00:00",
+  "timestamp": "2025-08-12T01:48:44.514893+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -581,7 +581,7 @@
       "labels": [],
       "body": "Generating an issue for @gorryfair from [email](https://mailarchive.ietf.org/arch/msg/masque/G9USoURXa7AcBZJUvrxRtjpAY3I/) on the masque WG [mailing list](https://mailarchive.ietf.org/arch/browse/masque/).\n\nhttps://www.ietf.org/archive/id/draft-ietf-masque-connect-ethernet-07.html#section-5-1\n> The mechanism for proxying Ethernet in HTTP defined in this document allows future extensions to exchange HTTP Datagrams that carry different semantics from Ethernet frames.\n\nThe I-D title leads a reader to think this is about Ethernet frames, but actually it could be other forms of PDU. Section 5 starts with the \nabove text, however the abstract and the introduction do not yet say this.  Please amend the abstract and also add an explanatory text to the introduction.",
       "createdAt": "2025-07-29T17:15:17Z",
-      "updatedAt": "2025-08-08T17:15:31Z",
+      "updatedAt": "2025-08-11T17:41:14Z",
       "closedAt": null,
       "comments": [
         {
@@ -611,6 +611,20 @@
           "body": "Do the abstract and introduction not already state this clearly?\n\n> This document describes how to proxy Ethernet frames in HTTP.\n\n> This document describes a protocol for exchanging Ethernet frames with an HTTP server.",
           "createdAt": "2025-08-08T17:15:31Z",
           "updatedAt": "2025-08-08T17:15:31Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@gorry can you make a proposal to add or extend the text in the abstract and intro?",
+          "createdAt": "2025-08-11T17:06:37Z",
+          "updatedAt": "2025-08-11T17:06:37Z"
+        },
+        {
+          "author": "gorryfair",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I did a little for the I-D intro in PR #38, this might help, but I think this point is better handled by showing the \"intent\" in the section on CIDs, see PR #40.",
+          "createdAt": "2025-08-11T17:41:14Z",
+          "updatedAt": "2025-08-11T17:41:14Z"
         }
       ]
     },
@@ -626,7 +640,7 @@
       "labels": [],
       "body": "Generating an issue for @gorryfair from [email](https://mailarchive.ietf.org/arch/msg/masque/G9USoURXa7AcBZJUvrxRtjpAY3I/) on the masque WG [mailing list](https://mailarchive.ietf.org/arch/browse/masque/).\n\nAt the end of section ~~6~~ 5 there is some text that seems to imply this is not yet an interoperable specification. I find this worrying and confusing.\n\nhttps://www.ietf.org/archive/id/draft-ietf-masque-connect-ethernet-07.html#section-5-3\n> Registration is the action by which an endpoint informs its peer of the semantics and format of a given Context ID. This document does not define how registration occurs. Future extensions MAY use HTTP header fields or capsules to register Context IDs. Depending on the method being used, it is possible for datagrams to be received with Context IDs that have not yet been registered. For instance, this can be due to reordering of the packet containing the datagram and the packet containing the registration message during transmission.\n\nWhy is the working group not finishing at least one baseline method (or does it?) and how to negotiate so that interoperability is possible. Does this mean the spec ought not to be a PS?",
       "createdAt": "2025-07-29T17:24:35Z",
-      "updatedAt": "2025-08-08T17:22:31Z",
+      "updatedAt": "2025-08-11T17:42:30Z",
       "closedAt": null,
       "comments": [
         {
@@ -649,6 +663,13 @@
           "body": "As this protocol:\n1. does not require the registration of additional Context IDs\n2. leaves open the path by which future work can define such a registration\n\nAlso given that other documents in the MASQUE working group already serve as examples for how such a registration might be specified, I don't think any changes are necessary here.",
           "createdAt": "2025-08-08T17:22:30Z",
           "updatedAt": "2025-08-08T17:22:30Z"
+        },
+        {
+          "author": "gorryfair",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I think a cross reference to the relevant section of the other MASQUE I-Ds would have avoided this question ... and is still useful.",
+          "createdAt": "2025-08-11T17:42:30Z",
+          "updatedAt": "2025-08-11T17:42:30Z"
         }
       ]
     },
@@ -664,7 +685,7 @@
       "labels": [],
       "body": "Generating an issue for @gorryfair from [email](https://mailarchive.ietf.org/arch/msg/masque/G9USoURXa7AcBZJUvrxRtjpAY3I/) on the masque WG [mailing list](https://mailarchive.ietf.org/arch/browse/masque/).\n\nI think this is underspecified.\nhttps://www.ietf.org/archive/id/draft-ietf-masque-connect-ethernet-07.html#section-6-4.2.1\n> If an HTTP/3 datagram which carries an unknown Context ID is received, the receiver SHALL either drop that datagram silently or buffer it temporarily (on the order of a round trip) while awaiting the registration of the corresponding Context ID.\n \n- How does the receiver know the RTT (please explain).\n- Can we finish saying what happens\u2026 I was presuming that all packets that were buffered SHOULD be finally delivered in order, or MUST be  discarded after the timeout.\n- Ought a failure resulting in a timeout discard result also in an error code or at least logging event?",
       "createdAt": "2025-07-29T17:39:42Z",
-      "updatedAt": "2025-08-08T18:30:54Z",
+      "updatedAt": "2025-08-11T17:13:29Z",
       "closedAt": null,
       "comments": [
         {
@@ -694,6 +715,13 @@
           "body": "Sure, we can borrow that text from RFC9298. It was added to that document during later reviews, and never made it into RFC9848, so also didn't make it here, but it would be a good addition. We may also want to borrow and adjust the surrounding paragraphs.\n\nThis text might also apply to the discussion in #36 .",
           "createdAt": "2025-08-08T17:44:30Z",
           "updatedAt": "2025-08-08T18:30:54Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "(For the record I guess you mean RFC9484)... yes makes sense to align with the text in RFC9298 and maybe also to explicitly say that the Content ID defined for Ethernet is the same as the one defined for Connect-IP and Connect-UDP.",
+          "createdAt": "2025-08-11T17:13:29Z",
+          "updatedAt": "2025-08-11T17:13:29Z"
         }
       ]
     },
@@ -709,7 +737,7 @@
       "labels": [],
       "body": "Generating an issue for @gorryfair from [email](https://mailarchive.ietf.org/arch/msg/masque/G9USoURXa7AcBZJUvrxRtjpAY3I/) on the masque WG [mailing list](https://mailarchive.ietf.org/arch/browse/masque/).\n\nhttps://www.ietf.org/archive/id/draft-ietf-masque-connect-ethernet-07.html#section-6-5\n> Ethernet frames are encoded using HTTP Datagrams with the Context ID set to zero. When the Context ID is set to zero, the Payload field contains a full Layer 2 Ethernet Frame (from the MAC destination field until the last byte of the Frame check sequence field), as defined by IEEE 802.3, with support for optional IEEE 802.1Q tagging (see [Section 9.2](https://www.ietf.org/archive/id/draft-ietf-masque-connect-ethernet-07.html#vlan-recommendations)).\n\n- Do you strip padding of small frames?\n- Do you forward runt frames (too short)?\n\nI assume the answer to both is \u201cno\u201d? - please add text.",
       "createdAt": "2025-07-29T17:47:30Z",
-      "updatedAt": "2025-08-08T18:05:07Z",
+      "updatedAt": "2025-08-11T17:15:49Z",
       "closedAt": null,
       "comments": [
         {
@@ -732,6 +760,13 @@
           "body": "I asked this so that it has been asked. The point is that while other things might be allowed or not, sending runt frames is illegal, except in specific circumstances. The correct answer might be that the egress will only forward frames that the Ethernet specifications allow.",
           "createdAt": "2025-08-05T18:44:18Z",
           "updatedAt": "2025-08-05T18:44:18Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I don't think we can say anything about checking what's allowed by the Ethernet specification because that would mean that a connect-ethernet node would now need to parse and check all ethernet frames while it should be the ethernet bridge underneath the connect-ethernet node that would do that.",
+          "createdAt": "2025-08-11T17:15:49Z",
+          "updatedAt": "2025-08-11T17:15:49Z"
         }
       ]
     },
@@ -785,7 +820,7 @@
       "labels": [],
       "body": "Generating an issue for @gorryfair from [email](https://mailarchive.ietf.org/arch/msg/masque/G9USoURXa7AcBZJUvrxRtjpAY3I/) on the masque WG [mailing list](https://mailarchive.ietf.org/arch/browse/masque/).\n\nhttps://www.ietf.org/archive/id/draft-ietf-masque-connect-ethernet-07.html#name-ieee-8021q-vlan-tagging\n> While the protocol as described can proxy Ethernet frames with IEEE 802.1Q VLAN tags, it is RECOMMENDED that individual VLANs be proxied in separate connections, and VLAN tags be stripped and applied by the Ethernet proxying endpoints as needed.\n\nSect 9.2: On VLANs, some tighter text could be:\n\nNEW:\n> When an Ethernet PDU contains VLAN tags, these are passed transparently through the tunnel.  When an ingress and/or egress interprets the tags that can be present there must be agreement (signaled or manually configured) on how to process each tag at the ingress and the egress. This is not defined in this document.\n\nQuestion: Can the ingress/egress respect the PRI? (This could be useful to permit). e.g.:\n\n> The ingress MAY consider the user priority (PRI) field [802.1Q] of the outer VLAN tag header when queuing  the encapsulating PDU.  In a similar way, the egress MAY consider the QoS field of the PDY when queuing the frame for transmission.",
       "createdAt": "2025-07-29T18:35:16Z",
-      "updatedAt": "2025-08-05T17:46:39Z",
+      "updatedAt": "2025-08-11T17:18:47Z",
       "closedAt": null,
       "comments": [
         {
@@ -797,10 +832,17 @@
         },
         {
           "author": "gorryfair",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "The new text was NOT intended to replace the way frames were transported, only how the ingress and egress were described. One tag per tunnel seems good to me.",
           "createdAt": "2025-08-05T17:46:39Z",
           "updatedAt": "2025-08-05T17:46:39Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Is your proposed text supposed to be an addition to the existing text or a a replace? However, I'm actually not sure what the point in your proposed text is: what do you mean by \"there must be agreement\"? Of course if you want to interpret a VLAN tag you need some kind of information what to do with it, no?\n\nDo you still think we should need to change the text? If so can you maybe make another proposal?",
+          "createdAt": "2025-08-11T17:18:47Z",
+          "updatedAt": "2025-08-11T17:18:47Z"
         }
       ]
     },
@@ -902,7 +944,7 @@
       "labels": [],
       "body": "Section 9.2 talks about dot1Q VLAN tagging, but it should also be clear about C-VLAN vs S-VLAN tagging. There could also be a need to mention Provider Backbone Bridges (PBB) where the service is identified by an I-SID (Backbone Service Instance Identifier).",
       "createdAt": "2025-08-08T07:18:04Z",
-      "updatedAt": "2025-08-09T08:18:42Z",
+      "updatedAt": "2025-08-11T18:15:02Z",
       "closedAt": null,
       "comments": [
         {
@@ -918,6 +960,27 @@
           "body": "You correctly identified the problem: \"you might get better performance characteristics by carring those VLANs in separate streams without the tags.\" -- Mapping VLANs to connections might be helpful in some specific contexts. I think clarification is needed, stripping VLAN Tags can also have consequences if the other endpoint then forrwards Ethernet frames.",
           "createdAt": "2025-08-09T08:18:42Z",
           "updatedAt": "2025-08-09T08:18:42Z"
+        },
+        {
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Perhaps we want some explicit text about out-of-band coordination between the endpoints regarding how to handle VLANs along with the recommendation that separate VLANs be carried in separate requests?\n\nMy general expectation is that if VLANs are actually involved, both Ethernet proxying endpoints need to be aware of it and agree on how they want to handle them. Further, if VLANs are involved and the recommendation is being followed, the VLAN tags are being stripped and/or applied by the component that actually speaks Ethernet, be that a kernel TAP interface or something else.",
+          "createdAt": "2025-08-11T14:21:56Z",
+          "updatedAt": "2025-08-11T14:21:56Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Maybe we shouldn't say anything about VLAN tags. I was assuming using different actually connections for different VLAN could enable differential treatment in the network. If you want to use different request per VLAN to save some bits that sounds like optimisation that strongly depends network configuration and might now worth speculating about? Also you could also use different context ids for each Vlan tag if the goal is just to save some bits. However that would then be a separate simply extension.",
+          "createdAt": "2025-08-11T17:25:26Z",
+          "updatedAt": "2025-08-11T17:25:26Z"
+        },
+        {
+          "author": "gorryfair",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I agree the VLAN could be a separate extension if that is what the WG wishes. I had a start at using this text in a different way to try and explain how I now understood the proxy to work - please check PR #41, which if heading in the correct direction helps to explain how this works (and by implication might be enough to hint at the various uses of Tags, without delving into how you get the required consistency.",
+          "createdAt": "2025-08-11T18:15:02Z",
+          "updatedAt": "2025-08-11T18:15:02Z"
         }
       ]
     }
@@ -1645,7 +1708,7 @@
       "labels": [],
       "body": "Adjust VLAN suggestion to suggest separate streams rather than separate connections. It is already explicit that separate streams means separate connections for HTTP/1.1. For HTTP/2 and HTTP/3, I did not mean to suggest avoiding the multiplexing those protocols provide.",
       "createdAt": "2025-08-08T18:43:11Z",
-      "updatedAt": "2025-08-08T19:27:44Z",
+      "updatedAt": "2025-08-11T18:16:33Z",
       "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
       "baseRefName": "main",
       "baseRefOid": "35e95d0691cf16f5ae02de2592d1b5f1f2f4afc6",
@@ -1656,7 +1719,29 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I actually thought it makes sense to have different connections because that would potentially enable differential treatment in the network. But if that's the intention it would probably also be good to explain that further. What does different streams really give you? ",
+          "createdAt": "2025-08-11T17:05:24Z",
+          "updatedAt": "2025-08-11T17:05:24Z"
+        },
+        {
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Using different connections rather than different requests in the same connection may also make sense if those connections have different properties. We can expand on this more.",
+          "createdAt": "2025-08-11T17:13:02Z",
+          "updatedAt": "2025-08-11T17:13:02Z"
+        },
+        {
+          "author": "gorryfair",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "When editing see also PR #41 as one possible way forward:-).",
+          "createdAt": "2025-08-11T18:16:33Z",
+          "updatedAt": "2025-08-11T18:16:33Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOJbp2N86449y-",
@@ -1695,6 +1780,164 @@
               "body": "Added in d96c956.",
               "createdAt": "2025-08-08T19:27:44Z",
               "updatedAt": "2025-08-08T19:27:44Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 40,
+      "id": "PR_kwDOJbp2N86jGTMj",
+      "title": "Suggestion to introduce CIDs",
+      "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/40",
+      "state": "OPEN",
+      "author": "gorryfair",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The aim of this PR is to assert that CIDs are points of extension to the Ethernet frame transport, rather than some generalised concept for arbitrary PDUs - while at the same time still allowing great flexibility in how these are eventually used. The chief goal is to avoid the question \"what else can be can carried instead of an Ethernet PDU?\".",
+      "createdAt": "2025-08-11T17:39:12Z",
+      "updatedAt": "2025-08-11T20:52:19Z",
+      "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
+      "baseRefName": "main",
+      "baseRefOid": "35e95d0691cf16f5ae02de2592d1b5f1f2f4afc6",
+      "headRepository": "gorryfair/draft-ietf-masque-connect-ethernet",
+      "headRefName": "patch-2",
+      "headRefOid": "b8ae7ceaec113fe916547274170c8a5d4ad40e2f",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbp2N865MTaT",
+          "commit": {
+            "abbreviatedOid": "7084378"
+          },
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-11T17:47:12Z",
+          "updatedAt": "2025-08-11T17:51:36Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "I don't think this change was intentional.",
+              "createdAt": "2025-08-11T17:47:12Z",
+              "updatedAt": "2025-08-11T17:51:36Z"
+            },
+            {
+              "originalPosition": 5,
+              "body": "Can you explain why you want to drop this `different`? Would `multiple` perhaps be better here?",
+              "createdAt": "2025-08-11T17:48:41Z",
+              "updatedAt": "2025-08-11T17:51:36Z"
+            },
+            {
+              "originalPosition": 30,
+              "body": "Lots of grammar nits here. I take it the gist is to explicitly tie all of these context IDs / data back to facilitating the exchange of Ethernet frames?",
+              "createdAt": "2025-08-11T17:51:30Z",
+              "updatedAt": "2025-08-11T17:51:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbp2N865PHIC",
+          "commit": {
+            "abbreviatedOid": "7084378"
+          },
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-11T20:52:19Z",
+          "updatedAt": "2025-08-11T20:52:19Z",
+          "comments": [
+            {
+              "originalPosition": 30,
+              "body": "I don't like `the Ethernet Service`, and am going to spend some time thinking about that. Besides that wording nit, I think this is reasonable. Taking us from `that is completely separate from Ethernet payloads` to focusing on facilitating  the proxying of Ethernet frames is good.",
+              "createdAt": "2025-08-11T20:52:19Z",
+              "updatedAt": "2025-08-11T20:52:19Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 41,
+      "id": "PR_kwDOJbp2N86jGrA3",
+      "title": "Proposal to rework VLAN Text",
+      "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/41",
+      "state": "OPEN",
+      "author": "gorryfair",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This proposal rewrites the VLAN text as an example of how the processing is performed on either side of the proxy.  In this, I used \"MAY\" for strip the VLAN, however it could indeed be \"RECOMMENDED\" to strip the VLAN, but then I wondered if that asked for more guidance on how to do that consistently (which would also be a fine addition to this text).",
+      "createdAt": "2025-08-11T18:11:28Z",
+      "updatedAt": "2025-08-11T20:44:01Z",
+      "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
+      "baseRefName": "main",
+      "baseRefOid": "35e95d0691cf16f5ae02de2592d1b5f1f2f4afc6",
+      "headRepository": "gorryfair/draft-ietf-masque-connect-ethernet",
+      "headRefName": "patch-3",
+      "headRefOid": "8456cbc6c1cf37d1b0f805c8b8d58012d11b283d",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbp2N865Ms1_",
+          "commit": {
+            "abbreviatedOid": "16bf672"
+          },
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "I like where this is going.",
+          "createdAt": "2025-08-11T18:16:03Z",
+          "updatedAt": "2025-08-11T18:21:21Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "The removal of `vlan` in this section makes it harder to understand. This is intended to be a hypothetical configuration example that uses URI template variables, which we only include because our default configuration examples do not use any URI template variables. I would leave these in, or remove the hypothetical examples altogether.",
+              "createdAt": "2025-08-11T18:16:03Z",
+              "updatedAt": "2025-08-11T18:21:21Z"
+            },
+            {
+              "originalPosition": 27,
+              "body": "s/tagging/tag/.\r\n\r\nThe section being linked to is still called `vlan-recommendations`, so put the `vlan` back.",
+              "createdAt": "2025-08-11T18:16:52Z",
+              "updatedAt": "2025-08-11T18:21:21Z"
+            },
+            {
+              "originalPosition": 52,
+              "body": "s/assciated/associated/",
+              "createdAt": "2025-08-11T18:20:21Z",
+              "updatedAt": "2025-08-11T18:21:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbp2N865M2d-",
+          "commit": {
+            "abbreviatedOid": "ca9c1d0"
+          },
+          "author": "gorryfair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-11T18:29:09Z",
+          "updatedAt": "2025-08-11T18:29:09Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Returned VLAN, I understand now.",
+              "createdAt": "2025-08-11T18:29:09Z",
+              "updatedAt": "2025-08-11T18:29:09Z"
             }
           ]
         }
