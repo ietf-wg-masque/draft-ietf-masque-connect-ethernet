@@ -334,7 +334,7 @@ capsule-protocol = ?1
 # Context Identifiers
 
 The mechanism for proxying Ethernet in HTTP defined in this document allows
-future extensions to exchange HTTP Datagrams that have different semantics. 
+future extensions to exchange HTTP Datagrams that have different semantics.
 Some of these extensions could augment Ethernet payloads with
 additional data or compress Ethernet frame header fields, while others could
 exchange data related to the Ethernet Service. To provide this extension
