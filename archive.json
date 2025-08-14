@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-12T01:48:44.514893+00:00",
+  "timestamp": "2025-08-14T01:51:14.589088+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -906,7 +906,7 @@
       "labels": [],
       "body": "Generating an issue for @gorryfair from [email](https://mailarchive.ietf.org/arch/msg/masque/G9USoURXa7AcBZJUvrxRtjpAY3I/) on the masque WG [mailing list](https://mailarchive.ietf.org/arch/browse/masque/).\n\nhttps://www.ietf.org/archive/id/draft-ietf-masque-connect-ethernet-07.html#section-9-2\n> Some implementations might find it benefitial to maintain a small buffer of frames to be sent through the tunnel to smooth out short term variations and bursts in tunnel capacity. Any such buffer MUST be limited, and when exceeded any Ethernet frames that would otherwise be buffered MUST be dropped.\n\n- How is this an interoperable test - because there is no size specified?\n- I think this could be a place where a SHOULD is better and explain why this is an excellent idea. If the packet is dropped, is the MUST a silent drop; or is this a normal router drop that triggers ICMP when appropriate.",
       "createdAt": "2025-07-29T19:32:38Z",
-      "updatedAt": "2025-08-08T18:15:40Z",
+      "updatedAt": "2025-08-13T06:46:43Z",
       "closedAt": null,
       "comments": [
         {
@@ -929,6 +929,27 @@
           "body": "Maybe we don't need any normative language here at all. At least the first must is not a protocol requirement but a matter of fact and therefore should not be a MUST. Also that if a buffer overflows, the only option is to drop a packet; so that isn't a protocol function either. The only thing, as Gorry said, that a protocol could define is what to do after the drop, either nothing (silently drop) or some alert/ICMP but I would agree that we don't want to specify this here. Therefore I would recommend to remove the normative language entirely and maybe add a sentence that any actions taken on drop are out of scope for this spec.",
           "createdAt": "2025-08-05T15:46:31Z",
           "updatedAt": "2025-08-05T15:46:31Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I proposed PR #42. Does this work for everybody?",
+          "createdAt": "2025-08-12T17:55:57Z",
+          "updatedAt": "2025-08-12T17:55:57Z"
+        },
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I didn't say anything about ICMP or silent drop but I added that this is comparable to a lossy link (which would also not send an ICMP message I guess...). Is that sufficient?",
+          "createdAt": "2025-08-12T17:57:07Z",
+          "updatedAt": "2025-08-12T17:57:07Z"
+        },
+        {
+          "author": "gorryfair",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I suggest just saying nothing more on silent drop. We discussed in email - any ICMP message likely originates outside of the proxy tunnel. The question came-up when there was confusion about how the I-D forwarded.",
+          "createdAt": "2025-08-13T06:46:43Z",
+          "updatedAt": "2025-08-13T06:46:43Z"
         }
       ]
     },
@@ -1708,7 +1729,7 @@
       "labels": [],
       "body": "Adjust VLAN suggestion to suggest separate streams rather than separate connections. It is already explicit that separate streams means separate connections for HTTP/1.1. For HTTP/2 and HTTP/3, I did not mean to suggest avoiding the multiplexing those protocols provide.",
       "createdAt": "2025-08-08T18:43:11Z",
-      "updatedAt": "2025-08-11T18:16:33Z",
+      "updatedAt": "2025-08-13T06:47:42Z",
       "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
       "baseRefName": "main",
       "baseRefOid": "35e95d0691cf16f5ae02de2592d1b5f1f2f4afc6",
@@ -1782,6 +1803,19 @@
               "updatedAt": "2025-08-08T19:27:44Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOJbp2N865nj8B",
+          "commit": {
+            "abbreviatedOid": "d96c956"
+          },
+          "author": "gorryfair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-08-13T06:47:42Z",
+          "updatedAt": "2025-08-13T06:47:42Z",
+          "comments": []
         }
       ]
     },
@@ -1797,13 +1831,13 @@
       "labels": [],
       "body": "The aim of this PR is to assert that CIDs are points of extension to the Ethernet frame transport, rather than some generalised concept for arbitrary PDUs - while at the same time still allowing great flexibility in how these are eventually used. The chief goal is to avoid the question \"what else can be can carried instead of an Ethernet PDU?\".",
       "createdAt": "2025-08-11T17:39:12Z",
-      "updatedAt": "2025-08-11T20:52:19Z",
+      "updatedAt": "2025-08-13T06:40:10Z",
       "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
       "baseRefName": "main",
       "baseRefOid": "35e95d0691cf16f5ae02de2592d1b5f1f2f4afc6",
       "headRepository": "gorryfair/draft-ietf-masque-connect-ethernet",
       "headRefName": "patch-2",
-      "headRefOid": "b8ae7ceaec113fe916547274170c8a5d4ad40e2f",
+      "headRefOid": "a158abaf82e09ecf26de531816faeff642efaa1a",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -1859,6 +1893,106 @@
               "body": "I don't like `the Ethernet Service`, and am going to spend some time thinking about that. Besides that wording nit, I think this is reasonable. Taking us from `that is completely separate from Ethernet payloads` to focusing on facilitating  the proxying of Ethernet frames is good.",
               "createdAt": "2025-08-11T20:52:19Z",
               "updatedAt": "2025-08-11T20:52:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbp2N865fiSd",
+          "commit": {
+            "abbreviatedOid": "7084378"
+          },
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-12T17:51:27Z",
+          "updatedAt": "2025-08-12T17:51:27Z",
+          "comments": [
+            {
+              "originalPosition": 30,
+              "body": "Maybe:\r\n\r\n\"exchange additional information related to the carried ethernet frame or its handling\"\r\n\r\nI agree that \"ethernet service\" doesn't seem well defined. I also think that saying something like  \"completely separate\" seems to give the wrong impression (while that is theoretical possible). Alternative we could just strike that part of the sentence...?\r\n\r\nOtherwise these changes look good to me!",
+              "createdAt": "2025-08-12T17:51:27Z",
+              "updatedAt": "2025-08-12T17:51:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbp2N865frBj",
+          "commit": {
+            "abbreviatedOid": "7084378"
+          },
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-12T17:59:45Z",
+          "updatedAt": "2025-08-12T17:59:46Z",
+          "comments": [
+            {
+              "originalPosition": 30,
+              "body": "Yeah, the \"completely separate,\" text was borrowed from https://www.rfc-editor.org/rfc/rfc9484.html#section-5-1, and given the confusion I'm fine diverging from that text here. Striking might be the simplest option, leaving the one concrete and clearly related example.\r\n\r\n\"For example, an extension could augment Ethernet payloads with additional data or compress Ethernet frame headers.\"\r\n",
+              "createdAt": "2025-08-12T17:59:45Z",
+              "updatedAt": "2025-08-12T17:59:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbp2N865f1HC",
+          "commit": {
+            "abbreviatedOid": "7084378"
+          },
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-12T18:08:52Z",
+          "updatedAt": "2025-08-12T18:08:52Z",
+          "comments": [
+            {
+              "originalPosition": 30,
+              "body": "works for me.\r\n\r\nMaybe add a reference to RFC9498 anyway like\r\n\r\n\"For example, an extension could augment Ethernet payloads with additional data or compress Ethernet frame headers, similar as specified for RFC9498.\"\r\n\r\n?",
+              "createdAt": "2025-08-12T18:08:52Z",
+              "updatedAt": "2025-08-12T18:08:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbp2N865gNRv",
+          "commit": {
+            "abbreviatedOid": "7084378"
+          },
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-12T18:36:51Z",
+          "updatedAt": "2025-08-12T18:36:51Z",
+          "comments": [
+            {
+              "originalPosition": 30,
+              "body": "I'm hesitant to add a reference back to RFC9484 here, because that could lead to references back to RFC9484 being requested everywhere. The acknowledgements already points back to RFC9484,\r\n\r\n> Much of the initial version of this draft borrows heavily from [[CONNECT-IP](https://www.ietf.org/archive/id/draft-ietf-masque-connect-ethernet-07.html#CONNECT-IP)].\r\n\r\nthough I could be convinced to put a similar reference in the Introduction so readers see it up front.",
+              "createdAt": "2025-08-12T18:36:51Z",
+              "updatedAt": "2025-08-12T18:36:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJbp2N865gmzo",
+          "commit": {
+            "abbreviatedOid": "7084378"
+          },
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-12T18:58:55Z",
+          "updatedAt": "2025-08-12T18:58:55Z",
+          "comments": [
+            {
+              "originalPosition": 30,
+              "body": "Yes, that is probably a not a bad idea. However, I feel that context ID could/should be called out separately, really saying that this draft uses the same extensibility model as already used by connect-id and connect-udp because that's probably the part that might be most confusing without the broader context as described in connect-udp.",
+              "createdAt": "2025-08-12T18:58:55Z",
+              "updatedAt": "2025-08-12T18:58:56Z"
             }
           ]
         }
@@ -1940,6 +2074,74 @@
               "updatedAt": "2025-08-11T18:29:09Z"
             }
           ]
+        }
+      ]
+    },
+    {
+      "number": 42,
+      "id": "PR_kwDOJbp2N86jUjod",
+      "title": "no normative language on buffers",
+      "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/42",
+      "state": "OPEN",
+      "author": "mirjak",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "fixes #36",
+      "createdAt": "2025-08-12T17:55:31Z",
+      "updatedAt": "2025-08-13T06:41:52Z",
+      "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
+      "baseRefName": "main",
+      "baseRefOid": "35e95d0691cf16f5ae02de2592d1b5f1f2f4afc6",
+      "headRepository": "mirjak/draft-ietf-masque-connect-ethernet",
+      "headRefName": "patch-6",
+      "headRefOid": "64280260dab0fb469d0fc09b917eeaf093749d44",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "mirjak",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "If we really want to explicitly (again) note that the buffer should not be too large (as the sentence above already says \"maintain a small buffer\"), I would recommend to add another separate sentence. However, it seems that problem is generally true and not really specific to this draft...?",
+          "createdAt": "2025-08-12T18:29:27Z",
+          "updatedAt": "2025-08-12T18:29:27Z"
+        },
+        {
+          "author": "gorryfair",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I would not mention lossy links at all. This is not really correct, packet discard=/=loss. I suggest it is best to be silent on this, small buffer is likely OK.",
+          "createdAt": "2025-08-13T06:41:52Z",
+          "updatedAt": "2025-08-13T06:41:52Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbp2N865gAIG",
+          "commit": {
+            "abbreviatedOid": "6428026"
+          },
+          "author": "gorryfair",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "I'm OK with this change to address the issue, but I'd rather this were to say \"ought to be limited\" - because deep buffers without thought are not good for anybody.",
+          "createdAt": "2025-08-12T18:22:35Z",
+          "updatedAt": "2025-08-12T18:22:35Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJbp2N865gSD0",
+          "commit": {
+            "abbreviatedOid": "6428026"
+          },
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "I might instead say, \"This is similar to a lossy link.\"",
+          "createdAt": "2025-08-12T18:41:09Z",
+          "updatedAt": "2025-08-12T18:41:09Z",
+          "comments": []
         }
       ]
     }
