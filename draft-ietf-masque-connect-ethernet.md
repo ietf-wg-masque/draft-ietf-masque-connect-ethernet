@@ -127,7 +127,7 @@ https://proxy.example.org:4443/masque/ethernet/
 https://masque.example.org/?user=bob
 ~~~
 
-An implementation that supports connecting to  multiple Ethernet segments might
+An implementation that supports connecting to multiple Ethernet segments might
 add a "vlan-identifier" variable to specify which segment to connect to. The
 optionality of variables needs to be considered when defining the template so
 that variables are either self-identifying or possible to exclude in the syntax.
@@ -334,12 +334,12 @@ capsule-protocol = ?1
 # Context Identifiers
 
 The mechanism for proxying Ethernet in HTTP defined in this document allows
-future extensions to exchange HTTP Datagrams that have different semantics.
-Some of these extensions could augment Ethernet payloads with
-additional data or compress Ethernet frame header fields, while others could
-exchange data related to the Ethernet Service. To provide this extension
-point, all HTTP Datagrams associated with Ethernet proxying request
-streams start with a Context ID field; see {{payload-format}}.
+future extensions to exchange HTTP Datagrams that have different semantics,
+similar to the extension mechanisms specified in {{Section 5 of
+CONNECT-IP}}. Some of these extensions could augment Ethernet payloads with
+additional data or compress Ethernet frame header fields. To provide this
+extension point, all HTTP Datagrams associated with Ethernet proxying
+request streams start with a Context ID field; see {{payload-format}}.
 
 Context IDs are 62-bit integers (0-2<sup>62</sup>-1). Context IDs are encoded as
 variable-length integers; see {{Section 16 of QUIC}}. The Context ID value of 0
