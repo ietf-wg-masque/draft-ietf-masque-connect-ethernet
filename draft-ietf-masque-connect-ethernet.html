@@ -1679,6 +1679,16 @@ zero. When the Context ID is set to zero, the Payload field contains a full
 Layer 2 Ethernet Frame (from the MAC destination field until the last byte of
 the Frame check sequence field), as defined by IEEE 802.3, with support for
 optional IEEE 802.1Q tagging (see <a href="#vlan-recommendations" class="auto internal xref">Section 9.2</a>).<a href="#section-6-5" class="pilcrow">¶</a></p>
+<p id="section-6-6">If an Ethernet proxy receives an HTTP Datagram before it has received the
+corresponding request, it <span class="bcp14">SHALL</span> either drop that HTTP Datagram silently or
+buffer it temporarily (on the order of a round trip) while awaiting the
+corresponding request.<a href="#section-6-6" class="pilcrow">¶</a></p>
+<p id="section-6-7">Note that buffering datagrams (either because the request was not yet received
+or because the Context ID is not yet known) consumes resources. Receivers that
+buffer datagrams <span class="bcp14">SHOULD</span> apply buffering limits in order to reduce the risk of
+resource exhaustion occurring. For example, receivers can limit the total number
+of buffered datagrams or the cumulative size of buffered datagrams on a
+per-stream, per-context, or per-connection basis.<a href="#section-6-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ethernet-frame-handling">
