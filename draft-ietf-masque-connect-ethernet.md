@@ -554,11 +554,11 @@ required, DATAGRAM capsules can be used.
 ## IEEE 802.1Q tagging {#vlan-recommendations}
 
 When the proxy transports Etherent frames that carry an IEEE 802.1Q VLAN tag,
-these are by default transparently forwarded through the tunnel.  When the
-tunnel ingress and/or egress interprets the tags, there must be agreement
-(signaled or manually configured) on how to consistently process each tag at the
-ingress and the egress.  The procedure for this signalling/configuration is not
-defined in this document.
+these are by default transparently forwarded through the tunnel. When the tunnel
+ingress and/or egress interprets the tags, there must be agreement (signaled or
+manually configured) on how to consistently process each tag at the ingress and
+the egress. The procedure for this signalling/configuration is not defined in
+this document.
 
 A proxy MAY map an individual VLAN to a separate proxy connection. This provides
 flexibility in forwarding, while meeting the requirements for the relative
