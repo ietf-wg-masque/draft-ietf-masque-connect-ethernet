@@ -128,7 +128,7 @@ https://masque.example.org/?user=bob
 ~~~
 
 An implementation that supports connecting to different Ethernet segments might
-add a "-identifier" variable to specify which segment to connect to. The
+add a "vlan-identifier" variable to specify which segment to connect to. The
 optionality of variables needs to be considered when defining the template so
 that variables are either self-identifying or possible to exclude in the syntax.
 How valid values for such variables are communicated to the client is not a part
@@ -137,7 +137,7 @@ of this protocol.
 Hypothetical examples are shown below:
 
 ~~~
-https://proxy.example.org:4443/masque/ethernet?={-identifier}
+https://proxy.example.org:4443/masque/ethernet?vlan={vlan-identifier}
 https://etherproxy.example.org/{vlan-identifier}
 ~~~
 
@@ -560,9 +560,7 @@ manually configured) on how to consistently process each tag at the ingress and
 the egress. The procedure for this signalling/configuration is not defined in
 this document.
 
-A proxy that is used to access to multiple VLANs MAY map each individual
-VLAN to a distinct URI, such that each Ethernet proxying request is
-associated with only one VLAN. This provides
+A proxy MAY map an individual VLAN to a separate proxy connection. This provides
 flexibility in forwarding, while meeting the requirements for the relative
 priority and ordering between frames associated with a VLAN. To reduce overhead,
 the IEEE 802.1Q field could be stripped and, when required, could be reapplied
