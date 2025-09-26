@@ -402,6 +402,18 @@ Layer 2 Ethernet Frame (from the MAC destination field until the last byte of
 the Frame check sequence field), as defined by IEEE 802.3, with support for
 optional IEEE 802.1Q tagging (see {{vlan-recommendations}}).
 
+If an Ethernet proxy receives an HTTP Datagram before it has received the
+corresponding request, it SHALL either drop that HTTP Datagram silently or
+buffer it temporarily (on the order of a round trip) while awaiting the
+corresponding request.
+
+Note that buffering datagrams (either because the request was not yet received
+or because the Context ID is not yet known) consumes resources. Receivers that
+buffer datagrams SHOULD apply buffering limits in order to reduce the risk of
+resource exhaustion occurring. For example, receivers can limit the total number
+of buffered datagrams or the cumulative size of buffered datagrams on a
+per-stream, per-context, or per-connection basis.
+
 # Ethernet Frame Handling
 
 This document defines a tunnelling mechanism that is conceptually an Ethernet
