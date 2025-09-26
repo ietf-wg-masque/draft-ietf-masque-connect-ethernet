@@ -519,8 +519,7 @@ identified to be congestion controlled traffic.
 Some implementations might find it benefitial to maintain a small buffer of
 frames to be sent through the tunnel to smooth out short term variations and
 bursts in tunnel capacity. As such a buffer is limited, Ethernet frames can get
-dropped when the buffer limit is exceeded. This is not different than
-a lossy link.
+dropped when the buffer limit is exceeded.
 
 When the protocol running inside the tunnel uses loss recovery (e.g., {{TCP}} or
 {{QUIC}}) and the outer HTTP connection runs over TCP, the proxied traffic will
