@@ -1218,7 +1218,7 @@ with an attached physical or virtual Ethernet segment.<a href="#section-abstract
                 <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-mtu-and-frame-ordering-cons" class="internal xref">MTU and Frame Ordering Considerations</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
-                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-ieee-8021q-vlan-tagging" class="internal xref">IEEE 802.1Q VLAN tagging</a></p>
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-ieee-8021q-tagging" class="internal xref">IEEE 802.1Q tagging</a></p>
 </li>
             </ul>
 </li>
@@ -1677,8 +1677,8 @@ field. Note that this field can be empty.<a href="#section-6-4.4.1" class="pilcr
 <p id="section-6-5">Ethernet frames are encoded using HTTP Datagrams with the Context ID set to
 zero. When the Context ID is set to zero, the Payload field contains a full
 Layer 2 Ethernet Frame (from the MAC destination field until the last byte of
-the Frame check sequence field), as defined by IEEE 802.3, with support for
-optional IEEE 802.1Q tagging (see <a href="#vlan-recommendations" class="auto internal xref">Section 9.2</a>).<a href="#section-6-5" class="pilcrow">¶</a></p>
+the Frame check sequence field), as defined by IEEE 802.3. A complete
+frame could include include an IEEE 802.1Q tag (see <a href="#vlan-recommendations" class="auto internal xref">Section 9.2</a>).<a href="#section-6-5" class="pilcrow">¶</a></p>
 <p id="section-6-6">If an Ethernet proxy receives an HTTP Datagram before it has received the
 corresponding request, it <span class="bcp14">SHALL</span> either drop that HTTP Datagram silently or
 buffer it temporarily (on the order of a round trip) while awaiting the
@@ -1946,13 +1946,22 @@ required, DATAGRAM capsules can be used.<a href="#section-9.1-3" class="pilcrow"
 </div>
 <div id="vlan-recommendations">
 <section id="section-9.2">
-        <h3 id="name-ieee-8021q-vlan-tagging">
-<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-ieee-8021q-vlan-tagging" class="section-name selfRef">IEEE 802.1Q VLAN tagging</a>
+        <h3 id="name-ieee-8021q-tagging">
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-ieee-8021q-tagging" class="section-name selfRef">IEEE 802.1Q tagging</a>
         </h3>
-<p id="section-9.2-1">While the protocol as described can proxy Ethernet frames with IEEE 802.1Q VLAN
-tags, it is <span class="bcp14">RECOMMENDED</span> that individual VLANs be proxied in separate
-connections, and VLAN tags be stripped and applied by the Ethernet proxying
-endpoints as needed.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<p id="section-9.2-1">When the proxy transports Etherent frames that carry an IEEE 802.1Q VLAN tag,
+these are by default transparently forwarded through the tunnel. When the tunnel
+ingress and/or egress interprets the tags, there must be agreement (signaled or
+manually configured) on how to consistently process each tag at the ingress and
+the egress. The procedure for this signalling/configuration is not defined in
+this document.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<p id="section-9.2-2">A proxy that is used to access to multiple VLANs <span class="bcp14">MAY</span> map each individual
+VLAN to a distinct URI, such that each Ethernet proxying request is
+associated with only one VLAN. This provides flexibility in forwarding,
+while meeting the requirements for the relative priority and ordering
+between frames associated with a VLAN. To reduce overhead, the IEEE 802.1Q
+field could be stripped and, when required, could be reapplied at the egress
+associating the frame with the appropriate priority and VLAN.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
