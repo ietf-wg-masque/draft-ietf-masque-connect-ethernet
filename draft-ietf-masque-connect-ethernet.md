@@ -551,7 +551,7 @@ NOT intentionally reorder Ethernet frames, but are not required to provide
 guaranteed in-order delivery. If in-order delivery of Ethernet frames is
 required, DATAGRAM capsules can be used.
 
-## IEEE 802.1Q  tagging {#vlan-recommendations}
+## IEEE 802.1Q tagging {#vlan-recommendations}
 
 When the proxy transports Etherent frames that carry an IEEE 802.1Q VLAN tag,
 these are by default transparently forwarded through the tunnel.  When the
