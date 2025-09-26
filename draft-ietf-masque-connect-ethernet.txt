@@ -4,8 +4,8 @@
 
 Multiplexed Application Substrate over QUIC Encryption      A. R. Sedeño
 Internet-Draft                                                Google LLC
-Intended status: Standards Track                           8 August 2025
-Expires: 9 February 2026
+Intended status: Standards Track                       26 September 2025
+Expires: 30 March 2026
 
 
                        Proxying Ethernet in HTTP
@@ -16,8 +16,9 @@ Abstract
    This document describes how to proxy Ethernet frames in HTTP.  This
    protocol is similar to IP proxying in HTTP, but for Layer 2 instead
    of Layer 3.  More specifically, this document defines a protocol that
-   allows an HTTP client to create Layer 2 Ethernet tunnel through an
-   HTTP server to an attached physical or virtual Ethernet segment.
+   allows an HTTP client to create a tunnel to exchange Layer 2 Ethernet
+   frames through an HTTP server with an attached physical or virtual
+   Ethernet segment.
 
 About This Document
 
@@ -52,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 February 2026.
+   This Internet-Draft will expire on 30 March 2026.
 
 Copyright Notice
 
@@ -104,8 +105,9 @@ Table of Contents
    creating a TCP [TCP] tunnel to a destination, a similar mechanism for
    UDP [CONNECT-UDP], and an additional mechanism for IP [CONNECT-IP].
    However, these mechanisms can't carry Layer 2 frames without further
-   encapsulation inside of IP, for instance with EtherIP [ETHERIP], GUE
-   [GUE] or L2TP [L2TP] [L2TPv3], which imposes an additional MTU cost.
+   encapsulation inside of IP, for instance with EtherIP [ETHERIP] or
+   L2TP [L2TP] [L2TPv3], which consume additional header bytes, reducing
+   the available MTU.
 
    This document describes a protocol for exchanging Ethernet frames
    with an HTTP server.  Either participant in the HTTP connection can
@@ -168,7 +170,7 @@ Table of Contents
    https://proxy.example.org:4443/masque/ethernet/
    https://masque.example.org/?user=bob
 
-   An implementation that supports connecting to different Ethernet
+   An implementation that supports connecting to multiple Ethernet
    segments might add a "vlan-identifier" variable to specify which
    segment to connect to.  The optionality of variables needs to be
    considered when defining the template so that variables are either
@@ -384,13 +386,13 @@ Table of Contents
 5.  Context Identifiers
 
    The mechanism for proxying Ethernet in HTTP defined in this document
-   allows future extensions to exchange HTTP Datagrams that carry
-   different semantics from Ethernet frames.  Some of these extensions
-   could augment Ethernet payloads with additional data or compress
-   Ethernet frame header fields, while others could exchange data that
-   is completely separate from Ethernet payloads.  In order to
-   accomplish this, all HTTP Datagrams associated with Ethernet proxying
-   requests streams start with a Context ID field; see Section 6.
+   allows future extensions to exchange HTTP Datagrams that have
+   different semantics, similar to the extension mechanisms specified in
+   Section 5 of [CONNECT-IP].  Some of these extensions could augment
+   Ethernet payloads with additional data or compress Ethernet frame
+   header fields.  To provide this extension point, all HTTP Datagrams
+   associated with Ethernet proxying request streams start with a
+   Context ID field; see Section 6.
 
    Context IDs are 62-bit integers (0-2^62-1).  Context IDs are encoded
    as variable-length integers; see Section 16 of [QUIC].  The Context
@@ -486,7 +488,7 @@ Table of Contents
                         Figure 6: L2VPN Tunnel Setup
 
    In this case, the client connects to the Ethernet proxy and
-   immediately can start sending ethernet frames to the attached
+   immediately can start sending Ethernet frames to the attached
    broadcast domain.
 
    [[ From Client ]]             [[ From Ethernet Proxy ]]
@@ -563,9 +565,9 @@ Table of Contents
 
    Some implementations might find it benefitial to maintain a small
    buffer of frames to be sent through the tunnel to smooth out short
-   term variations and bursts in tunnel capacity.  Any such buffer MUST
-   be limited, and when exceeded any Ethernet frames that would
-   otherwise be buffered MUST be dropped.
+   term variations and bursts in tunnel capacity.  As such a buffer is
+   limited, Ethernet frames can get dropped when the buffer limit is
+   exceeded.
 
    When the protocol running inside the tunnel uses loss recovery (e.g.,
    [TCP] or [QUIC]) and the outer HTTP connection runs over TCP, the
@@ -775,12 +777,6 @@ Table of Contents
               DOI 10.17487/RFC3378, September 2002,
               <https://www.rfc-editor.org/rfc/rfc3378>.
 
-   [GUE]      Herbert, T., Yong, L., and O. Zia, "Generic UDP
-              Encapsulation", Work in Progress, Internet-Draft, draft-
-              ietf-intarea-gue-09, 26 October 2019,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-intarea-
-              gue-09>.
-
    [L2TP]     Townsley, W., Valencia, A., Rubens, A., Pall, G., Zorn,
               G., and B. Palter, "Layer Two Tunneling Protocol "L2TP"",
               RFC 2661, DOI 10.17487/RFC2661, August 1999,
@@ -794,9 +790,9 @@ Table of Contents
    [OPTIMISTIC]
               Schwartz, B. M., "Security Considerations for Optimistic
               Protocol Transitions in HTTP/1.1", Work in Progress,
-              Internet-Draft, draft-ietf-httpbis-optimistic-upgrade-04,
-              11 June 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-httpbis-optimistic-upgrade-04>.
+              Internet-Draft, draft-ietf-httpbis-optimistic-upgrade-06,
+              18 September 2025, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-httpbis-optimistic-upgrade-06>.
 
    [RFC4861]  Narten, T., Nordmark, E., Simpson, W., and H. Soliman,
               "Neighbor Discovery for IP version 6 (IPv6)", RFC 4861,
@@ -822,8 +818,8 @@ Acknowledgments
    The author would like to thank Alexander Chernyakhovsky and David
    Schinazi for their advice while preparing this document, and Etienne
    Dechamps for useful discussion on the subject material.
-   Additionally, Mirja Kühlewind, Magnus Westerlund, and Martin Thompson
-   provided valuable feedback on the document.
+   Additionally, Mirja Kühlewind, Magnus Westerlund, Martin Thompson,
+   and Gorry Fairhurst provided valuable feedback on the document.
 
 Author's Address
 
