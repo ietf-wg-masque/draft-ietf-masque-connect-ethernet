@@ -73,10 +73,11 @@ consume additional header bytes, reducing the available MTU.
 
 This document describes a protocol for exchanging Ethernet frames with an HTTP
 server. Either participant in the HTTP connection can then relay Ethernet
-frames to and from a local or virtual interface, allowing the bridging of two
-Ethernet broadcast domains to establish a Layer 2 VPN. This can simplify
-connectivity to network-connected appliances that are configured to only
-interact with peers on the same Ethernet broadcast domain.
+frames to and from a local or virtual interface. This can be used by a node to
+support remote bridging of two Ethernet broadcast domains to establish a Layer
+2 VPN. This can simplify connectivity to network-connected appliances that are
+configured to only interact with peers connected to the same Ethernet
+broadcast domain.
 
 This protocol supports all existing versions of HTTP by using HTTP Datagrams
 {{!HTTP-DGRAM=RFC9297}}. When using HTTP/2 {{H2}} or HTTP/3 {{H3}}, it uses
@@ -84,7 +85,7 @@ HTTP Extended CONNECT as described in {{!EXT-CONNECT2=RFC8441}} and
 {{!EXT-CONNECT3=RFC9220}}. When using HTTP/1.x {{H1}}, it uses HTTP Upgrade as
 defined in {{Section 7.8 of HTTP}}.
 
-This protocol necessarily involves additional framing overhead. When possible,
+This protocol necessarily incurs additional encapsulation overhead. When possible,
 users should use higher-level proxying protocols, such as connect-ip or
 connect-udp.
 
@@ -126,7 +127,7 @@ https://proxy.example.org:4443/masque/ethernet/
 https://masque.example.org/?user=bob
 ~~~
 
-An implementation that supports connecting to different Ethernet segments might
+An implementation that supports connecting to multiple Ethernet segments might
 add a "vlan-identifier" variable to specify which segment to connect to. The
 optionality of variables needs to be considered when defining the template so
 that variables are either self-identifying or possible to exclude in the syntax.
@@ -333,12 +334,12 @@ capsule-protocol = ?1
 # Context Identifiers
 
 The mechanism for proxying Ethernet in HTTP defined in this document allows
-future extensions to exchange HTTP Datagrams that carry different semantics from
-Ethernet frames. Some of these extensions could augment Ethernet payloads with
-additional data or compress Ethernet frame header fields, while others could
-exchange data that is completely separate from Ethernet payloads. In order to
-accomplish this, all HTTP Datagrams associated with Ethernet proxying requests
-streams start with a Context ID field; see {{payload-format}}.
+future extensions to exchange HTTP Datagrams that have different semantics,
+similar to the extension mechanisms specified in {{Section 5 of
+CONNECT-IP}}. Some of these extensions could augment Ethernet payloads with
+additional data or compress Ethernet frame header fields. To provide this
+extension point, all HTTP Datagrams associated with Ethernet proxying
+request streams start with a Context ID field; see {{payload-format}}.
 
 Context IDs are 62-bit integers (0-2<sup>62</sup>-1). Context IDs are encoded as
 variable-length integers; see {{Section 16 of QUIC}}. The Context ID value of 0
@@ -517,8 +518,8 @@ identified to be congestion controlled traffic.
 
 Some implementations might find it benefitial to maintain a small buffer of
 frames to be sent through the tunnel to smooth out short term variations and
-bursts in tunnel capacity. Any such buffer MUST be limited, and when exceeded
-any Ethernet frames that would otherwise be buffered MUST be dropped.
+bursts in tunnel capacity. As such a buffer is limited, Ethernet frames can get
+dropped when the buffer limit is exceeded.
 
 When the protocol running inside the tunnel uses loss recovery (e.g., {{TCP}} or
 {{QUIC}}) and the outer HTTP connection runs over TCP, the proxied traffic will
