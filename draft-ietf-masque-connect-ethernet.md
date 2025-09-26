@@ -560,11 +560,13 @@ manually configured) on how to consistently process each tag at the ingress and
 the egress. The procedure for this signalling/configuration is not defined in
 this document.
 
-A proxy MAY map an individual VLAN to a separate proxy connection. This provides
-flexibility in forwarding, while meeting the requirements for the relative
-priority and ordering between frames associated with a VLAN. To reduce overhead,
-the IEEE 802.1Q field could be stripped and, when required, could be reapplied
-at the egress associating the frame with the appropriate priority and VLAN.
+A proxy that is used to access to multiple VLANs MAY map each individual
+VLAN to a distinct URI, such that each Ethernet proxying request is
+associated with only one VLAN. This provides flexibility in forwarding,
+while meeting the requirements for the relative priority and ordering
+between frames associated with a VLAN. To reduce overhead, the IEEE 802.1Q
+field could be stripped and, when required, could be reapplied at the egress
+associating the frame with the appropriate priority and VLAN.
 
 # Security Considerations
 
