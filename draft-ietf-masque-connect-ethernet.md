@@ -46,9 +46,10 @@ normative:
   H3:
     =: RFC9114
     display: HTTP/3
+  IEEE802.3: DOI.10.1109/IEEESTD.2022.9844436
+  IEEE802.1Q: DOI.10.1109/IEEESTD.2022.10004498
 
 informative:
-
 
 --- abstract
 
@@ -71,13 +72,13 @@ without further encapsulation inside of IP, for instance with EtherIP
 {{?ETHERIP=RFC3378}} or L2TP {{?L2TP=RFC2661}} {{?L2TPv3=RFC3931}}, which
 consume additional header bytes, reducing the available MTU.
 
-This document describes a protocol for exchanging Ethernet frames with an HTTP
-server. Either participant in the HTTP connection can then relay Ethernet
-frames to and from a local or virtual interface. This can be used by a node to
-support remote bridging of two Ethernet broadcast domains to establish a Layer
-2 VPN. This can simplify connectivity to network-connected appliances that are
-configured to only interact with peers connected to the same Ethernet
-broadcast domain.
+This document describes a protocol for exchanging IEEE 802.3 {{IEEE802.3}}
+Ethernet frames with an HTTP server. Either participant in the HTTP connection
+can then relay Ethernet frames to and from a local or virtual interface. This
+can be used by a node to support remote bridging of two Ethernet broadcast
+domains to establish a Layer 2 VPN. This can simplify connectivity to
+network-connected appliances that are configured to only interact with peers
+connected to the same Ethernet broadcast domain.
 
 This protocol supports all existing versions of HTTP by using HTTP Datagrams
 {{!HTTP-DGRAM=RFC9297}}. When using HTTP/2 {{H2}} or HTTP/3 {{H3}}, it uses
@@ -399,8 +400,9 @@ field. Note that this field can be empty.
 Ethernet frames are encoded using HTTP Datagrams with the Context ID set to
 zero. When the Context ID is set to zero, the Payload field contains a full
 Layer 2 Ethernet Frame (from the MAC destination field until the last byte of
-the Frame check sequence field), as defined by IEEE 802.3. A complete
-frame could include include an IEEE 802.1Q tag (see {{vlan-recommendations}}).
+the Frame check sequence field), as defined by IEEE 802.3 {{IEEE802.3}}. A
+complete frame could include include an IEEE 802.1Q {{IEEE802.1Q}} tag (see
+{{vlan-recommendations}}).
 
 If an Ethernet proxy receives an HTTP Datagram before it has received the
 corresponding request, it SHALL either drop that HTTP Datagram silently or
@@ -570,12 +572,12 @@ required, DATAGRAM capsules can be used.
 
 ## IEEE 802.1Q tagging {#vlan-recommendations}
 
-When the proxy transports Etherent frames that carry an IEEE 802.1Q VLAN tag,
-these are by default transparently forwarded through the tunnel. When the tunnel
-ingress and/or egress interprets the tags, there must be agreement (signaled or
-manually configured) on how to consistently process each tag at the ingress and
-the egress. The procedure for this signalling/configuration is not defined in
-this document.
+When the proxy transports Etherent frames that carry an IEEE 802.1Q
+{{IEEE802.1Q}} VLAN tag, these are by default transparently forwarded through
+the tunnel. When the tunnel ingress and/or egress interprets the tags, there
+must be agreement (signaled or manually configured) on how to consistently
+process each tag at the ingress and the egress. The procedure for this
+signalling/configuration is not defined in this document.
 
 A proxy that is used to access to multiple VLANs MAY map each individual
 VLAN to a distinct URI, such that each Ethernet proxying request is
