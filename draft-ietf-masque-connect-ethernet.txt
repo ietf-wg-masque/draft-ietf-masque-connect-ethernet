@@ -4,8 +4,8 @@
 
 Multiplexed Application Substrate over QUIC Encryption      A. R. Sedeño
 Internet-Draft                                                Google LLC
-Intended status: Standards Track                       26 September 2025
-Expires: 30 March 2026
+Intended status: Standards Track                       29 September 2025
+Expires: 2 April 2026
 
 
                        Proxying Ethernet in HTTP
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 March 2026.
+   This Internet-Draft will expire on 2 April 2026.
 
 Copyright Notice
 
@@ -471,12 +471,18 @@ Table of Contents
 7.  Ethernet Frame Handling
 
    This document defines a tunnelling mechanism that is conceptually an
-   Ethernet link.  Implementations might need to handle some of the
-   responsibilities of an Ethernet switch or bridge if they do not
-   delegate them to another implementation such as a kernel.  Those
-   responsibilities are beyond the scope of this document, and include,
-   but are not limited to, the handling of broadcast packets and
-   multicast groups, or the local termination of PAUSE frames.
+   Ethernet link.  An Ethernet proxying connection established between
+   two Ethernet proxying endpoints emulates a single Ethernet link
+   between those two endpoints.  This provides an Ethernet MAC service
+   that will deliver each Ethernet frame that is received at the ingress
+   to the egress at the other end of the tunnel.
+
+   Implementations might need to handle some of the responsibilities of
+   an Ethernet switch or bridge if they do not delegate them to another
+   implementation such as a kernel.  Those responsibilities are beyond
+   the scope of this document, and include, but are not limited to, the
+   handling of broadcast packets and multicast groups, or the local
+   termination of PAUSE frames.
 
    If an Ethernet proxying endpoint fails to deliver a frame to an
    underlying Ethernet segment, the endpoint MUST drop the frame.
