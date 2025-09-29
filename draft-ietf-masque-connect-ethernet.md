@@ -417,7 +417,12 @@ per-stream, per-context, or per-connection basis.
 # Ethernet Frame Handling
 
 This document defines a tunnelling mechanism that is conceptually an Ethernet
-link. Implementations might need to handle some of the responsibilities of an
+link. An Ethernet proxying connection established between two Ethernet proxying
+endpoints emulates a single Ethernet link between those two endpoints. This
+provides an Ethernet MAC service that will deliver each Ethernet frame that is
+received at the ingress to the egress at the other end of the tunnel.
+
+Implementations might need to handle some of the responsibilities of an
 Ethernet switch or bridge if they do not delegate them to another implementation
 such as a kernel. Those responsibilities are beyond the scope of this document,
 and include, but are not limited to, the handling of broadcast packets and
