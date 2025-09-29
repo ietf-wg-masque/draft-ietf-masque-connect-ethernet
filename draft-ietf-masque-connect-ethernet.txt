@@ -109,14 +109,14 @@ Table of Contents
    L2TP [L2TP] [L2TPv3], which consume additional header bytes, reducing
    the available MTU.
 
-   This document describes a protocol for exchanging Ethernet frames
-   with an HTTP server.  Either participant in the HTTP connection can
-   then relay Ethernet frames to and from a local or virtual interface.
-   This can be used by a node to support remote bridging of two Ethernet
-   broadcast domains to establish a Layer 2 VPN.  This can simplify
-   connectivity to network-connected appliances that are configured to
-   only interact with peers connected to the same Ethernet broadcast
-   domain.
+   This document describes a protocol for exchanging IEEE 802.3
+   [IEEE802.3] Ethernet frames with an HTTP server.  Either participant
+   in the HTTP connection can then relay Ethernet frames to and from a
+   local or virtual interface.  This can be used by a node to support
+   remote bridging of two Ethernet broadcast domains to establish a
+   Layer 2 VPN.  This can simplify connectivity to network-connected
+   appliances that are configured to only interact with peers connected
+   to the same Ethernet broadcast domain.
 
    This protocol supports all existing versions of HTTP by using HTTP
    Datagrams [HTTP-DGRAM].  When using HTTP/2 [HTTP/2] or HTTP/3
@@ -452,8 +452,8 @@ Table of Contents
    set to zero.  When the Context ID is set to zero, the Payload field
    contains a full Layer 2 Ethernet Frame (from the MAC destination
    field until the last byte of the Frame check sequence field), as
-   defined by IEEE 802.3.  A complete frame could include include an
-   IEEE 802.1Q tag (see Section 9.2).
+   defined by IEEE 802.3 [IEEE802.3].  A complete frame could include
+   include an IEEE 802.1Q [IEEE802.1Q] tag (see Section 9.2).
 
    If an Ethernet proxy receives an HTTP Datagram before it has received
    the corresponding request, it SHALL either drop that HTTP Datagram
@@ -625,12 +625,12 @@ Table of Contents
 9.2.  IEEE 802.1Q tagging
 
    When the proxy transports Etherent frames that carry an IEEE 802.1Q
-   VLAN tag, these are by default transparently forwarded through the
-   tunnel.  When the tunnel ingress and/or egress interprets the tags,
-   there must be agreement (signaled or manually configured) on how to
-   consistently process each tag at the ingress and the egress.  The
-   procedure for this signalling/configuration is not defined in this
-   document.
+   [IEEE802.1Q] VLAN tag, these are by default transparently forwarded
+   through the tunnel.  When the tunnel ingress and/or egress interprets
+   the tags, there must be agreement (signaled or manually configured)
+   on how to consistently process each tag at the ingress and the
+   egress.  The procedure for this signalling/configuration is not
+   defined in this document.
 
    A proxy that is used to access to multiple VLANs MAY map each
    individual VLAN to a distinct URI, such that each Ethernet proxying
@@ -761,6 +761,18 @@ Table of Contents
 
    [HTTP/3]   Bishop, M., Ed., "HTTP/3", RFC 9114, DOI 10.17487/RFC9114,
               June 2022, <https://www.rfc-editor.org/rfc/rfc9114>.
+
+   [IEEE802.1Q]
+              "IEEE Standard for Local and Metropolitan Area Networks--
+              Bridges and Bridged Networks", IEEE,
+              DOI 10.1109/ieeestd.2022.10004498, ISBN ["9781504491884"],
+              December 2022,
+              <https://doi.org/10.1109/ieeestd.2022.10004498>.
+
+   [IEEE802.3]
+              "IEEE Standard for Ethernet", IEEE,
+              DOI 10.1109/ieeestd.2022.9844436, ISBN ["9781504487252"],
+              July 2022, <https://doi.org/10.1109/ieeestd.2022.9844436>.
 
    [QUIC]     Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", RFC 9000,
