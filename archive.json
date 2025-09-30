@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-28T01:45:56.076591+00:00",
+  "timestamp": "2025-09-30T01:35:48.987668+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -803,15 +803,15 @@
       "id": "I_kwDOJbp2N87DLZpz",
       "title": "Clarifications on handling Ethernet frames",
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/issues/31",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "asedeno",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Generating an issue for @gorryfair from [email](https://mailarchive.ietf.org/arch/msg/masque/G9USoURXa7AcBZJUvrxRtjpAY3I/) on the masque WG [mailing list](https://mailarchive.ietf.org/arch/browse/masque/).\n\nA layer 2 PDU will be received at ingress proxy, encapsulated over the tunnel, transported, decapsulated at the egress, and transmitted out on an interface at the egress.\n\nhttps://www.ietf.org/archive/id/draft-ietf-masque-connect-ethernet-07.html#name-ethernet-frame-handling\n> This document defines a tunnelling mechanism that is conceptually an Ethernet link. Implementations might need to handle some of the responsibilities of an Ethernet switch or bridge if they do not delegate them to another implementation such as a kernel. Those responsibilities are beyond the scope of this document, and include, but are not limited to, the handling of broadcast packets and multicast groups, or the local termination of PAUSE frames.\n\nI suggest to add something like the following (adapted form the PWE work that Lars mentioned):\n\nNEW:\n> An Ethernet proxy emulates a single Ethernet link between exactly two endpoints. This provides an Ethernet MAC service that will deliver each Ethernet frame that is received at the ingress, unaltered, to the egress at the other end of the tunnel.\n\nNEW:\n> The tunnel forwards unicast/multicast/broadcast frames.\n\nI don\u2019t see how this can work with Ethernet frames with IETF protocols unless you forward them, you may of course wish to perform some sort of filtering as well, but that\u2019s covered by the next point.\n\nNEW:\n> The tunnel endpoint may provide functions that include stripping, overwriting or adding VLAN tags, physical port multiplexing and demultiplexing, bridging, L2 encapsulation, shaping, filtering, policing, etc.  These functions are specific to the Ethernet technology, and may not be required for this service. These are outside of the scope of ~~PWE3~~ this document and are not defined here.\n\n",
       "createdAt": "2025-07-29T18:15:12Z",
-      "updatedAt": "2025-09-27T11:28:31Z",
-      "closedAt": null,
+      "updatedAt": "2025-09-29T13:51:08Z",
+      "closedAt": "2025-09-29T13:51:08Z",
       "comments": [
         {
           "author": "asedeno",
@@ -847,6 +847,13 @@
           "body": "This looks an improvement, thanks.",
           "createdAt": "2025-09-27T11:28:31Z",
           "updatedAt": "2025-09-27T11:28:31Z"
+        },
+        {
+          "author": "asedeno",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closed with #43 then.",
+          "createdAt": "2025-09-29T13:51:08Z",
+          "updatedAt": "2025-09-29T13:51:08Z"
         }
       ]
     },
@@ -855,15 +862,15 @@
       "id": "I_kwDOJbp2N87DLmho",
       "title": "VLAN redux",
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/issues/32",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "asedeno",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Generating an issue for @gorryfair from [email](https://mailarchive.ietf.org/arch/msg/masque/G9USoURXa7AcBZJUvrxRtjpAY3I/) on the masque WG [mailing list](https://mailarchive.ietf.org/arch/browse/masque/).\n\nhttps://www.ietf.org/archive/id/draft-ietf-masque-connect-ethernet-07.html#name-ieee-8021q-vlan-tagging\n> While the protocol as described can proxy Ethernet frames with IEEE 802.1Q VLAN tags, it is RECOMMENDED that individual VLANs be proxied in separate connections, and VLAN tags be stripped and applied by the Ethernet proxying endpoints as needed.\n\nSect 9.2: On VLANs, some tighter text could be:\n\nNEW:\n> When an Ethernet PDU contains VLAN tags, these are passed transparently through the tunnel.  When an ingress and/or egress interprets the tags that can be present there must be agreement (signaled or manually configured) on how to process each tag at the ingress and the egress. This is not defined in this document.\n\nQuestion: Can the ingress/egress respect the PRI? (This could be useful to permit). e.g.:\n\n> The ingress MAY consider the user priority (PRI) field [802.1Q] of the outer VLAN tag header when queuing  the encapsulating PDU.  In a similar way, the egress MAY consider the QoS field of the PDY when queuing the frame for transmission.",
       "createdAt": "2025-07-29T18:35:16Z",
-      "updatedAt": "2025-09-26T18:07:48Z",
-      "closedAt": null,
+      "updatedAt": "2025-09-29T13:52:07Z",
+      "closedAt": "2025-09-29T13:52:07Z",
       "comments": [
         {
           "author": "mirjak",
@@ -2308,24 +2315,26 @@
       "id": "PR_kwDOJbp2N86qwbj0",
       "title": "Update Ethernet frame handling text.",
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/43",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "asedeno",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Takes some text suggested in #31.",
       "createdAt": "2025-09-26T16:44:20Z",
-      "updatedAt": "2025-09-26T16:44:20Z",
+      "updatedAt": "2025-09-29T13:50:34Z",
       "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
       "baseRefName": "main",
       "baseRefOid": "7afd02c8f198734fb25a7a33e9badca1bf3f43fe",
       "headRepository": "asedeno/draft-ietf-masque-connect-ethernet",
       "headRefName": "ethernet-frame-handling",
       "headRefOid": "bfda70c4244f70f829040a71317db2eac3d1800b",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-09-29T13:50:34Z",
+      "mergedAt": "2025-09-29T13:50:34Z",
+      "mergedBy": "asedeno",
+      "mergeCommit": {
+        "oid": "a785df474cfd410f46c8b28c60f1573018e04000"
+      },
       "comments": [],
       "reviews": []
     }
