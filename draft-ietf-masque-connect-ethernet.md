@@ -48,6 +48,7 @@ normative:
     display: HTTP/3
   IEEE802.3: DOI.10.1109/IEEESTD.2022.9844436
   IEEE802.1Q: DOI.10.1109/IEEESTD.2022.10004498
+  IEEE802.1X: DOI.10.1109/IEEESTD.2020.9018454
 
 informative:
 
@@ -424,11 +425,12 @@ endpoints emulates a single Ethernet link between those two endpoints. This
 provides an Ethernet MAC service that will deliver each Ethernet frame that is
 received at the ingress to the egress at the other end of the tunnel.
 
-Implementations might need to handle some of the responsibilities of an
-Ethernet switch or bridge if they do not delegate them to another implementation
-such as a kernel. Those responsibilities are beyond the scope of this document,
-and include, but are not limited to, the handling of broadcast packets and
-multicast groups, or the local termination of PAUSE frames.
+Endpoints implementing this mechanism might need to handle some of the
+responsibilities of an Ethernet switch or bridge if they do not delegate them to
+another component of the endpoint such as a kernel. Those responsibilities are
+beyond the scope of this document, and include, but are not limited to, the
+handling of broadcast packets and multicast groups, or the local termination of
+PAUSE frames.
 
 If an Ethernet proxying endpoint fails to deliver a frame to an underlying
 Ethernet segment, the endpoint MUST drop the frame.
@@ -608,9 +610,10 @@ hosts on the network. These are the same attacks available to an arbitrary
 client with physical access to the network. An implementation that is intended
 for point-to-site connections might limit clients to a single source MAC
 address, or Ethernet proxying endpoints might be configured to limit forwarding
-to pre-configured MAC addresses, though such filtering is outside the scope of
-this protocol. Dynamic signalling or negotiation of MAC address filtering is
-left to future extensions.
+to pre-configured MAC addresses, or clients could be authenticated by
+[IEEE802.1X] Port Based Network Access Control, though such filtering is outside
+the scope of this protocol. Dynamic signalling or negotiation of MAC address
+filtering is left to future extensions.
 
 This protocol is agnostic to where on the Ethernet segment a gateway for
 higher-level routing might be located. A client may connect via an Ethernet
