@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-30T01:35:48.987668+00:00",
+  "timestamp": "2025-10-05T01:45:14.425579+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -2335,6 +2335,32 @@
       "mergeCommit": {
         "oid": "a785df474cfd410f46c8b28c60f1573018e04000"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 44,
+      "id": "PR_kwDOJbp2N86rzhG8",
+      "title": "More RTGDIR feedback",
+      "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/44",
+      "state": "OPEN",
+      "author": "asedeno",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- A bit more wordsmithing in Ethernet Frame Handling.\r\n- Mention 802.1X in Security Considerations, and add a reference.",
+      "createdAt": "2025-10-02T16:54:48Z",
+      "updatedAt": "2025-10-02T16:54:48Z",
+      "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
+      "baseRefName": "main",
+      "baseRefOid": "418f0faa452dd167c433f6043d4850f365fd05dc",
+      "headRepository": "asedeno/draft-ietf-masque-connect-ethernet",
+      "headRefName": "rtgdir-feedback",
+      "headRefOid": "e8ce4772da1bcb9028ea584761bcd44ec583e6ae",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
