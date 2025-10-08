@@ -4,8 +4,8 @@
 
 Multiplexed Application Substrate over QUIC Encryption      A. R. Sedeño
 Internet-Draft                                                Google LLC
-Intended status: Standards Track                       29 September 2025
-Expires: 2 April 2026
+Intended status: Standards Track                          8 October 2025
+Expires: 11 April 2026
 
 
                        Proxying Ethernet in HTTP
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 April 2026.
+   This Internet-Draft will expire on 11 April 2026.
 
 Copyright Notice
 
@@ -477,12 +477,12 @@ Table of Contents
    that will deliver each Ethernet frame that is received at the ingress
    to the egress at the other end of the tunnel.
 
-   Implementations might need to handle some of the responsibilities of
-   an Ethernet switch or bridge if they do not delegate them to another
-   implementation such as a kernel.  Those responsibilities are beyond
-   the scope of this document, and include, but are not limited to, the
-   handling of broadcast packets and multicast groups, or the local
-   termination of PAUSE frames.
+   Endpoints implementing this mechanism might need to handle some of
+   the responsibilities of an Ethernet switch or bridge if they do not
+   delegate them to another component of the endpoint such as a kernel.
+   Those responsibilities are beyond the scope of this document, and
+   include, but are not limited to, the handling of broadcast packets
+   and multicast groups, or the local termination of PAUSE frames.
 
    If an Ethernet proxying endpoint fails to deliver a frame to an
    underlying Ethernet segment, the endpoint MUST drop the frame.
@@ -665,9 +665,10 @@ Table of Contents
    the network.  An implementation that is intended for point-to-site
    connections might limit clients to a single source MAC address, or
    Ethernet proxying endpoints might be configured to limit forwarding
-   to pre-configured MAC addresses, though such filtering is outside the
-   scope of this protocol.  Dynamic signalling or negotiation of MAC
-   address filtering is left to future extensions.
+   to pre-configured MAC addresses, or clients could be authenticated by
+   [IEEE802.1X] Port Based Network Access Control, though such filtering
+   is outside the scope of this protocol.  Dynamic signalling or
+   negotiation of MAC address filtering is left to future extensions.
 
    This protocol is agnostic to where on the Ethernet segment a gateway
    for higher-level routing might be located.  A client may connect via
@@ -819,6 +820,13 @@ Table of Contents
               Ethernet Frames in IP Datagrams", RFC 3378,
               DOI 10.17487/RFC3378, September 2002,
               <https://www.rfc-editor.org/rfc/rfc3378>.
+
+   [IEEE802.1X]
+              "IEEE Standard for Local and Metropolitan Area Networks--
+              Port-Based Network Access Control", IEEE,
+              DOI 10.1109/ieeestd.2020.9018454, ISBN ["9781504464406"],
+              February 2020,
+              <https://doi.org/10.1109/ieeestd.2020.9018454>.
 
    [L2TP]     Townsley, W., Valencia, A., Rubens, A., Pall, G., Zorn,
               G., and B. Palter, "Layer Two Tunneling Protocol "L2TP"",
