@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-05T01:45:14.425579+00:00",
+  "timestamp": "2025-10-09T01:37:49.321204+00:00",
   "repo": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
   "labels": [
     {
@@ -2343,26 +2343,42 @@
       "id": "PR_kwDOJbp2N86rzhG8",
       "title": "More RTGDIR feedback",
       "url": "https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/pull/44",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "asedeno",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "- A bit more wordsmithing in Ethernet Frame Handling.\r\n- Mention 802.1X in Security Considerations, and add a reference.",
       "createdAt": "2025-10-02T16:54:48Z",
-      "updatedAt": "2025-10-02T16:54:48Z",
+      "updatedAt": "2025-10-08T18:59:47Z",
       "baseRepository": "ietf-wg-masque/draft-ietf-masque-connect-ethernet",
       "baseRefName": "main",
       "baseRefOid": "418f0faa452dd167c433f6043d4850f365fd05dc",
       "headRepository": "asedeno/draft-ietf-masque-connect-ethernet",
       "headRefName": "rtgdir-feedback",
-      "headRefOid": "e8ce4772da1bcb9028ea584761bcd44ec583e6ae",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "6bc6a3b09885b5646adf7f9866d4878ada3b8057",
+      "closedAt": "2025-10-08T18:59:46Z",
+      "mergedAt": "2025-10-08T18:59:46Z",
+      "mergedBy": "asedeno",
+      "mergeCommit": {
+        "oid": "6bc6a3b09885b5646adf7f9866d4878ada3b8057"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOJbp2N87Fp5xN",
+          "commit": {
+            "abbreviatedOid": "6bc6a3b"
+          },
+          "author": "DavidSchinazi",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-08T18:47:17Z",
+          "updatedAt": "2025-10-08T18:47:17Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
