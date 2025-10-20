@@ -597,10 +597,10 @@ that they would otherwise be unable to reach. HTTP servers that support Ethernet
 proxying SHOULD restrict its use to authenticated users. Depending on the
 deployment, possible authentication mechanisms include mutual TLS between IP
 proxying endpoints, HTTP-based authentication via the HTTP Authorization header
-{{HTTP}}, or even bearer tokens. Proxies can enforce policies for authenticated
-users to further constrain client behavior or deal with possible abuse. For
-example, proxies can rate limit individual clients that send an excessively
-large amount of traffic through the proxy.
+field {{HTTP}}, or even bearer tokens. Proxies can enforce policies for
+authenticated users to further constrain client behavior or deal with possible
+abuse. For example, proxies can rate limit individual clients that send an
+excessively large amount of traffic through the proxy.
 
 Users of this protocol may send arbitrary Ethernet frames through the tunnel,
 including frames with arbitrary source MAC addresses. This could allow
