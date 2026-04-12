@@ -5,6 +5,7 @@ draft-ietf-masque-connect-ethernet.xml
 Gemfile.lock
 /.gems/
 *.html
+/.idea/
 /lib
 /.*.mk
 /node_modules/
