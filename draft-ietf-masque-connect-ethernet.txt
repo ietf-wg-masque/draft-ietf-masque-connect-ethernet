@@ -4,8 +4,8 @@
 
 Multiplexed Application Substrate over QUIC Encryption      A. R. Sedeño
 Internet-Draft                                                Google LLC
-Intended status: Standards Track                          8 October 2025
-Expires: 11 April 2026
+Intended status: Standards Track                           12 April 2026
+Expires: 14 October 2026
 
 
                        Proxying Ethernet in HTTP
@@ -53,11 +53,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 April 2026.
+   This Internet-Draft will expire on 14 October 2026.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -650,11 +650,11 @@ Table of Contents
    its use to authenticated users.  Depending on the deployment,
    possible authentication mechanisms include mutual TLS between IP
    proxying endpoints, HTTP-based authentication via the HTTP
-   Authorization header [HTTP], or even bearer tokens.  Proxies can
-   enforce policies for authenticated users to further constrain client
-   behavior or deal with possible abuse.  For example, proxies can rate
-   limit individual clients that send an excessively large amount of
-   traffic through the proxy.
+   Authorization header field [HTTP], or even bearer tokens.  Proxies
+   can enforce policies for authenticated users to further constrain
+   client behavior or deal with possible abuse.  For example, proxies
+   can rate limit individual clients that send an excessively large
+   amount of traffic through the proxy.
 
    Users of this protocol may send arbitrary Ethernet frames through the
    tunnel, including frames with arbitrary source MAC addresses.  This
