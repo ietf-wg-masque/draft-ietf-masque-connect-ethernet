@@ -1,3 +1,5 @@
+<!-- regenerate: on (set to off if you edit this file) -->
+
 # Proxying Ethernet in HTTP
 
 This is the working area for the IETF [MASQUE Working Group](https://datatracker.ietf.org/group/masque/documents/) Internet-Draft, "Proxying Ethernet in HTTP".
@@ -13,9 +15,8 @@ This is the working area for the IETF [MASQUE Working Group](https://datatracker
 See the
 [guidelines for contributions](https://github.com/ietf-wg-masque/draft-ietf-masque-connect-ethernet/blob/main/CONTRIBUTING.md).
 
-Contributions can be made by creating pull requests.
-The GitHub interface supports creating pull requests using the Edit (✏) button.
-
+The contributing file also has tips on how to make contributions, if you
+don't already know how to do that.
 
 ## Command Line Usage
 
