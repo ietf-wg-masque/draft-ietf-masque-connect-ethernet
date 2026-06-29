@@ -523,15 +523,15 @@ HOST C <---+                             +---> HOST 3
 In this case, the client connects to the Ethernet proxy and immediately can
 start relaying Ethernet frames from its attached broadcast domain to the
 proxy. The difference between this example and {{example-remote}} is limited to
-what the Client is doing with the the tunnel; the exchange between the Client
-and the Proxy is the same as in {{fig-full-tunnel}} above.
+what the Client is doing with the tunnel; the exchange between the Client and
+the Proxy is the same as in {{fig-full-tunnel}} above.
 
 # Performance Considerations
 
 When the protocol running inside the tunnel uses congestion control (e.g.,
 {{TCP}} or {{QUIC}}), the proxied traffic will incur at least two nested
 congestion controllers. Implementers will benefit from reading the guidance in
-{{Section 3.1.11 of ?UDP-USAGE=RFC8085}}. By default the tunneling of Ethernet
+{{Section 3.1.11 of ?UDP-USAGE=RFC8085}}. By default, the tunneling of Ethernet
 frames MUST NOT assume that the carried Ethernet frames contain congestion
 controlled traffic. Optimizations for traffic flows carried within the Ethernet
 Frames MAY be done in cases where the content of the Ethernet Frames have been
@@ -620,14 +620,12 @@ higher-level routing might be located. A client may connect via an Ethernet
 proxy and discover an existing gateway on the Ethernet segment, supply a new
 gateway to the Ethernet segment, both, or neither.
 
-Opportunistic sending of Ethernet frames is not allowed in HTTP/1.x
-because a server could reject the HTTP Upgrade and attempt to parse
-the Ethernet frames as a subsequent HTTP request, allowing request
-smuggling attacks; see
-{{?OPTIMISTIC=I-D.draft-ietf-httpbis-optimistic-upgrade}}. In
-particular, an intermediary that re-encodes a request from HTTP/2 or 3
-to HTTP/1.1 MUST NOT forward any received capsules until it has parsed
-a successful Ethernet proxying response.
+Opportunistic sending of Ethernet frames is not allowed in HTTP/1.x because a
+server could reject the HTTP Upgrade and attempt to parse the Ethernet frames as
+a subsequent HTTP request, allowing request smuggling attacks; see
+{{?OPTIMISTIC=RFC9931}}. In particular, an intermediary that re-encodes a request
+from HTTP/2 or 3 to HTTP/1.1 MUST NOT forward any received capsules until it has
+parsed a successful Ethernet proxying response.
 
 # IANA Considerations
 
