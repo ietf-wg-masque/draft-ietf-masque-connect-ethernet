@@ -405,6 +405,11 @@ the Frame check sequence field), as defined by IEEE 802.3 {{IEEE802.3}}. A
 complete frame could include include an IEEE 802.1Q {{IEEE802.1Q}} tag (see
 {{vlan-recommendations}}).
 
+The Frame check sequence field is included in the proxied Ethernet frame rather
+than being omitted and recomputed by the Ethernet proxying endpoints for
+simplicity and to reduce compute requirements, though a future extension could
+introduce a different encoding.
+
 If an Ethernet proxy receives an HTTP Datagram before it has received the
 corresponding request, it SHALL either drop that HTTP Datagram silently or
 buffer it temporarily (on the order of a round trip) while awaiting the
