@@ -1,5 +1,5 @@
 ---
-title: "Proxying Ethernet in HTTP"
+title: "Proxying Ethernet Frames in HTTP"
 abbrev: "CONNECT-ETHERNET"
 category: std
 docname: draft-ietf-masque-connect-ethernet-latest
@@ -169,12 +169,12 @@ validation. If a client detects that any of the requirements above are not met
 by a URI Template, the client MUST reject its configuration and abort the
 request without sending it to the Ethernet proxy.
 
-# Tunnelling Ethernet over HTTP
+# Tunnelling Ethernet frames over HTTP
 
-To allow negotiation of a tunnel for Ethernet over HTTP, this document defines
-the "connect-ethernet" HTTP upgrade token. The resulting Ethernet tunnels use the
-Capsule Protocol (see {{Section 3.2 of HTTP-DGRAM}}) with HTTP Datagrams in the
-format defined in {{payload-format}}.
+To allow negotiation of a tunnel for Ethernet frames over HTTP, this document
+defines the "connect-ethernet" HTTP upgrade token. The resulting Ethernet
+tunnels use the Capsule Protocol (see {{Section 3.2 of HTTP-DGRAM}}) with HTTP
+Datagrams in the format defined in {{payload-format}}.
 
 To initiate an Ethernet tunnel associated with a single HTTP stream, a client
 issues a request containing the "connect-ethernet" upgrade token.
