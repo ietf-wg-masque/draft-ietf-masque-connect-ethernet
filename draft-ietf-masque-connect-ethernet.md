@@ -434,8 +434,13 @@ Endpoints implementing this mechanism might need to handle some of the
 responsibilities of an Ethernet switch or bridge if they do not delegate them to
 another component of the endpoint such as a kernel. Those responsibilities are
 beyond the scope of this document, and include, but are not limited to, the
-handling of broadcast packets and multicast groups, or the local termination of
-PAUSE frames.
+handling of broadcast packets and multicast groups, topological loop prevention
+using a spanning tree protocol (STP, RSTP, etc.) {{IEEE802.1Q}}, or the local
+termination of PAUSE frames.
+
+Implementations SHOULD be aware of physical topology and work to prevent
+loops. Strategies could include implementing STP or RSTP, or delegating that
+responsibility to a dedicated ethernet-handling device.
 
 If an Ethernet proxying endpoint fails to deliver a frame to an underlying
 Ethernet segment, the endpoint MUST drop the frame.
