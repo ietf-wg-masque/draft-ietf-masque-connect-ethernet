@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>Proxying Ethernet in HTTP</title>
+<title>Proxying Ethernet Frames in HTTP</title>
 <meta content="Alejandro R Sedeño" name="author">
 <meta content="
        This document describes how to proxy Ethernet frames in HTTP. This protocol
@@ -13,7 +13,7 @@ specifically, this document defines a protocol that allows an HTTP client to
 create a tunnel to exchange Layer 2 Ethernet frames through an HTTP server
 with an attached physical or virtual Ethernet segment. 
     " name="description">
-<meta content="xml2rfc 3.32.0" name="generator">
+<meta content="xml2rfc 3.34.0" name="generator">
 <meta content="quic" name="keyword">
 <meta content="http" name="keyword">
 <meta content="datagram" name="keyword">
@@ -26,18 +26,19 @@ with an attached physical or virtual Ethernet segment.
 <meta content="ethernet" name="keyword">
 <meta content="draft-ietf-masque-connect-ethernet-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.32.0
-    Python 3.12.12
-    ConfigArgParse 1.7
+  xml2rfc 3.34.0
+    Python 3.14.5
+    ConfigArgParse 1.7.5
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 6.0.2
-    platformdirs 4.9.4
+    lxml 6.1.1
+    natsort 8.4.0
+    platformdirs 4.10.0
     pycountry 24.6.1
     PyYAML 6.0.3
-    requests 2.32.5
-    wcwidth 0.6.0
+    requests 2.33.1
+    wcwidth 0.8.1
 -->
 <link href="draft-ietf-masque-connect-ethernet.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -304,16 +305,19 @@ h1, h2, h3, h4, h5, h6 {
   font-size-adjust: 0.5;
   color: var(--title-color);
 }
-h1#title {
-  font-size: 32px;
-  line-height: 40px;
-  clear: both;
-}
-h1#title, h1#rfcnum {
-  margin: 1.5em 0 0.2em;
-}
-h1#rfcnum + h1#title {
-  margin: 0.2em 0;
+h1 {
+  &#title {
+    font-size: 32px;
+    line-height: 40px;
+    clear: both;
+    margin: 1.5em 0 0.2em;
+  }
+  &#rfcnum {
+    margin: 1.5em 0 0.2em;
+    & + h1#title {
+      margin: 0.2em 0;
+    }
+  }
 }
 
 h1, h2, h3 {
@@ -333,10 +337,10 @@ h4, h5, h6 {
 #abstract+p {
   font-size: 18px;
   line-height: 24px;
-}
-#abstract+p code, #abstract+p samp, #abstract+p tt {
-  font-size: 16px;
-  line-height: 0;
+  & code, & samp, & tt {
+    font-size: 16px;
+    line-height: 0;
+  }
 }
 
 p {
@@ -347,59 +351,59 @@ p {
 div {
   margin: 0;
 }
-.alignRight.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignRight.art-text pre {
-  padding: 0;
-  width: auto;
-}
 .alignRight {
   margin: 1em 0;
-}
-.alignRight > *:first-child {
-  border: none;
-  margin: 0;
-  float: right;
-  clear: both;
-}
-.alignRight > *:nth-child(2) {
-  clear: both;
-  display: block;
-  border: none;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    margin: 0;
+    float: right;
+    clear: both;
+  }
+  & > *:nth-child(2) {
+    clear: both;
+    display: block;
+    border: none;
+  }
 }
 svg {
   display: block;
-}
-/* font-family isn't space-separated, but =~ will have to do */
-svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
-  font-family: var(--font-mono);
-}
-.alignCenter.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignCenter.art-text pre {
-  padding: 0;
-  width: auto;
+  /* font-family isn't space-separated, but =~ will have to do */
+  &[font-family~="monospace" i], & [font-family~="monospace" i] {
+    font-family: var(--font-mono);
+  }
 }
 .alignCenter {
   margin: 1em 0;
-}
-.alignCenter > *:first-child {
-  border: none;
-  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
-     support flexbox yet.
-  */
-  display: table;
-  margin: 0 auto;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+       support flexbox yet.
+    */
+    display: table;
+    margin: 0 auto;
+  }
 }
 
 /* lists */
@@ -437,26 +441,25 @@ dl {
     --indent: 5ch;
     & > dt {
       min-width: calc(var(--indent) - 2ch);
+      float: none;
     }
-  }
-  &.olPercent > dt {
-    float: none;
   }
 
   dl > dd > & {
     margin-top: 0.5em;
     margin-bottom: 0;
   }
-}
-dl:not(.dlNewline) > dt {
-  float: left;
-  margin-right: 2ch;
-  min-width: 8ch;
-}
-dl > dd {
-  margin-bottom: .8em;
-  margin-left: var(--indent) !important; /* stupid element overrides */
-  min-height: 2ex;
+
+  &:not(.dlNewline) > dt {
+    float: left;
+    margin-right: 2ch;
+    min-width: 8ch;
+  }
+  & > dd {
+    margin-bottom: .8em;
+    margin-left: var(--indent) !important; /* stupid element overrides */
+    min-height: 2ex;
+  }
 }
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
@@ -472,20 +475,22 @@ dl > dd {
 }
 
 /* links */
-a, a[href].selfRef:hover {
+a {
   text-decoration: none;
+  &[href] {
+    color: var(--link-color);
+    &:hover { text-decoration: underline; }
+    &.selfRef {
+      color: var(--text-color);
+      &:hover {
+        text-decoration: none;
+        background-color: var(--highlight-color);
+      }
+    }
+  }
 }
-a[href] {
-  color: var(--link-color);
-}
-a[href].selfRef, .iref + a[href].internal {
+.iref + a[href].internal {
   color: var(--text-color);
-}
-a[href]:hover {
-  text-decoration: underline;
-}
-a[href].selfRef:hover {
-  background-color: var(--highlight-color);
 }
 a.xref:is(.cite, .auto), :is(#status-of-memo, #copyright) a {
   white-space: nowrap;
@@ -521,9 +526,9 @@ img {
 figure {
   margin: 0.5em 0;
   padding: 0;
-}
-figure blockquote {
-  margin: 0.8em 0.4em 0.4em;
+  & blockquote {
+    margin: 0.8em 0.4em 0.4em;
+  }
 }
 figcaption, caption {
   font-style: italic;
@@ -533,17 +538,19 @@ figcaption, caption {
 }
 @media screen {
   /* Auto-collapse boilerplate. */
-  :is(#status-of-memo, #copyright) p {
-    margin: -2px 0;
-    max-height: 0;
-    transition: max-height 2s ease, margin 0.5s ease 0.5s;
-    overflow: hidden;
-  }
-  :is(#status-of-memo, #copyright):hover p,
-  :is(#status-of-memo, #copyright) h2:target ~ p {
-    margin: 0.5em 0;
-    max-height: 500px;
-    overflow: auto;
+  :is(#status-of-memo, #copyright) {
+    & p {
+      margin: -2px 0;
+      max-height: 0;
+      transition: max-height 2s ease, margin 0.5s ease 0.5s;
+      overflow: hidden;
+    }
+    &:hover p,
+    & h2:target ~ p {
+      margin: 0.5em 0;
+      max-height: 500px;
+      overflow: auto;
+    }
   }
   pre, svg {
     display: inline-block;
@@ -593,25 +600,17 @@ table {
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
-}
-table.right {
-  margin-left: auto;
-}
-table.center {
-  margin-left: auto;
-  margin-right: auto;
-}
-table.left {
-  margin-right: auto;
-}
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
+  &.right { margin-left: auto; }
+  &.center { margin-left: auto; margin-right: auto; }
+  &.left { margin-right: auto; }
+  & .text-left { text-align: left; }
+  & .text-center { text-align: center; }
+  & .text-right { text-align: right; }
+  & caption {
+    margin: 0;
+    padding: 3px 0 3px 1em;
+  }
+  & p { margin: 0; }
 }
 
 thead, tbody {
@@ -631,13 +630,6 @@ th {
 :is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
   background-color: var(--highlight-color);
 }
-table caption {
-  margin: 0;
-  padding: 3px 0 3px 1em;
-}
-table p {
-  margin: 0;
-}
 
 /* pilcrow */
 a.pilcrow {
@@ -648,18 +640,16 @@ a.pilcrow {
     color: var(--pilcrow-weak);
     &:hover { text-decoration: none; }
   }
-}
-@media not print {
-  :hover > a.pilcrow, a.pilcrow:focus {
-    opacity: 1;
+  @media not print {
+    :hover > &, &:focus {
+      opacity: 1;
+    }
+    &[href]:hover {
+      color: var(--pilcrow-strong);
+      background-color: transparent;
+    }
   }
-  a.pilcrow[href]:hover {
-    color: var(--pilcrow-strong);
-    background-color: transparent;
-  }
-}
-@media print {
-  a.pilcrow {
+  @media print {
     display: none;
   }
 }
@@ -718,9 +708,9 @@ sub, sup {
   font-size: 0.9em;
   font-style: italic;
   margin-top: 2em;
-}
-.docInfo .prepared {
-  float: right;
+  & .prepared {
+    float: right;
+  }
 }
 
 /* table of contents */
@@ -810,23 +800,27 @@ hr.addr {
   max-width: calc(100% - 16px);
 }
 @media (min-width: 500px) {
-  #authors-addresses > section {
-    column-count: 2;
-    column-gap: 20px;
-  }
-  #authors-addresses > section > h2 {
-    column-span: all;
-  }
-  /* hack for break-inside: avoid-column */
-  #authors-addresses address {
-    display: inline-block;
-    break-inside: avoid-column;
+  #authors-addresses {
+    & > section {
+      column-count: 2;
+      column-gap: 20px;
+    }
+    & > section > h2 {
+      column-span: all;
+    }
+    /* hack for break-inside: avoid-column */
+    & address {
+      display: inline-block;
+      break-inside: avoid-column;
+    }
   }
 }
 
 /* Comments */
-.rfcEditorRemove p:first-of-type {
-  font-style: italic;
+.rfcEditorRemove {
+  & p:first-of-type {
+    font-style: italic;
+  }
 }
 .cref {
   background-color: rgba(249, 232, 105, 0.3);
@@ -837,19 +831,21 @@ hr.addr {
 }
 
 @media screen {
-  #toc nav {
-    font-family: var(--font-title);
-    font-weight: 360;
-    & > ul { margin-bottom: 2em; }
-    & ul {
-      margin: 0 0 0 4px;
-      & :is(p, li) {
-        margin: 2px 0;
+  #toc {
+    & nav {
+      font-family: var(--font-title);
+      font-weight: 360;
+      & > ul { margin-bottom: 2em; }
+      & ul {
+        margin: 0 0 0 4px;
+        & :is(p, li) {
+          margin: 2px 0;
+        }
       }
     }
-  }
-  #toc a.toplink {
-    float: right;
+    & a.toplink {
+      float: right;
+    }
   }
 }
 @media not screen {
@@ -870,54 +866,54 @@ hr.addr {
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 2px 0 2px 6px;
-    padding-right: 1em;
-    font-size: 18px;
-    line-height: 24px;
-    min-width: 190px;
-    text-align: right;
-    background-color: #444;
-    color: white;
-    cursor: pointer;
-    &::before { /* css hamburger */
-      float: right;
-      position: relative;
-      width: 1em;
-      height: 1px;
-      left: -164px;
-      margin: 8px 0 0 0;
-      background: white none repeat scroll 0 0;
-      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-      content: "";
+    & h2 {
+      margin: 0;
+      padding: 2px 0 2px 6px;
+      padding-right: 1em;
+      font-size: 18px;
+      line-height: 24px;
+      min-width: 190px;
+      text-align: right;
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+      &::before { /* css hamburger */
+        float: right;
+        position: relative;
+        width: 1em;
+        height: 1px;
+        left: -164px;
+        margin: 8px 0 0 0;
+        background: white none repeat scroll 0 0;
+        box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+        content: "";
+      }
     }
-  }
-  #toc nav {
-    display: none;
-    background-color: var(--background-color);
-    padding: 0.5em 1em 1em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    height: calc(100vh - 48px);
-    border-left: 1px solid #ddd;
-  }
-  #toc.active {
-    opacity: 1;
-    & nav { display: block; }
-  }
-  /* Make the collapsed ToC header render white on gray also when it's a link */
-  #toc h2 a,
-  #toc h2 a:is(:link, :focus, :hover),
-  #toc a.toplink,
-  #toc a.toplink:hover {
-    color: white;
-    background-color: #444;
-    text-decoration: none;
-  }
-  #toc a.toplink {
-    margin: 2px 0.5em 0;
+    & nav {
+      display: none;
+      background-color: var(--background-color);
+      padding: 0.5em 1em 1em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      height: calc(100vh - 48px);
+      border-left: 1px solid #ddd;
+    }
+    &.active {
+      opacity: 1;
+      & nav { display: block; }
+    }
+    /* Make the collapsed ToC header render white on gray also when it's a link */
+    & h2 a,
+    & h2 a:is(:link, :focus, :hover),
+    & a.toplink,
+    & a.toplink:hover {
+      color: white;
+      background-color: #444;
+      text-decoration: none;
+    }
+    & a.toplink {
+      margin: 2px 0.5em 0;
+    }
   }
 }
 
@@ -936,26 +932,26 @@ hr.addr {
     margin: 0;
     padding: 0;
     z-index: 1;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 0.25em 1em 1em 0;
-  }
-  #toc nav {
-    display: block;
-    height: calc(90vh - 84px);
-    bottom: 0;
-    padding: 0.5em 0 2em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    scrollbar-width: thin;
+    & h2 {
+      margin: 0;
+      padding: 0.25em 1em 1em 0;
+    }
+    & nav {
+      display: block;
+      height: calc(90vh - 84px);
+      bottom: 0;
+      padding: 0.5em 0 2em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+    }
+    & a.toplink {
+      margin: 8px 0.5em 0;
+    }
   }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
-  }
-  #toc a.toplink {
-    margin: 8px 0.5em 0;
   }
 }
 
@@ -971,12 +967,13 @@ hr.addr {
   #n-copyright-notice {
     border-bottom: none;
   }
-  #toc, #n-introduction {
-    page-break-before: always;
-  }
   #toc {
+    page-break-before: always;
     border-top: none;
     padding-top: 0;
+  }
+  #n-introduction {
+    page-break-before: always;
   }
   figure, pre, .vcard {
     page-break-inside: avoid;
@@ -1038,17 +1035,19 @@ hr.addr {
 }
 
 /* SVG Trick: a prefix match works because only black and white are allowed */
-svg :is([stroke="black"], [stroke^="#000"]) {
-  stroke: var(--text-color);
-}
-svg :is([stroke="white"], [stroke^="#fff"]) {
-  stroke: var(--background-color);
-}
-svg :is([fill="black"], [fill^="#000"], :not([fill])) {
-  fill: var(--text-color);
-}
-svg :is([fill="white"], [fill^="#fff"]) {
-  fill: var(--background-color);
+svg {
+  & :is([stroke="black"], [stroke^="#000"]) {
+    stroke: var(--text-color);
+  }
+  & :is([stroke="white"], [stroke^="#fff"]) {
+    stroke: var(--background-color);
+  }
+  & :is([fill="black"], [fill^="#000"], :not([fill])) {
+    fill: var(--text-color);
+  }
+  & :is([fill="white"], [fill^="#fff"]) {
+    fill: var(--background-color);
+  }
 }
 </style>
 
@@ -1058,11 +1057,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">CONNECT-ETHERNET</td>
-<td class="right">April 2026</td>
+<td class="right">June 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Sedeño</td>
-<td class="center">Expires 14 October 2026</td>
+<td class="center">Expires 31 December 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1075,12 +1074,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-masque-connect-ethernet-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-04-12" class="published">12 April 2026</time>
+<time datetime="2026-06-29" class="published">29 June 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-10-14">14 October 2026</time></dd>
+<dd class="expires"><time datetime="2026-12-31">31 December 2026</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1090,7 +1089,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </dd>
 </dl>
 </div>
-<h1 id="title">Proxying Ethernet in HTTP</h1>
+<h1 id="title">Proxying Ethernet Frames in HTTP</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This document describes how to proxy Ethernet frames in HTTP. This protocol
@@ -1134,7 +1133,7 @@ with an attached physical or virtual Ethernet segment.<a href="#section-abstract
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 14 October 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 31 December 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1173,7 +1172,7 @@ with an attached physical or virtual Ethernet segment.<a href="#section-abstract
             <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-configuration-of-clients" class="internal xref">Configuration of Clients</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-tunnelling-ethernet-over-ht" class="internal xref">Tunnelling Ethernet over HTTP</a></p>
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-tunnelling-ethernet-frames-" class="internal xref">Tunnelling Ethernet frames over HTTP</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
                 <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-ethernet-proxy-handling" class="internal xref">Ethernet Proxy Handling</a></p>
@@ -1282,9 +1281,9 @@ connected to the same Ethernet broadcast domain.<a href="#section-1-2" class="pi
 HTTP Extended CONNECT as described in <span>[<a href="#EXT-CONNECT2" class="cite xref">EXT-CONNECT2</a>]</span> and
 <span>[<a href="#EXT-CONNECT3" class="cite xref">EXT-CONNECT3</a>]</span>. When using HTTP/1.x <span>[<a href="#H1" class="cite xref">HTTP/1.1</a>]</span>, it uses HTTP Upgrade as
 defined in <span><a href="https://rfc-editor.org/rfc/rfc9110#section-7.8" class="relref">Section 7.8</a> of [<a href="#HTTP" class="cite xref">HTTP</a>]</span>.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">This protocol necessarily incurs additional encapsulation overhead. When possible,
-users should use higher-level proxying protocols, such as connect-ip or
-connect-udp.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-4">This protocol necessarily incurs additional encapsulation overhead. When
+possible, users should use higher-level proxying protocols, such as
+<span>[<a href="#CONNECT-IP" class="cite xref">CONNECT-IP</a>]</span> or <span>[<a href="#CONNECT-UDP" class="cite xref">CONNECT-UDP</a>]</span>.<a href="#section-1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1377,15 +1376,15 @@ by a URI Template, the client <span class="bcp14">MUST</span> reject its configu
 request without sending it to the Ethernet proxy.<a href="#section-3-9" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="tunnelling-ethernet-over-http">
+<div id="tunnelling-ethernet-frames-over-http">
 <section id="section-4">
-      <h2 id="name-tunnelling-ethernet-over-ht">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-tunnelling-ethernet-over-ht" class="section-name selfRef">Tunnelling Ethernet over HTTP</a>
+      <h2 id="name-tunnelling-ethernet-frames-">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-tunnelling-ethernet-frames-" class="section-name selfRef">Tunnelling Ethernet frames over HTTP</a>
       </h2>
-<p id="section-4-1">To allow negotiation of a tunnel for Ethernet over HTTP, this document defines
-the "connect-ethernet" HTTP upgrade token. The resulting Ethernet tunnels use the
-Capsule Protocol (see <span><a href="https://rfc-editor.org/rfc/rfc9297#section-3.2" class="relref">Section 3.2</a> of [<a href="#HTTP-DGRAM" class="cite xref">HTTP-DGRAM</a>]</span>) with HTTP Datagrams in the
-format defined in <a href="#payload-format" class="auto internal xref">Section 6</a>.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">To allow negotiation of a tunnel for Ethernet frames over HTTP, this document
+defines the "connect-ethernet" HTTP upgrade token. The resulting Ethernet
+tunnels use the Capsule Protocol (see <span><a href="https://rfc-editor.org/rfc/rfc9297#section-3.2" class="relref">Section 3.2</a> of [<a href="#HTTP-DGRAM" class="cite xref">HTTP-DGRAM</a>]</span>) with HTTP
+Datagrams in the format defined in <a href="#payload-format" class="auto internal xref">Section 6</a>.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4-2">To initiate an Ethernet tunnel associated with a single HTTP stream, a client
 issues a request containing the "connect-ethernet" upgrade token.<a href="#section-4-2" class="pilcrow">¶</a></p>
 <p id="section-4-3">By virtue of the definition of the Capsule Protocol (see <span><a href="https://rfc-editor.org/rfc/rfc9297#section-3.2" class="relref">Section 3.2</a> of [<a href="#HTTP-DGRAM" class="cite xref">HTTP-DGRAM</a>]</span>), Ethernet proxying requests do not carry any message content.
@@ -1681,16 +1680,20 @@ Layer 2 Ethernet Frame (from the MAC destination field until the last byte of
 the Frame check sequence field), as defined by IEEE 802.3 <span>[<a href="#IEEE802.3" class="cite xref">IEEE802.3</a>]</span>. A
 complete frame could include include an IEEE 802.1Q <span>[<a href="#IEEE802.1Q" class="cite xref">IEEE802.1Q</a>]</span> tag (see
 <a href="#vlan-recommendations" class="auto internal xref">Section 9.2</a>).<a href="#section-6-5" class="pilcrow">¶</a></p>
-<p id="section-6-6">If an Ethernet proxy receives an HTTP Datagram before it has received the
+<p id="section-6-6">The Frame check sequence field is included in the proxied Ethernet frame rather
+than being omitted and recomputed by the Ethernet proxying endpoints for
+simplicity and to reduce compute requirements, though a future extension could
+introduce a different encoding.<a href="#section-6-6" class="pilcrow">¶</a></p>
+<p id="section-6-7">If an Ethernet proxy receives an HTTP Datagram before it has received the
 corresponding request, it <span class="bcp14">SHALL</span> either drop that HTTP Datagram silently or
 buffer it temporarily (on the order of a round trip) while awaiting the
-corresponding request.<a href="#section-6-6" class="pilcrow">¶</a></p>
-<p id="section-6-7">Note that buffering datagrams (either because the request was not yet received
+corresponding request.<a href="#section-6-7" class="pilcrow">¶</a></p>
+<p id="section-6-8">Note that buffering datagrams (either because the request was not yet received
 or because the Context ID is not yet known) consumes resources. Receivers that
 buffer datagrams <span class="bcp14">SHOULD</span> apply buffering limits in order to reduce the risk of
 resource exhaustion occurring. For example, receivers can limit the total number
 of buffered datagrams or the cumulative size of buffered datagrams on a
-per-stream, per-context, or per-connection basis.<a href="#section-6-7" class="pilcrow">¶</a></p>
+per-stream, per-context, or per-connection basis.<a href="#section-6-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ethernet-frame-handling">
@@ -1707,10 +1710,14 @@ received at the ingress to the egress at the other end of the tunnel.<a href="#s
 responsibilities of an Ethernet switch or bridge if they do not delegate them to
 another component of the endpoint such as a kernel. Those responsibilities are
 beyond the scope of this document, and include, but are not limited to, the
-handling of broadcast packets and multicast groups, or the local termination of
-PAUSE frames.<a href="#section-7-2" class="pilcrow">¶</a></p>
-<p id="section-7-3">If an Ethernet proxying endpoint fails to deliver a frame to an underlying
-Ethernet segment, the endpoint <span class="bcp14">MUST</span> drop the frame.<a href="#section-7-3" class="pilcrow">¶</a></p>
+handling of broadcast packets and multicast groups, topological loop prevention
+using a spanning tree protocol (STP, RSTP, etc.) <span>[<a href="#IEEE802.1Q" class="cite xref">IEEE802.1Q</a>]</span>, or the local
+termination of PAUSE frames.<a href="#section-7-2" class="pilcrow">¶</a></p>
+<p id="section-7-3">Implementations <span class="bcp14">SHOULD</span> be aware of physical topology and work to prevent
+loops. Strategies could include implementing STP or RSTP, or delegating that
+responsibility to a dedicated ethernet-handling device.<a href="#section-7-3" class="pilcrow">¶</a></p>
+<p id="section-7-4">If an Ethernet proxying endpoint fails to deliver a frame to an underlying
+Ethernet segment, the endpoint <span class="bcp14">MUST</span> drop the frame.<a href="#section-7-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="examples">
@@ -1898,8 +1905,8 @@ through the Proxy.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
 <p id="section-8.2-3">In this case, the client connects to the Ethernet proxy and immediately can
 start relaying Ethernet frames from its attached broadcast domain to the
 proxy. The difference between this example and <a href="#example-remote" class="auto internal xref">Section 8.1</a> is limited to
-what the Client is doing with the the tunnel; the exchange between the Client
-and the Proxy is the same as in <a href="#fig-full-tunnel" class="auto internal xref">Figure 7</a> above.<a href="#section-8.2-3" class="pilcrow">¶</a></p>
+what the Client is doing with the tunnel; the exchange between the Client and
+the Proxy is the same as in <a href="#fig-full-tunnel" class="auto internal xref">Figure 7</a> above.<a href="#section-8.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1912,7 +1919,7 @@ and the Proxy is the same as in <a href="#fig-full-tunnel" class="auto internal 
 <p id="section-9-1">When the protocol running inside the tunnel uses congestion control (e.g.,
 <span>[<a href="#TCP" class="cite xref">TCP</a>]</span> or <span>[<a href="#QUIC" class="cite xref">QUIC</a>]</span>), the proxied traffic will incur at least two nested
 congestion controllers. Implementers will benefit from reading the guidance in
-<span><a href="https://rfc-editor.org/rfc/rfc8085#section-3.1.11" class="relref">Section 3.1.11</a> of [<a href="#UDP-USAGE" class="cite xref">UDP-USAGE</a>]</span>. By default the tunneling of Ethernet
+<span><a href="https://rfc-editor.org/rfc/rfc8085#section-3.1.11" class="relref">Section 3.1.11</a> of [<a href="#UDP-USAGE" class="cite xref">UDP-USAGE</a>]</span>. By default, the tunneling of Ethernet
 frames <span class="bcp14">MUST NOT</span> assume that the carried Ethernet frames contain congestion
 controlled traffic. Optimizations for traffic flows carried within the Ethernet
 Frames <span class="bcp14">MAY</span> be done in cases where the content of the Ethernet Frames have been
@@ -2004,14 +2011,12 @@ filtering is left to future extensions.<a href="#section-10-2" class="pilcrow">�
 higher-level routing might be located. A client may connect via an Ethernet
 proxy and discover an existing gateway on the Ethernet segment, supply a new
 gateway to the Ethernet segment, both, or neither.<a href="#section-10-3" class="pilcrow">¶</a></p>
-<p id="section-10-4">Opportunistic sending of Ethernet frames is not allowed in HTTP/1.x
-because a server could reject the HTTP Upgrade and attempt to parse
-the Ethernet frames as a subsequent HTTP request, allowing request
-smuggling attacks; see
-<span>[<a href="#OPTIMISTIC" class="cite xref">OPTIMISTIC</a>]</span>. In
-particular, an intermediary that re-encodes a request from HTTP/2 or 3
-to HTTP/1.1 <span class="bcp14">MUST NOT</span> forward any received capsules until it has parsed
-a successful Ethernet proxying response.<a href="#section-10-4" class="pilcrow">¶</a></p>
+<p id="section-10-4">Opportunistic sending of Ethernet frames is not allowed in HTTP/1.x because a
+server could reject the HTTP Upgrade and attempt to parse the Ethernet frames as
+a subsequent HTTP request, allowing request smuggling attacks; see
+<span>[<a href="#OPTIMISTIC" class="cite xref">OPTIMISTIC</a>]</span>. In particular, an intermediary that re-encodes a request
+from HTTP/2 or 3 to HTTP/1.1 <span class="bcp14">MUST NOT</span> forward any received capsules until it has
+parsed a successful Ethernet proxying response.<a href="#section-10-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -2203,15 +2208,15 @@ created by <span><a href="https://rfc-editor.org/rfc/rfc9484#section-12.2" class
 <dd class="break"></dd>
 <dt id="OPTIMISTIC">[OPTIMISTIC]</dt>
         <dd>
-<span class="refAuthor">Schwartz, B. M.</span>, <span class="refTitle">"Security Considerations for Optimistic Protocol Transitions in HTTP/1.1"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-httpbis-optimistic-upgrade-06</span>, <time datetime="2025-09-18" class="refDate">18 September 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-optimistic-upgrade-06">https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-optimistic-upgrade-06</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC4861">[RFC4861]</dt>
-        <dd>
-<span class="refAuthor">Narten, T.</span>, <span class="refAuthor">Nordmark, E.</span>, <span class="refAuthor">Simpson, W.</span>, and <span class="refAuthor">H. Soliman</span>, <span class="refTitle">"Neighbor Discovery for IP version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 4861</span>, <span class="seriesInfo">DOI 10.17487/RFC4861</span>, <time datetime="2007-09" class="refDate">September 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4861">https://www.rfc-editor.org/rfc/rfc4861</a>&gt;</span>. </dd>
+<span class="refAuthor">Schwartz, B.</span>, <span class="refTitle">"Security Considerations for Optimistic Protocol Transitions in HTTP/1.1"</span>, <span class="seriesInfo">RFC 9931</span>, <span class="seriesInfo">DOI 10.17487/RFC9931</span>, <time datetime="2026-03" class="refDate">March 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9931">https://www.rfc-editor.org/rfc/rfc9931</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC826">[RFC826]</dt>
         <dd>
 <span class="refAuthor">Plummer, D.</span>, <span class="refTitle">"An Ethernet Address Resolution Protocol: Or Converting Network Protocol Addresses to 48.bit Ethernet Address for Transmission on Ethernet Hardware"</span>, <span class="seriesInfo">STD 37</span>, <span class="seriesInfo">RFC 826</span>, <span class="seriesInfo">DOI 10.17487/RFC0826</span>, <time datetime="1982-11" class="refDate">November 1982</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc826">https://www.rfc-editor.org/rfc/rfc826</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4861">[RFC4861]</dt>
+        <dd>
+<span class="refAuthor">Narten, T.</span>, <span class="refAuthor">Nordmark, E.</span>, <span class="refAuthor">Simpson, W.</span>, and <span class="refAuthor">H. Soliman</span>, <span class="refTitle">"Neighbor Discovery for IP version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 4861</span>, <span class="seriesInfo">DOI 10.17487/RFC4861</span>, <time datetime="2007-09" class="refDate">September 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4861">https://www.rfc-editor.org/rfc/rfc4861</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="UDP-USAGE">[UDP-USAGE]</dt>
       <dd>
