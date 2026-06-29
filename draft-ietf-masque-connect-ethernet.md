@@ -1,5 +1,5 @@
 ---
-title: "Proxying Ethernet in HTTP"
+title: "Proxying Ethernet Frames in HTTP"
 abbrev: "CONNECT-ETHERNET"
 category: std
 docname: draft-ietf-masque-connect-ethernet-latest
@@ -87,9 +87,9 @@ HTTP Extended CONNECT as described in {{!EXT-CONNECT2=RFC8441}} and
 {{!EXT-CONNECT3=RFC9220}}. When using HTTP/1.x {{H1}}, it uses HTTP Upgrade as
 defined in {{Section 7.8 of HTTP}}.
 
-This protocol necessarily incurs additional encapsulation overhead. When possible,
-users should use higher-level proxying protocols, such as connect-ip or
-connect-udp.
+This protocol necessarily incurs additional encapsulation overhead. When
+possible, users should use higher-level proxying protocols, such as
+{{CONNECT-IP}} or {{CONNECT-UDP}}.
 
 # Conventions and Definitions
 
@@ -169,12 +169,12 @@ validation. If a client detects that any of the requirements above are not met
 by a URI Template, the client MUST reject its configuration and abort the
 request without sending it to the Ethernet proxy.
 
-# Tunnelling Ethernet over HTTP
+# Tunnelling Ethernet frames over HTTP
 
-To allow negotiation of a tunnel for Ethernet over HTTP, this document defines
-the "connect-ethernet" HTTP upgrade token. The resulting Ethernet tunnels use the
-Capsule Protocol (see {{Section 3.2 of HTTP-DGRAM}}) with HTTP Datagrams in the
-format defined in {{payload-format}}.
+To allow negotiation of a tunnel for Ethernet frames over HTTP, this document
+defines the "connect-ethernet" HTTP upgrade token. The resulting Ethernet
+tunnels use the Capsule Protocol (see {{Section 3.2 of HTTP-DGRAM}}) with HTTP
+Datagrams in the format defined in {{payload-format}}.
 
 To initiate an Ethernet tunnel associated with a single HTTP stream, a client
 issues a request containing the "connect-ethernet" upgrade token.
@@ -405,6 +405,11 @@ the Frame check sequence field), as defined by IEEE 802.3 {{IEEE802.3}}. A
 complete frame could include include an IEEE 802.1Q {{IEEE802.1Q}} tag (see
 {{vlan-recommendations}}).
 
+The Frame check sequence field is included in the proxied Ethernet frame rather
+than being omitted and recomputed by the Ethernet proxying endpoints for
+simplicity and to reduce compute requirements, though a future extension could
+introduce a different encoding.
+
 If an Ethernet proxy receives an HTTP Datagram before it has received the
 corresponding request, it SHALL either drop that HTTP Datagram silently or
 buffer it temporarily (on the order of a round trip) while awaiting the
@@ -429,8 +434,13 @@ Endpoints implementing this mechanism might need to handle some of the
 responsibilities of an Ethernet switch or bridge if they do not delegate them to
 another component of the endpoint such as a kernel. Those responsibilities are
 beyond the scope of this document, and include, but are not limited to, the
-handling of broadcast packets and multicast groups, or the local termination of
-PAUSE frames.
+handling of broadcast packets and multicast groups, topological loop prevention
+using a spanning tree protocol (STP, RSTP, etc.) {{IEEE802.1Q}}, or the local
+termination of PAUSE frames.
+
+Implementations SHOULD be aware of physical topology and work to prevent
+loops. Strategies could include implementing STP or RSTP, or delegating that
+responsibility to a dedicated ethernet-handling device.
 
 If an Ethernet proxying endpoint fails to deliver a frame to an underlying
 Ethernet segment, the endpoint MUST drop the frame.
@@ -523,15 +533,15 @@ HOST C <---+                             +---> HOST 3
 In this case, the client connects to the Ethernet proxy and immediately can
 start relaying Ethernet frames from its attached broadcast domain to the
 proxy. The difference between this example and {{example-remote}} is limited to
-what the Client is doing with the the tunnel; the exchange between the Client
-and the Proxy is the same as in {{fig-full-tunnel}} above.
+what the Client is doing with the tunnel; the exchange between the Client and
+the Proxy is the same as in {{fig-full-tunnel}} above.
 
 # Performance Considerations
 
 When the protocol running inside the tunnel uses congestion control (e.g.,
 {{TCP}} or {{QUIC}}), the proxied traffic will incur at least two nested
 congestion controllers. Implementers will benefit from reading the guidance in
-{{Section 3.1.11 of ?UDP-USAGE=RFC8085}}. By default the tunneling of Ethernet
+{{Section 3.1.11 of ?UDP-USAGE=RFC8085}}. By default, the tunneling of Ethernet
 frames MUST NOT assume that the carried Ethernet frames contain congestion
 controlled traffic. Optimizations for traffic flows carried within the Ethernet
 Frames MAY be done in cases where the content of the Ethernet Frames have been
@@ -620,14 +630,12 @@ higher-level routing might be located. A client may connect via an Ethernet
 proxy and discover an existing gateway on the Ethernet segment, supply a new
 gateway to the Ethernet segment, both, or neither.
 
-Opportunistic sending of Ethernet frames is not allowed in HTTP/1.x
-because a server could reject the HTTP Upgrade and attempt to parse
-the Ethernet frames as a subsequent HTTP request, allowing request
-smuggling attacks; see
-{{?OPTIMISTIC=I-D.draft-ietf-httpbis-optimistic-upgrade}}. In
-particular, an intermediary that re-encodes a request from HTTP/2 or 3
-to HTTP/1.1 MUST NOT forward any received capsules until it has parsed
-a successful Ethernet proxying response.
+Opportunistic sending of Ethernet frames is not allowed in HTTP/1.x because a
+server could reject the HTTP Upgrade and attempt to parse the Ethernet frames as
+a subsequent HTTP request, allowing request smuggling attacks; see
+{{?OPTIMISTIC=RFC9931}}. In particular, an intermediary that re-encodes a request
+from HTTP/2 or 3 to HTTP/1.1 MUST NOT forward any received capsules until it has
+parsed a successful Ethernet proxying response.
 
 # IANA Considerations
 
