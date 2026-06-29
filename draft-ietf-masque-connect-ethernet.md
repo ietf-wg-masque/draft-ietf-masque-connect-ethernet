@@ -87,9 +87,9 @@ HTTP Extended CONNECT as described in {{!EXT-CONNECT2=RFC8441}} and
 {{!EXT-CONNECT3=RFC9220}}. When using HTTP/1.x {{H1}}, it uses HTTP Upgrade as
 defined in {{Section 7.8 of HTTP}}.
 
-This protocol necessarily incurs additional encapsulation overhead. When possible,
-users should use higher-level proxying protocols, such as connect-ip or
-connect-udp.
+This protocol necessarily incurs additional encapsulation overhead. When
+possible, users should use higher-level proxying protocols, such as
+{{CONNECT-IP}} or {{CONNECT-UDP}}.
 
 # Conventions and Definitions
 
