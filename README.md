@@ -1,8 +1,8 @@
 <!-- regenerate: on (set to off if you edit this file) -->
 
-# Proxying Ethernet in HTTP
+# Proxying Ethernet Frames in HTTP
 
-This is the working area for the IETF [MASQUE Working Group](https://datatracker.ietf.org/group/masque/documents/) Internet-Draft, "Proxying Ethernet in HTTP".
+This is the working area for the IETF [MASQUE Working Group](https://datatracker.ietf.org/group/masque/documents/) Internet-Draft, "Proxying Ethernet Frames in HTTP".
 
 * [Editor's Copy](https://ietf-wg-masque.github.io/draft-ietf-masque-connect-ethernet/#go.draft-ietf-masque-connect-ethernet.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-masque-connect-ethernet)
