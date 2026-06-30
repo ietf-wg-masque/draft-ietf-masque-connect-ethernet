@@ -1061,7 +1061,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Sedeño</td>
-<td class="center">Expires 31 December 2026</td>
+<td class="center">Expires 1 January 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1074,12 +1074,12 @@ svg {
 <dd class="internet-draft">draft-ietf-masque-connect-ethernet-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-06-29" class="published">29 June 2026</time>
+<time datetime="2026-06-30" class="published">30 June 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-12-31">31 December 2026</time></dd>
+<dd class="expires"><time datetime="2027-01-01">1 January 2027</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1133,7 +1133,7 @@ with an attached physical or virtual Ethernet segment.<a href="#section-abstract
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 31 December 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 1 January 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1603,12 +1603,12 @@ capsule-protocol = ?1
       <h2 id="name-context-identifiers">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-context-identifiers" class="section-name selfRef">Context Identifiers</a>
       </h2>
-<p id="section-5-1">The mechanism for proxying Ethernet in HTTP defined in this document allows
-future extensions to exchange HTTP Datagrams that have different semantics,
-similar to the extension mechanisms specified in <span><a href="https://rfc-editor.org/rfc/rfc9484#section-5" class="relref">Section 5</a> of [<a href="#CONNECT-IP" class="cite xref">CONNECT-IP</a>]</span>. Some of these extensions could augment Ethernet payloads with
+<p id="section-5-1">The mechanism for proxying Ethernet frames in HTTP defined in this document
+allows future extensions to exchange HTTP Datagrams that have different
+semantics, similar to the extension mechanisms specified in <span><a href="https://rfc-editor.org/rfc/rfc9484#section-5" class="relref">Section 5</a> of [<a href="#CONNECT-IP" class="cite xref">CONNECT-IP</a>]</span>. Some of these extensions could augment Ethernet payloads with
 additional data or compress Ethernet frame header fields. To provide this
-extension point, all HTTP Datagrams associated with Ethernet proxying
-request streams start with a Context ID field; see <a href="#payload-format" class="auto internal xref">Section 6</a>.<a href="#section-5-1" class="pilcrow">¶</a></p>
+extension point, all HTTP Datagrams associated with Ethernet proxying request
+streams start with a Context ID field; see <a href="#payload-format" class="auto internal xref">Section 6</a>.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <p id="section-5-2">Context IDs are 62-bit integers (0-2<sup>62</sup>-1). Context IDs are encoded as
 variable-length integers; see <span><a href="https://rfc-editor.org/rfc/rfc9000#section-16" class="relref">Section 16</a> of [<a href="#QUIC" class="cite xref">QUIC</a>]</span>. The Context ID value of 0
 is reserved for Ethernet payloads, while non-zero values are dynamically
