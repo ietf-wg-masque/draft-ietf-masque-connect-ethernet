@@ -604,11 +604,12 @@ associating the frame with the appropriate priority and VLAN.
 There are risks in allowing arbitrary clients to establish a tunnel to a Layer 2
 network. Bad actors could abuse this capability to attack hosts on that network
 that they would otherwise be unable to reach. HTTP servers that support Ethernet
-proxying SHOULD restrict its use to authenticated users. Depending on the
-deployment, possible authentication mechanisms include mutual TLS between IP
-proxying endpoints, HTTP-based authentication via the HTTP Authorization header
-field {{HTTP}}, or even bearer tokens. Proxies can enforce policies for
-authenticated users to further constrain client behavior or deal with possible
+proxying SHOULD restrict its use to authorized users who have properly
+authenticated to the HTTP server. Depending on the deployment, possible
+authentication mechanisms include mutual TLS between IP proxying endpoints,
+HTTP-based authentication via the HTTP Authorization header field {{HTTP}}, or
+even bearer tokens. Once authenticated, proxies can enforce policies on
+authorized users to further constrain client behavior or deal with possible
 abuse. For example, proxies can rate limit individual clients that send an
 excessively large amount of traffic through the proxy.
 
