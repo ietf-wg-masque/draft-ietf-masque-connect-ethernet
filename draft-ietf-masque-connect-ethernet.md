@@ -145,7 +145,7 @@ https://etherproxy.example.org/{vlan-identifier}
 
 The following requirements apply to the URI Template:
 
-* The URI Template MUST be a a template of type level 3 or lower (see {{Section
+* The URI Template MUST be a template of type level 3 or lower (see {{Section
   1.2 of TEMPLATE}}).
 
 * The URI Template MUST be in absolute form (see {{Section 4.3 of !URI=RFC3986}})
