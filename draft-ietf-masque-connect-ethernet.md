@@ -68,7 +68,7 @@ with an attached physical or virtual Ethernet segment.
 HTTP provides the CONNECT method (see {{Section 9.3.6 of !HTTP=RFC9110}}) for
 creating a TCP {{!TCP=RFC9293}} tunnel to a destination, a similar mechanism for
 UDP {{!CONNECT-UDP=RFC9298}}, and an additional mechanism for IP
-{{!CONNECT-IP=RFC9484}}. However, these mechanisms can't carry Layer 2 frames
+{{!CONNECT-IP=RFC9484}}. However, these mechanisms cannot carry Layer 2 frames
 without further encapsulation inside of IP, for instance with EtherIP
 {{?ETHERIP=RFC3378}} or L2TP {{?L2TP=RFC2661}} {{?L2TPv3=RFC3931}}, which
 consume additional header bytes, reducing the available MTU.
@@ -119,7 +119,7 @@ Clients are configured to use Ethernet proxying over HTTP via a URI Template
 {{!TEMPLATE=RFC6570}}. The URI Templates used by this protocol do not require
 any variables; implementations or extensions MAY specify their own. URI
 Templates specified for this protocol MAY use the well-known location
-{{!WELL-KNOWN=RFC8615}} registered by this document.
+{{!WELL-KNOWN=RFC8615}} registered by this document (see {{iana-suffix}}).
 
 Examples are shown below:
 
@@ -130,7 +130,7 @@ https://masque.example.org/?user=bob
 ~~~
 
 An implementation that supports connecting to multiple Ethernet segments might
-add a "vlan-identifier" variable to specify which segment to connect to. The
+add a "vlan-identifier" variable to specify the segment to which to connect. The
 optionality of variables needs to be considered when defining the template so
 that variables are either self-identifying or possible to exclude in the syntax.
 How valid values for such variables are communicated to the client is not a part
@@ -145,10 +145,11 @@ https://etherproxy.example.org/{vlan-identifier}
 
 The following requirements apply to the URI Template:
 
-* The URI Template MUST be a level 3 template or lower.
+* The URI Template MUST be a a template of type level 3 or lower (see {{Section
+  1.2 of TEMPLATE}}).
 
-* The URI Template MUST be in absolute form and MUST include non-empty scheme,
-  authority, and path components.
+* The URI Template MUST be in absolute form (see {{Section 4.3 of !URI=RFC3986}})
+  and MUST include non-empty scheme, authority, and path components.
 
 * The path component of the URI Template MUST start with a slash "/".
 
@@ -156,7 +157,7 @@ The following requirements apply to the URI Template:
 
 * The URI Template MUST NOT contain any non-ASCII Unicode characters and MUST
   only contain ASCII characters in the range 0x21-0x7E inclusive (note that
-  percent-encoding is allowed; see {{Section 2.1 of !URI=RFC3986}}).
+  percent-encoding is allowed; see {{Section 2.1 of URI}}).
 
 * The URI Template MUST NOT use Reserved Expansion ("+" operator), Fragment
   Expansion ("#" operator), Label Expansion with Dot-Prefix, Path Segment
@@ -402,7 +403,7 @@ Ethernet frames are encoded using HTTP Datagrams with the Context ID set to
 zero. When the Context ID is set to zero, the Payload field contains a full
 Layer 2 Ethernet Frame (from the MAC destination field until the last byte of
 the Frame check sequence field), as defined by IEEE 802.3 {{IEEE802.3}}. A
-complete frame could include include an IEEE 802.1Q {{IEEE802.1Q}} tag (see
+complete frame could include an IEEE 802.1Q {{IEEE802.1Q}} tag (see
 {{vlan-recommendations}}).
 
 The Frame check sequence field is included in the proxied Ethernet frame rather
@@ -591,7 +592,7 @@ must be agreement (signaled or manually configured) on how to consistently
 process each tag at the ingress and the egress. The procedure for this
 signalling/configuration is not defined in this document.
 
-A proxy that is used to access to multiple VLANs MAY map each individual
+A proxy that is used for access to multiple VLANs MAY map each individual
 VLAN to a distinct URI, such that each Ethernet proxying request is
 associated with only one VLAN. This provides flexibility in forwarding,
 while meeting the requirements for the relative priority and ordering
