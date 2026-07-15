@@ -4,8 +4,8 @@
 
 Multiplexed Application Substrate over QUIC Encryption      A. R. Sedeño
 Internet-Draft                                                Google LLC
-Intended status: Standards Track                            30 June 2026
-Expires: 1 January 2027
+Intended status: Standards Track                            15 July 2026
+Expires: 16 January 2027
 
 
                     Proxying Ethernet Frames in HTTP
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 January 2027.
+   This Internet-Draft will expire on 16 January 2027.
 
 Copyright Notice
 
@@ -104,7 +104,7 @@ Table of Contents
    HTTP provides the CONNECT method (see Section 9.3.6 of [HTTP]) for
    creating a TCP [TCP] tunnel to a destination, a similar mechanism for
    UDP [CONNECT-UDP], and an additional mechanism for IP [CONNECT-IP].
-   However, these mechanisms can't carry Layer 2 frames without further
+   However, these mechanisms cannot carry Layer 2 frames without further
    encapsulation inside of IP, for instance with EtherIP [ETHERIP] or
    L2TP [L2TP] [L2TPv3], which consume additional header bytes, reducing
    the available MTU.
@@ -162,7 +162,8 @@ Table of Contents
    Template [TEMPLATE].  The URI Templates used by this protocol do not
    require any variables; implementations or extensions MAY specify
    their own.  URI Templates specified for this protocol MAY use the
-   well-known location [WELL-KNOWN] registered by this document.
+   well-known location [WELL-KNOWN] registered by this document (see
+   Section 11.2).
 
    Examples are shown below:
 
@@ -171,9 +172,9 @@ Table of Contents
    https://masque.example.org/?user=bob
 
    An implementation that supports connecting to multiple Ethernet
-   segments might add a "vlan-identifier" variable to specify which
-   segment to connect to.  The optionality of variables needs to be
-   considered when defining the template so that variables are either
+   segments might add a "vlan-identifier" variable to specify the
+   segment to which to connect.  The optionality of variables needs to
+   be considered when defining the template so that variables are either
    self-identifying or possible to exclude in the syntax.  How valid
    values for such variables are communicated to the client is not a
    part of this protocol.
@@ -185,10 +186,12 @@ Table of Contents
 
    The following requirements apply to the URI Template:
 
-   *  The URI Template MUST be a level 3 template or lower.
+   *  The URI Template MUST be a a template of type level 3 or lower
+      (see Section 1.2 of [TEMPLATE]).
 
-   *  The URI Template MUST be in absolute form and MUST include non-
-      empty scheme, authority, and path components.
+   *  The URI Template MUST be in absolute form (see Section 4.3 of
+      [URI]) and MUST include non-empty scheme, authority, and path
+      components.
 
    *  The path component of the URI Template MUST start with a slash
       "/".
@@ -452,8 +455,8 @@ Table of Contents
    set to zero.  When the Context ID is set to zero, the Payload field
    contains a full Layer 2 Ethernet Frame (from the MAC destination
    field until the last byte of the Frame check sequence field), as
-   defined by IEEE 802.3 [IEEE802.3].  A complete frame could include
-   include an IEEE 802.1Q [IEEE802.1Q] tag (see Section 9.2).
+   defined by IEEE 802.3 [IEEE802.3].  A complete frame could include an
+   IEEE 802.1Q [IEEE802.1Q] tag (see Section 9.2).
 
    The Frame check sequence field is included in the proxied Ethernet
    frame rather than being omitted and recomputed by the Ethernet
@@ -644,7 +647,7 @@ Table of Contents
    egress.  The procedure for this signalling/configuration is not
    defined in this document.
 
-   A proxy that is used to access to multiple VLANs MAY map each
+   A proxy that is used for access to multiple VLANs MAY map each
    individual VLAN to a distinct URI, such that each Ethernet proxying
    request is associated with only one VLAN.  This provides flexibility
    in forwarding, while meeting the requirements for the relative
@@ -659,14 +662,15 @@ Table of Contents
    to a Layer 2 network.  Bad actors could abuse this capability to
    attack hosts on that network that they would otherwise be unable to
    reach.  HTTP servers that support Ethernet proxying SHOULD restrict
-   its use to authenticated users.  Depending on the deployment,
-   possible authentication mechanisms include mutual TLS between IP
-   proxying endpoints, HTTP-based authentication via the HTTP
-   Authorization header field [HTTP], or even bearer tokens.  Proxies
-   can enforce policies for authenticated users to further constrain
-   client behavior or deal with possible abuse.  For example, proxies
-   can rate limit individual clients that send an excessively large
-   amount of traffic through the proxy.
+   its use to authorized users who have properly authenticated to the
+   HTTP server.  Depending on the deployment, possible authentication
+   mechanisms include mutual TLS between IP proxying endpoints, HTTP-
+   based authentication via the HTTP Authorization header field [HTTP],
+   or even bearer tokens.  Once authenticated, proxies can enforce
+   policies on authorized users to further constrain client behavior or
+   deal with possible abuse.  For example, proxies can rate limit
+   individual clients that send an excessively large amount of traffic
+   through the proxy.
 
    Users of this protocol may send arbitrary Ethernet frames through the
    tunnel, including frames with arbitrary source MAC addresses.  This
@@ -859,7 +863,7 @@ Table of Contents
    [RFC826]   Plummer, D., "An Ethernet Address Resolution Protocol: Or
               Converting Network Protocol Addresses to 48.bit Ethernet
               Address for Transmission on Ethernet Hardware", STD 37,
-              RFC 826, DOI 10.17487/RFC0826, November 1982,
+              RFC 826, DOI 10.17487/RFC826, November 1982,
               <https://www.rfc-editor.org/rfc/rfc826>.
 
    [RFC4861]  Narten, T., Nordmark, E., Simpson, W., and H. Soliman,
