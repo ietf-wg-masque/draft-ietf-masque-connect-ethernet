@@ -4,8 +4,8 @@
 
 Multiplexed Application Substrate over QUIC Encryption      A. R. Sedeño
 Internet-Draft                                                Google LLC
-Intended status: Standards Track                            16 July 2026
-Expires: 17 January 2027
+Intended status: Standards Track                            22 July 2026
+Expires: 23 January 2027
 
 
                     Proxying Ethernet Frames in HTTP
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 January 2027.
+   This Internet-Draft will expire on 23 January 2027.
 
 Copyright Notice
 
