@@ -4,8 +4,8 @@
 
 Multiplexed Application Substrate over QUIC Encryption      A. R. Sedeño
 Internet-Draft                                                Google LLC
-Intended status: Standards Track                            15 July 2026
-Expires: 16 January 2027
+Intended status: Standards Track                           7 August 2026
+Expires: 8 February 2027
 
 
                     Proxying Ethernet Frames in HTTP
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 January 2027.
+   This Internet-Draft will expire on 8 February 2027.
 
 Copyright Notice
 
@@ -453,12 +453,12 @@ Table of Contents
 
    Ethernet frames are encoded using HTTP Datagrams with the Context ID
    set to zero.  When the Context ID is set to zero, the Payload field
-   contains a full Layer 2 Ethernet Frame (from the MAC destination
-   field until the last byte of the Frame check sequence field), as
-   defined by IEEE 802.3 [IEEE802.3].  A complete frame could include an
-   IEEE 802.1Q [IEEE802.1Q] tag (see Section 9.2).
+   contains a full Layer 2 Ethernet Frame (from the start of the
+   Destination Address field through the end of the Frame Check Sequence
+   field), as defined by IEEE 802.3 [IEEE802.3].  A complete frame could
+   include an IEEE 802.1Q [IEEE802.1Q] tag (see Section 9.2).
 
-   The Frame check sequence field is included in the proxied Ethernet
+   The Frame Check Sequence field is included in the proxied Ethernet
    frame rather than being omitted and recomputed by the Ethernet
    proxying endpoints for simplicity and to reduce compute requirements,
    though a future extension could introduce a different encoding.
@@ -499,8 +499,9 @@ Table of Contents
    delegating that responsibility to a dedicated ethernet-handling
    device.
 
-   If an Ethernet proxying endpoint fails to deliver a frame to an
-   underlying Ethernet segment, the endpoint MUST drop the frame.
+   If an Ethernet proxying endpoint fails to deliver an Ethernet frame
+   to an underlying Ethernet segment, the endpoint MUST drop the
+   Ethernet frame.
 
 8.  Examples
 
@@ -743,10 +744,7 @@ Table of Contents
               DOI 10.17487/RFC9298, August 2022,
               <https://www.rfc-editor.org/rfc/rfc9298>.
 
-   [DPLPMTUD] Fairhurst, G., Jones, T., Tüxen, M., Rüngeler, I., and T.
-              Völker, "Packetization Layer Path MTU Discovery for
-              Datagram Transports", RFC 8899, DOI 10.17487/RFC8899,
-              September 2020, <https://www.rfc-editor.org/rfc/rfc8899>.
+   [DPLPMTUD] "*** BROKEN REFERENCE ***".
 
    [EXT-CONNECT2]
               McManus, P., "Bootstrapping WebSockets with HTTP/2",
@@ -807,9 +805,7 @@ Table of Contents
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
-   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
-              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
-              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+   [RFC8174]  "*** BROKEN REFERENCE ***".
 
    [TCP]      Eddy, W., Ed., "Transmission Control Protocol (TCP)",
               STD 7, RFC 9293, DOI 10.17487/RFC9293, August 2022,
@@ -855,10 +851,7 @@ Table of Contents
               <https://www.rfc-editor.org/rfc/rfc3931>.
 
    [OPTIMISTIC]
-              Schwartz, B., "Security Considerations for Optimistic
-              Protocol Transitions in HTTP/1.1", RFC 9931,
-              DOI 10.17487/RFC9931, March 2026,
-              <https://www.rfc-editor.org/rfc/rfc9931>.
+              "*** BROKEN REFERENCE ***".
 
    [RFC826]   Plummer, D., "An Ethernet Address Resolution Protocol: Or
               Converting Network Protocol Addresses to 48.bit Ethernet
