@@ -401,8 +401,8 @@ field. Note that this field can be empty.
 
 Ethernet frames are encoded using HTTP Datagrams with the Context ID set to
 zero. When the Context ID is set to zero, the Payload field contains a full
-Layer 2 Ethernet Frame (from the start of the Destination MAC Address field
-through the end of the Frame Check Sequence field), as defined by IEEE 802.3
+Layer 2 Ethernet Frame (from the start of the Destination Address field through
+the end of the Frame Check Sequence field), as defined by IEEE 802.3
 {{IEEE802.3}}. A complete frame could include an IEEE 802.1Q {{IEEE802.1Q}} tag
 (see {{vlan-recommendations}}).
 
