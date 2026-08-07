@@ -401,12 +401,12 @@ field. Note that this field can be empty.
 
 Ethernet frames are encoded using HTTP Datagrams with the Context ID set to
 zero. When the Context ID is set to zero, the Payload field contains a full
-Layer 2 Ethernet Frame (from the MAC destination field until the last byte of
-the Frame check sequence field), as defined by IEEE 802.3 {{IEEE802.3}}. A
-complete frame could include an IEEE 802.1Q {{IEEE802.1Q}} tag (see
-{{vlan-recommendations}}).
+Layer 2 Ethernet Frame (from the start of the Destination MAC Address field
+through the end of the Frame Check Sequence field), as defined by IEEE 802.3
+{{IEEE802.3}}. A complete frame could include an IEEE 802.1Q {{IEEE802.1Q}} tag
+(see {{vlan-recommendations}}).
 
-The Frame check sequence field is included in the proxied Ethernet frame rather
+The Frame Check Sequence field is included in the proxied Ethernet frame rather
 than being omitted and recomputed by the Ethernet proxying endpoints for
 simplicity and to reduce compute requirements, though a future extension could
 introduce a different encoding.
@@ -443,8 +443,8 @@ Implementations SHOULD be aware of physical topology and work to prevent
 loops. Strategies could include implementing STP or RSTP, or delegating that
 responsibility to a dedicated ethernet-handling device.
 
-If an Ethernet proxying endpoint fails to deliver a frame to an underlying
-Ethernet segment, the endpoint MUST drop the frame.
+If an Ethernet proxying endpoint fails to deliver an Ethernet frame to an
+underlying Ethernet segment, the endpoint MUST drop the Ethernet frame.
 
 # Examples
 
