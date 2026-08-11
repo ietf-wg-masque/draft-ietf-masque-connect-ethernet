@@ -617,7 +617,7 @@ Table of Contents
 
 9.1.  MTU and Frame Ordering Considerations
 
-   Ethernet proxying supports two transmission modes that have different
+   Ethernet proxying supports two modes of operation with different
    implications for supported frame size and ordering: QUIC DATAGRAM
    frames and HTTP DATAGRAM capsules.  When using HTTP/3 with the QUIC
    Datagram extension [QUIC-DGRAM], Ethernet frames can be transmitted

@@ -1940,9 +1940,9 @@ DATAGRAM frame.<a href="#section-9-3" class="pilcrow">¶</a></p>
         <h3 id="name-mtu-and-frame-ordering-cons">
 <a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-mtu-and-frame-ordering-cons" class="section-name selfRef">MTU and Frame Ordering Considerations</a>
         </h3>
-<p id="section-9.1-1">Ethernet proxying supports two transmission modes that have different
-implications for supported frame size and ordering: QUIC DATAGRAM frames and
-HTTP DATAGRAM capsules. When using HTTP/3 with the QUIC Datagram extension
+<p id="section-9.1-1">Ethernet proxying supports two modes of operation with different implications
+for supported frame size and ordering: QUIC DATAGRAM frames and HTTP DATAGRAM
+capsules. When using HTTP/3 with the QUIC Datagram extension
 <span>[<a href="#QUIC-DGRAM" class="cite xref">QUIC-DGRAM</a>]</span>, Ethernet frames can be transmitted in QUIC DATAGRAM
 frames. Since DATAGRAM frames cannot be fragmented, they can only carry Ethernet
 frames up to a given length determined by the QUIC connection configuration and
