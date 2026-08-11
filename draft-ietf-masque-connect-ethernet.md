@@ -435,13 +435,17 @@ Endpoints implementing this mechanism might need to handle some of the
 responsibilities of an Ethernet switch or bridge if they do not delegate them to
 another component of the endpoint such as a kernel. Those responsibilities are
 beyond the scope of this document, and include, but are not limited to, the
-handling of broadcast packets and multicast groups, topological loop prevention
-using a spanning tree protocol (STP, RSTP, etc.) {{IEEE802.1Q}}, or the local
-termination of PAUSE frames.
+forwarding of broadcast and multicast frames, and the local termination of PAUSE
+frames.
 
-Implementations SHOULD be aware of physical topology and work to prevent
-loops. Strategies could include implementing STP or RSTP, or delegating that
-responsibility to a dedicated ethernet-handling device.
+When bridging Ethernet segments, undetected forwarding loops can lead to
+broadcast storms that exhaust tunnel capacity, cause congestion and Ethernet
+frame loss, and disrupt tunneled control protocols. Implementations that bridge
+Ethernet segments SHOULD employ loop prevention mechanisms, such as STP or RSTP
+{{IEEE802.1Q}}, unless they delegate that responsibility to another component of
+the endpoint such as a kernel. Implementations can also monitor frame rates for
+unexpected traffic spikes and apply rate limits to broadcast and multicast
+Ethernet frames.
 
 If an Ethernet proxying endpoint fails to deliver an Ethernet frame to an
 underlying Ethernet segment, the endpoint MUST drop the Ethernet frame.
@@ -562,14 +566,16 @@ DATAGRAM frame.
 
 ## MTU and Frame Ordering Considerations
 
-When using HTTP/3 with the QUIC Datagram extension {{!QUIC-DGRAM=RFC9221}},
-Ethernet frames can be transmitted in QUIC DATAGRAM frames. Since DATAGRAM
-frames cannot be fragmented, they can only carry Ethernet frames up to a given
-length determined by the QUIC connection configuration and the Path MTU
-(PMTU). Implementations MAY rely on {{QUIC}}'s use of {{!DPLPMTUD=RFC8899}} to
-probe and discover the PMTU over the connection's lifetime, and adjust any
-associated interface MTU as needed. Furthermore, the UDP packets carrying these
-frames could be reordered by the network.
+Ethernet proxying supports two modes of operation with different implications
+for supported frame size and ordering: QUIC DATAGRAM frames and HTTP DATAGRAM
+capsules. When using HTTP/3 with the QUIC Datagram extension
+{{!QUIC-DGRAM=RFC9221}}, Ethernet frames can be transmitted in QUIC DATAGRAM
+frames. Since DATAGRAM frames cannot be fragmented, they can only carry Ethernet
+frames up to a given length determined by the QUIC connection configuration and
+the Path MTU (PMTU). Implementations MAY rely on {{QUIC}}'s use of
+{{!DPLPMTUD=RFC8899}} to probe and discover the PMTU over the connection's
+lifetime, and adjust any associated interface MTU as needed. Furthermore, the
+UDP packets carrying these frames could be reordered by the network.
 
 When using HTTP/1.1 or HTTP/2, and when using HTTP/3 without the QUIC Datagram
 extension {{QUIC-DGRAM}}, Ethernet frames are transmitted in DATAGRAM capsules as
