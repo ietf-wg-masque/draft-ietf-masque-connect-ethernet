@@ -285,7 +285,7 @@ pseudo-header fields with the following requirements:
 
 * The :protocol pseudo-header field SHALL be "connect-ethernet".
 
-* The :authority pseudo-header field SHALL contain the authority of the IP
+* The :authority pseudo-header field SHALL contain the authority of the Ethernet
   proxy.
 
 * The :path and :scheme pseudo-header fields SHALL NOT be empty. Their values
