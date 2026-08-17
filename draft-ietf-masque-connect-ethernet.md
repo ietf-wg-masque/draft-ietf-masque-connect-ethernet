@@ -613,12 +613,12 @@ network. Bad actors could abuse this capability to attack hosts on that network
 that they would otherwise be unable to reach. HTTP servers that support Ethernet
 proxying SHOULD restrict its use to authorized users who have properly
 authenticated to the HTTP server. Depending on the deployment, possible
-authentication mechanisms include mutual TLS between IP proxying endpoints,
-HTTP-based authentication via the HTTP Authorization header field {{HTTP}}, or
-even bearer tokens. Once authenticated, proxies can enforce policies on
-authorized users to further constrain client behavior or deal with possible
-abuse. For example, proxies can rate limit individual clients that send an
-excessively large amount of traffic through the proxy.
+authentication mechanisms include mutual TLS between Ethernet proxying endpoints
+and HTTP-based authentication via the HTTP Authorization header field
+{{HTTP}}. Once authenticated, proxies can enforce policies on authorized users
+to further constrain client behavior or deal with possible abuse. For example,
+proxies can rate limit individual clients that send an excessively large amount
+of traffic through the proxy.
 
 Users of this protocol may send arbitrary Ethernet frames through the tunnel,
 including frames with arbitrary source MAC addresses. This could allow
