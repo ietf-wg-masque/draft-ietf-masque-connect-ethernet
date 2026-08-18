@@ -4,8 +4,8 @@
 
 Multiplexed Application Substrate over QUIC Encryption      A. R. Sedeño
 Internet-Draft                                                Google LLC
-Intended status: Standards Track                          17 August 2026
-Expires: 18 February 2027
+Intended status: Standards Track                          18 August 2026
+Expires: 19 February 2027
 
 
                     Proxying Ethernet Frames in HTTP
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 February 2027.
+   This Internet-Draft will expire on 19 February 2027.
 
 Copyright Notice
 
@@ -160,10 +160,10 @@ Table of Contents
 
    Clients are configured to use Ethernet proxying over HTTP via a URI
    Template [TEMPLATE].  The URI Templates used by this protocol do not
-   require any variables; implementations or extensions MAY specify
-   their own.  URI Templates specified for this protocol MAY use the
-   well-known location [WELL-KNOWN] registered by this document (see
-   Section 11.2).
+   require any variables, and this document does not define any;
+   implementations or extensions MAY specify their own.  URI Templates
+   specified for this protocol MAY use the well-known location
+   [WELL-KNOWN] registered by this document (see Section 11.2).
 
    Examples are shown below:
 
@@ -171,13 +171,13 @@ Table of Contents
    https://proxy.example.org:4443/masque/ethernet/
    https://masque.example.org/?user=bob
 
-   An implementation that supports connecting to multiple Ethernet
-   segments might add a "vlan-identifier" variable to specify the
-   segment to which to connect.  The optionality of variables needs to
-   be considered when defining the template so that variables are either
-   self-identifying or possible to exclude in the syntax.  How valid
-   values for such variables are communicated to the client is not a
-   part of this protocol.
+   An implementation or extension that supports connecting to multiple
+   Ethernet segments might define its own variables, such as a "vlan-
+   identifier" to specify the target segment.  The optionality of
+   variables needs to be considered when defining the template so that
+   variables are either self-identifying or possible to exclude in the
+   syntax.  How valid values for such variables are formatted,
+   communicated, or validated is not a part of this protocol.
 
    Hypothetical examples are shown below:
 
@@ -601,7 +601,7 @@ Table of Contents
    cases where the content of the Ethernet Frames have been identified
    to be congestion controlled traffic.
 
-   Some implementations might find it benefitial to maintain a small
+   Some implementations might find it beneficial to maintain a small
    buffer of frames to be sent through the tunnel to smooth out short
    term variations and bursts in tunnel capacity.  As such a buffer is
    limited, Ethernet frames can get dropped when the buffer limit is
@@ -645,7 +645,7 @@ Table of Contents
 
 9.2.  IEEE 802.1Q tagging
 
-   When the proxy transports Etherent frames that carry an IEEE 802.1Q
+   When the proxy transports Ethernet frames that carry an IEEE 802.1Q
    [IEEE802.1Q] VLAN tag, these are by default transparently forwarded
    through the tunnel.  When the tunnel ingress and/or egress interprets
    the tags, there must be agreement (signaled or manually configured)
@@ -676,7 +676,10 @@ Table of Contents
    authorized users to further constrain client behavior or deal with
    possible abuse.  For example, proxies can rate limit individual
    clients that send an excessively large amount of traffic through the
-   proxy.
+   proxy.  Additionally, an attacker could attempt to consume server
+   resources by sending datagrams with unknown Context IDs or before
+   establishing an HTTP request stream; implementations mitigate this
+   risk by enforcing the buffering limits described in Section 6.
 
    Users of this protocol may send arbitrary Ethernet frames through the
    tunnel, including frames with arbitrary source MAC addresses.  This

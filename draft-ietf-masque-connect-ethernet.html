@@ -1058,7 +1058,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Sedeño</td>
-<td class="center">Expires 18 February 2027</td>
+<td class="center">Expires 19 February 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1071,12 +1071,12 @@ svg {
 <dd class="internet-draft">draft-ietf-masque-connect-ethernet-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-08-17" class="published">17 August 2026</time>
+<time datetime="2026-08-18" class="published">18 August 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-02-18">18 February 2027</time></dd>
+<dd class="expires"><time datetime="2027-02-19">19 February 2027</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1130,7 +1130,7 @@ with an attached physical or virtual Ethernet segment.<a href="#section-abstract
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 18 February 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 19 February 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1315,9 +1315,10 @@ entire connection.<a href="#section-2-4" class="pilcrow">¶</a></p>
       </h2>
 <p id="section-3-1">Clients are configured to use Ethernet proxying over HTTP via a URI Template
 <span>[<a href="#TEMPLATE" class="cite xref">TEMPLATE</a>]</span>. The URI Templates used by this protocol do not require
-any variables; implementations or extensions <span class="bcp14">MAY</span> specify their own. URI
-Templates specified for this protocol <span class="bcp14">MAY</span> use the well-known location
-<span>[<a href="#WELL-KNOWN" class="cite xref">WELL-KNOWN</a>]</span> registered by this document (see <a href="#iana-suffix" class="auto internal xref">Section 11.2</a>).<a href="#section-3-1" class="pilcrow">¶</a></p>
+any variables, and this document does not define any; implementations or
+extensions <span class="bcp14">MAY</span> specify their own. URI Templates specified for this protocol <span class="bcp14">MAY</span>
+use the well-known location <span>[<a href="#WELL-KNOWN" class="cite xref">WELL-KNOWN</a>]</span> registered by this document
+(see <a href="#iana-suffix" class="auto internal xref">Section 11.2</a>).<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">Examples are shown below:<a href="#section-3-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3-3">
 <pre>
@@ -1326,12 +1327,12 @@ https://proxy.example.org:4443/masque/ethernet/
 https://masque.example.org/?user=bob
 </pre><a href="#section-3-3" class="pilcrow">¶</a>
 </div>
-<p id="section-3-4">An implementation that supports connecting to multiple Ethernet segments might
-add a "vlan-identifier" variable to specify the segment to which to connect. The
-optionality of variables needs to be considered when defining the template so
-that variables are either self-identifying or possible to exclude in the syntax.
-How valid values for such variables are communicated to the client is not a part
-of this protocol.<a href="#section-3-4" class="pilcrow">¶</a></p>
+<p id="section-3-4">An implementation or extension that supports connecting to multiple Ethernet
+segments might define its own variables, such as a "vlan-identifier" to specify
+the target segment. The optionality of variables needs to be considered when
+defining the template so that variables are either self-identifying or possible
+to exclude in the syntax. How valid values for such variables are formatted,
+communicated, or validated is not a part of this protocol.<a href="#section-3-4" class="pilcrow">¶</a></p>
 <p id="section-3-5">Hypothetical examples are shown below:<a href="#section-3-5" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3-6">
 <pre>
@@ -1925,7 +1926,7 @@ frames <span class="bcp14">MUST NOT</span> assume that the carried Ethernet fram
 controlled traffic. Optimizations for traffic flows carried within the Ethernet
 Frames <span class="bcp14">MAY</span> be done in cases where the content of the Ethernet Frames have been
 identified to be congestion controlled traffic.<a href="#section-9-1" class="pilcrow">¶</a></p>
-<p id="section-9-2">Some implementations might find it benefitial to maintain a small buffer of
+<p id="section-9-2">Some implementations might find it beneficial to maintain a small buffer of
 frames to be sent through the tunnel to smooth out short term variations and
 bursts in tunnel capacity. As such a buffer is limited, Ethernet frames can get
 dropped when the buffer limit is exceeded.<a href="#section-9-2" class="pilcrow">¶</a></p>
@@ -1966,7 +1967,7 @@ required, DATAGRAM capsules can be used.<a href="#section-9.1-3" class="pilcrow"
         <h3 id="name-ieee-8021q-tagging">
 <a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-ieee-8021q-tagging" class="section-name selfRef">IEEE 802.1Q tagging</a>
         </h3>
-<p id="section-9.2-1">When the proxy transports Etherent frames that carry an IEEE 802.1Q
+<p id="section-9.2-1">When the proxy transports Ethernet frames that carry an IEEE 802.1Q
 <span>[<a href="#IEEE802.1Q" class="cite xref">IEEE802.1Q</a>]</span> VLAN tag, these are by default transparently forwarded through
 the tunnel. When the tunnel ingress and/or egress interprets the tags, there
 must be agreement (signaled or manually configured) on how to consistently
@@ -1998,7 +1999,10 @@ and HTTP-based authentication via the HTTP Authorization header field
 <span>[<a href="#HTTP" class="cite xref">HTTP</a>]</span>. Once authenticated, proxies can enforce policies on authorized users
 to further constrain client behavior or deal with possible abuse. For example,
 proxies can rate limit individual clients that send an excessively large amount
-of traffic through the proxy.<a href="#section-10-1" class="pilcrow">¶</a></p>
+of traffic through the proxy. Additionally, an attacker could attempt to consume
+server resources by sending datagrams with unknown Context IDs or before
+establishing an HTTP request stream; implementations mitigate this risk by
+enforcing the buffering limits described in <a href="#payload-format" class="auto internal xref">Section 6</a>.<a href="#section-10-1" class="pilcrow">¶</a></p>
 <p id="section-10-2">Users of this protocol may send arbitrary Ethernet frames through the tunnel,
 including frames with arbitrary source MAC addresses. This could allow
 impersonation of other hosts, poisoning of ARP <span>[<a href="#RFC826" class="cite xref">RFC826</a>]</span>, NDP <span>[<a href="#RFC4861" class="cite xref">RFC4861</a>]</span> and
