@@ -552,7 +552,7 @@ controlled traffic. Optimizations for traffic flows carried within the Ethernet
 Frames MAY be done in cases where the content of the Ethernet Frames have been
 identified to be congestion controlled traffic.
 
-Some implementations might find it benefitial to maintain a small buffer of
+Some implementations might find it beneficial to maintain a small buffer of
 frames to be sent through the tunnel to smooth out short term variations and
 bursts in tunnel capacity. As such a buffer is limited, Ethernet frames can get
 dropped when the buffer limit is exceeded.
@@ -591,7 +591,7 @@ required, DATAGRAM capsules can be used.
 
 ## IEEE 802.1Q tagging {#vlan-recommendations}
 
-When the proxy transports Etherent frames that carry an IEEE 802.1Q
+When the proxy transports Ethernet frames that carry an IEEE 802.1Q
 {{IEEE802.1Q}} VLAN tag, these are by default transparently forwarded through
 the tunnel. When the tunnel ingress and/or egress interprets the tags, there
 must be agreement (signaled or manually configured) on how to consistently
