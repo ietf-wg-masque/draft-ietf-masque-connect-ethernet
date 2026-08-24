@@ -132,7 +132,9 @@ https://masque.example.org/?user=bob
 
 An implementation or extension that supports connecting to multiple Ethernet
 segments might define its own variables, such as a "vlan-identifier" to specify
-the target segment. The optionality of variables needs to be considered when
+the target segment and how the Ethernet Priority Code Point (PCP) and
+Drop Eligible Indicator (DEI) fields are used.
+The optionality of variables needs to be considered when
 defining the template so that variables are either self-identifying or possible
 to exclude in the syntax. How valid values for such variables are formatted,
 communicated, or validated is not a part of this protocol.
@@ -440,8 +442,9 @@ forwarding of broadcast and multicast frames, and the local termination of PAUSE
 frames.
 
 When bridging Ethernet segments, undetected forwarding loops can lead to
-broadcast storms that exhaust tunnel capacity, cause congestion and Ethernet
-frame loss, and disrupt tunneled control protocols. Implementations that bridge
+broadcast storms that exhaust tunnel capacity, and can cause congestion on the tunnel
+path and Ethernet
+frame loss, as well as disrupting tunneled control protocols. Implementations that bridge
 Ethernet segments SHOULD employ loop prevention mechanisms, such as STP or RSTP
 {{IEEE802.1Q}}, unless they delegate that responsibility to another component of
 the endpoint such as a kernel. Implementations can also monitor frame rates for
@@ -565,6 +568,11 @@ as both can sometimes independently retransmit the same data. To avoid this,
 Ethernet proxying SHOULD be performed over HTTP/3 to allow leveraging the QUIC
 DATAGRAM frame.
 
+When the Ethernet tunnel is carried over an Internet path, delay, jitter,
+and capacity variations can
+disrupt the normal operation of time-sensitive Ethernet applications (such
+as Precision Time Protocol (PTP) and its use in Time-Sensitive Networking (TSN)).
+
 ## MTU and Frame Ordering Considerations
 
 Ethernet proxying supports two modes of operation with different implications
@@ -605,7 +613,8 @@ associated with only one VLAN. This provides flexibility in forwarding,
 while meeting the requirements for the relative priority and ordering
 between frames associated with a VLAN. To reduce overhead, the IEEE 802.1Q
 field could be stripped and, when required, could be reapplied at the egress
-associating the frame with the appropriate priority and VLAN.
+associating the frame with the appropriate priority and VLAN. The present
+specification does not discuss the use of Q-in-Q encapsulation or VLAN stacking.
 
 # Security Considerations
 
