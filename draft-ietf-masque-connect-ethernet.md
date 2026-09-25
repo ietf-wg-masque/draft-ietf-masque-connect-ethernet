@@ -559,26 +559,37 @@ DATAGRAM frame.
 
 Ethernet proxying supports two modes of operation with different implications
 for supported frame size and ordering: QUIC DATAGRAM frames and HTTP DATAGRAM
-capsules. When using HTTP/3 with the QUIC Datagram extension
-{{!QUIC-DGRAM=RFC9221}}, Ethernet frames can be transmitted in QUIC DATAGRAM
-frames. Since DATAGRAM frames cannot be fragmented, they can only carry Ethernet
-frames up to a given length determined by the QUIC connection configuration and
-the Path MTU (PMTU). Implementations MAY rely on {{QUIC}}'s use of
+capsules. The trade-off between supporting a larger MTU and avoiding
+fragmentation should be considered when deciding which mode to operate in.
+
+When using HTTP/3 with the QUIC Datagram extension {{!QUIC-DGRAM=RFC9221}},
+Ethernet frames can be transmitted in QUIC DATAGRAM frames. Since DATAGRAM frames
+cannot be fragmented, they can only carry Ethernet frames up to the maximum QUIC
+DATAGRAM payload size minus HTTP Datagram framing overhead (see
+{{payload-format}}). Implementations MAY rely on {{QUIC}}'s use of
 {{!DPLPMTUD=RFC8899}} to probe and discover the PMTU over the connection's
-lifetime, and adjust any associated interface MTU as needed. Furthermore, the
-UDP packets carrying these frames could be reordered by the network.
+lifetime, and adjust any associated interface MTU as needed. If an arriving
+Ethernet frame exceeds the available capacity of a QUIC DATAGRAM frame, the
+endpoint MUST drop the frame and MUST NOT send it in a DATAGRAM capsule (see
+{{Section 3.5 of HTTP-DGRAM}}). Furthermore, the UDP packets carrying these
+frames could be reordered by the network.
 
 When using HTTP/1.1 or HTTP/2, and when using HTTP/3 without the QUIC Datagram
 extension {{QUIC-DGRAM}}, Ethernet frames are transmitted in DATAGRAM capsules as
 defined in {{HTTP-DGRAM}}. DATAGRAM capsules are transmitted reliably over an
-underlying stream, maintaining frame order, though they could be split across
-multiple QUIC or TCP packets.
+underlying stream, allowing frames larger than the PMTU to be carried across
+multiple TCP or QUIC packets.
 
-The trade-off between supporting a larger MTU and avoiding fragmentation should
-be considered when deciding what mode(s) to operate in. Implementations SHOULD
-NOT intentionally reorder Ethernet frames, but are not required to provide
-guaranteed in-order delivery. If in-order delivery of Ethernet frames is
-required, DATAGRAM capsules can be used.
+Regardless of the operating mode, if a decapsulated Ethernet frame exceeds the
+maximum frame size supported by the egress interface, destination network, or
+receiving endpoint, the frame MUST be dropped. Implementations SHOULD maintain a
+counter of dropped oversized frames.
+
+Implementations SHOULD NOT intentionally reorder Ethernet frames, but are not
+required to provide guaranteed in-order delivery. If in-order delivery of
+Ethernet frames is required, DATAGRAM capsules can be used in deployments
+without intermediaries that re-encode capsules to QUIC DATAGRAM frames (see
+{{Section 3.5 of HTTP-DGRAM}}).
 
 ## IEEE 802.1Q tagging {#vlan-recommendations}
 
@@ -591,11 +602,11 @@ signalling/configuration is not defined in this document.
 
 A proxy that is used for access to multiple VLANs MAY map each individual
 VLAN to a distinct URI, such that each Ethernet proxying request is
-associated with only one VLAN. This provides flexibility in forwarding,
-while meeting the requirements for the relative priority and ordering
-between frames associated with a VLAN. To reduce overhead, the IEEE 802.1Q
-field could be stripped and, when required, could be reapplied at the egress
-associating the frame with the appropriate priority and VLAN.
+associated with only one VLAN. This provides flexibility in forwarding and
+allows independent scheduling and policy enforcement for each VLAN. To
+reduce overhead, the IEEE 802.1Q field could be stripped and, when required,
+could be reapplied at the egress associating the frame with the appropriate
+priority and VLAN.
 
 # Security Considerations
 
