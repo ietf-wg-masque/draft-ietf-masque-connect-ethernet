@@ -219,8 +219,8 @@ requirements:
 * The request SHALL include an Upgrade header field with value "connect-ethernet".
 
 An Ethernet proxying request that does not conform to these restrictions is
-malformed. The recipient of such a malformed request MUST respond with an error
-and SHOULD use the 400 (Bad Request) status code.
+malformed. The recipient of such a malformed request MUST respond with a 4xx
+(Client Error) status code and SHOULD use the 400 (Bad Request) status code.
 
 For example, if the client is configured with the URI Template
 "https://example.org/.well-known/masque/ethernet/" and wishes to open an
