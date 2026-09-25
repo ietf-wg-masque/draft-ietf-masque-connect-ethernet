@@ -54,7 +54,7 @@ informative:
 
 --- abstract
 
-This document describes how to proxy Ethernet frames in HTTP. This protocol
+This document specifies how to proxy Ethernet frames in HTTP. This protocol
 is similar to IP proxying in HTTP, but for Layer 2 instead of Layer 3. More
 specifically, this document defines a protocol that allows an HTTP client to
 create a tunnel to exchange Layer 2 Ethernet frames through an HTTP server
@@ -95,7 +95,7 @@ possible, users should use higher-level proxying protocols, such as
 
 {::boilerplate bcp14-tagged}
 
-In this document, we use the term "Ethernet proxy" to refer to the HTTP server
+In this document, the term "Ethernet proxy" refers to the HTTP server
 that responds to the Ethernet proxying request. The term "client" is used in the
 HTTP sense; the client constructs the Ethernet proxying request. If there are
 HTTP intermediaries (as defined in {{Section 3.7 of HTTP}}) between the client
@@ -335,7 +335,7 @@ additional data or compress Ethernet frame header fields. To provide this
 extension point, all HTTP Datagrams associated with Ethernet proxying request
 streams start with a Context ID field; see {{payload-format}}.
 
-Context IDs are 62-bit integers (0-2<sup>62</sup>-1). Context IDs are encoded as
+Context IDs are 62-bit integers (0 to 2<sup>62</sup>-1). Context IDs are encoded as
 variable-length integers; see {{Section 16 of QUIC}}. The Context ID value of 0
 is reserved for Ethernet payloads, while non-zero values are dynamically
 allocated. Non-zero even-numbered Context IDs are client-allocated, and
@@ -419,8 +419,9 @@ per-stream, per-context, or per-connection basis.
 This document defines a tunnelling mechanism that is conceptually an Ethernet
 link. An Ethernet proxying connection established between two Ethernet proxying
 endpoints emulates a single Ethernet link between those two endpoints. This
-provides an Ethernet MAC service that will deliver each Ethernet frame that is
-received at the ingress to the egress at the other end of the tunnel.
+provides an Ethernet Media Access Control (MAC) service that will deliver each
+Ethernet frame that is received at the ingress to the egress at the other end of
+the tunnel.
 
 Endpoints implementing this mechanism might need to handle some of the
 responsibilities of an Ethernet switch or bridge if they do not delegate them to
@@ -432,11 +433,11 @@ frames.
 When bridging Ethernet segments, undetected forwarding loops can lead to
 broadcast storms that exhaust tunnel capacity, cause congestion and Ethernet
 frame loss, and disrupt tunneled control protocols. Implementations that bridge
-Ethernet segments SHOULD employ loop prevention mechanisms, such as STP or RSTP
-{{IEEE802.1Q}}, unless they delegate that responsibility to another component of
-the endpoint such as a kernel. Implementations can also monitor frame rates for
-unexpected traffic spikes and apply rate limits to broadcast and multicast
-Ethernet frames.
+Ethernet segments SHOULD employ loop prevention mechanisms, such as the Spanning
+Tree Protocol (STP) or Rapid Spanning Tree Protocol (RSTP) {{IEEE802.1Q}}, unless
+they delegate that responsibility to another component of the endpoint such as a
+kernel. Implementations can also monitor frame rates for unexpected traffic
+spikes and apply rate limits to broadcast and multicast Ethernet frames.
 
 If an Ethernet proxying endpoint fails to deliver an Ethernet frame to an
 underlying Ethernet segment, the endpoint MUST drop the Ethernet frame.
@@ -594,11 +595,11 @@ without intermediaries that re-encode capsules to QUIC DATAGRAM frames (see
 ## IEEE 802.1Q tagging {#vlan-recommendations}
 
 When the proxy transports Ethernet frames that carry an IEEE 802.1Q
-{{IEEE802.1Q}} VLAN tag, these are by default transparently forwarded through
-the tunnel. When the tunnel ingress and/or egress interprets the tags, there
-must be agreement (signaled or manually configured) on how to consistently
-process each tag at the ingress and the egress. The procedure for this
-signalling/configuration is not defined in this document.
+{{IEEE802.1Q}} Virtual Local Area Network (VLAN) tag, these are by default
+transparently forwarded through the tunnel. When the tunnel ingress and/or egress
+interprets the tags, there must be agreement (signaled or manually configured)
+on how to consistently process each tag at the ingress and the egress. The
+procedure for this signalling/configuration is not defined in this document.
 
 A proxy that is used for access to multiple VLANs MAY map each individual
 VLAN to a distinct URI, such that each Ethernet proxying request is
