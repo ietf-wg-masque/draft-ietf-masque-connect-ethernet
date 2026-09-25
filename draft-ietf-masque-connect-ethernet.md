@@ -614,18 +614,21 @@ priority and VLAN.
 
 There are risks in allowing arbitrary clients to establish a tunnel to a Layer 2
 network. Bad actors could abuse this capability to attack hosts on that network
-that they would otherwise be unable to reach. HTTP servers that support Ethernet
-proxying SHOULD restrict its use to authorized users who have properly
-authenticated to the HTTP server. Depending on the deployment, possible
-authentication mechanisms include mutual TLS between Ethernet proxying endpoints
-and HTTP-based authentication via the HTTP Authorization header field
-{{HTTP}}. Once authenticated, proxies can enforce policies on authorized users
-to further constrain client behavior or deal with possible abuse. For example,
-proxies can rate limit individual clients that send an excessively large amount
-of traffic through the proxy. Additionally, an attacker could attempt to consume
-server resources by sending datagrams with unknown Context IDs or before
-establishing an HTTP request stream; implementations mitigate this risk by
-enforcing the buffering limits described in {{payload-format}}.
+that they would otherwise be unable to reach. HTTP servers that support
+Ethernet proxying SHOULD restrict its use to authorized users who have properly
+authenticated to the HTTP server. Authentication might be omitted in closed
+testing or development environments, or when access to the proxy is already
+restricted by other network-layer security mechanisms. Depending on the
+deployment, possible authentication mechanisms include mutual TLS between
+Ethernet proxying endpoints and HTTP-based authentication via the HTTP
+Authorization header field {{HTTP}}. Once authenticated, proxies can enforce
+policies on authorized users to further constrain client behavior or deal with
+possible abuse. For example, proxies can rate limit individual clients that send
+an excessively large amount of traffic through the proxy. Additionally, an
+attacker could attempt to consume server resources by sending datagrams with
+unknown Context IDs or before establishing an HTTP request stream;
+implementations mitigate this risk by enforcing the buffering limits described
+in {{payload-format}}.
 
 Users of this protocol may send arbitrary Ethernet frames through the tunnel,
 including frames with arbitrary source MAC addresses. This could allow
