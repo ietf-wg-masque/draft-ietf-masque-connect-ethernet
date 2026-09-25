@@ -416,28 +416,29 @@ per-stream, per-context, or per-connection basis.
 
 # Ethernet Frame Handling
 
-This document defines a tunnelling mechanism that is conceptually an Ethernet
-link. An Ethernet proxying connection established between two Ethernet proxying
-endpoints emulates a single Ethernet link between those two endpoints. This
-provides an Ethernet Media Access Control (MAC) service that will deliver each
-Ethernet frame that is received at the ingress to the egress at the other end of
-the tunnel.
+This document defines a tunnelling mechanism that is conceptually a point-to-point
+Ethernet link. An Ethernet proxying connection established between two Ethernet
+proxying endpoints emulates a single Ethernet link between those two endpoints,
+providing an Ethernet Media Access Control (MAC) service that delivers each
+Ethernet frame received at the ingress to the egress at the other end of the
+tunnel.
 
-Endpoints implementing this mechanism might need to handle some of the
-responsibilities of an Ethernet switch or bridge if they do not delegate them to
-another component of the endpoint such as a kernel. Those responsibilities are
-beyond the scope of this document, and include, but are not limited to, the
-forwarding of broadcast and multicast frames, and the local termination of PAUSE
-frames.
+When an endpoint attaches this emulated link to an external network, it might
+need to handle some of the responsibilities of an Ethernet switch or bridge if
+it does not delegate them to another component, such as an operating system kernel.
+Those responsibilities are beyond the scope of this document, and include, but
+are not limited to, the forwarding of broadcast and multicast frames, and the
+local termination of PAUSE frames.
 
 When bridging Ethernet segments, undetected forwarding loops can lead to
 broadcast storms that exhaust tunnel capacity, cause congestion and Ethernet
 frame loss, and disrupt tunneled control protocols. Implementations that bridge
 Ethernet segments SHOULD employ loop prevention mechanisms, such as the Spanning
 Tree Protocol (STP) or Rapid Spanning Tree Protocol (RSTP) {{IEEE802.1Q}}, unless
-they delegate that responsibility to another component of the endpoint such as a
-kernel. Implementations can also monitor frame rates for unexpected traffic
-spikes and apply rate limits to broadcast and multicast Ethernet frames.
+they delegate that responsibility to another component such as an operating
+system kernel, or the topology is known to be loop-free. Implementations can also
+monitor frame rates for unexpected traffic spikes and apply rate limits to
+broadcast and multicast Ethernet frames.
 
 If an Ethernet proxying endpoint fails to deliver an Ethernet frame to an
 underlying Ethernet segment, the endpoint MUST drop the Ethernet frame.
