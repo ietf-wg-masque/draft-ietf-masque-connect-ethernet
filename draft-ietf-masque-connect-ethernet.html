@@ -7,13 +7,13 @@
 <title>Proxying Ethernet Frames in HTTP</title>
 <meta content="Alejandro R Sedeño" name="author">
 <meta content="
-       This document describes how to proxy Ethernet frames in HTTP. This protocol
+       This document specifies how to proxy Ethernet frames in HTTP. This protocol
 is similar to IP proxying in HTTP, but for Layer 2 instead of Layer 3. More
 specifically, this document defines a protocol that allows an HTTP client to
 create a tunnel to exchange Layer 2 Ethernet frames through an HTTP server
 with an attached physical or virtual Ethernet segment. 
     " name="description">
-<meta content="xml2rfc 3.34.0" name="generator">
+<meta content="xml2rfc 3.34.1" name="generator">
 <meta content="quic" name="keyword">
 <meta content="http" name="keyword">
 <meta content="datagram" name="keyword">
@@ -26,19 +26,19 @@ with an attached physical or virtual Ethernet segment.
 <meta content="ethernet" name="keyword">
 <meta content="draft-ietf-masque-connect-ethernet-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.34.0
-    Python 3.14.5
-    ConfigArgParse 1.7.5
+  xml2rfc 3.34.1
+    Python 3.14.7
+    ConfigArgParse 1.7.7
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
     lxml 6.1.1
     natsort 8.4.0
-    platformdirs 4.11.0
+    platformdirs 4.11.10
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.8.2
+    wcwidth 0.8.4
 -->
 <link href="draft-ietf-masque-connect-ethernet.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1054,11 +1054,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">CONNECT-ETHERNET</td>
-<td class="right">August 2026</td>
+<td class="right">September 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Sedeño</td>
-<td class="center">Expires 19 February 2027</td>
+<td class="center">Expires 3 April 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1071,12 +1071,12 @@ svg {
 <dd class="internet-draft">draft-ietf-masque-connect-ethernet-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-08-18" class="published">18 August 2026</time>
+<time datetime="2026-09-30" class="published">30 September 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-02-19">19 February 2027</time></dd>
+<dd class="expires"><time datetime="2027-04-03">3 April 2027</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1089,7 +1089,7 @@ svg {
 <h1 id="title">Proxying Ethernet Frames in HTTP</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document describes how to proxy Ethernet frames in HTTP. This protocol
+<p id="section-abstract-1">This document specifies how to proxy Ethernet frames in HTTP. This protocol
 is similar to IP proxying in HTTP, but for Layer 2 instead of Layer 3. More
 specifically, this document defines a protocol that allows an HTTP client to
 create a tunnel to exchange Layer 2 Ethernet frames through an HTTP server
@@ -1130,7 +1130,7 @@ with an attached physical or virtual Ethernet segment.<a href="#section-abstract
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 19 February 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 3 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1292,7 +1292,7 @@ possible, users should use higher-level proxying protocols, such as
 "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
 appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
-<p id="section-2-2">In this document, we use the term "Ethernet proxy" to refer to the HTTP server
+<p id="section-2-2">In this document, the term "Ethernet proxy" refers to the HTTP server
 that responds to the Ethernet proxying request. The term "client" is used in the
 HTTP sense; the client constructs the Ethernet proxying request. If there are
 HTTP intermediaries (as defined in <span><a href="https://rfc-editor.org/rfc/rfc9110#section-3.7" class="relref">Section 3.7</a> of [<a href="#HTTP" class="cite xref">HTTP</a>]</span>) between the client
@@ -1316,9 +1316,13 @@ entire connection.<a href="#section-2-4" class="pilcrow">¶</a></p>
 <p id="section-3-1">Clients are configured to use Ethernet proxying over HTTP via a URI Template
 <span>[<a href="#TEMPLATE" class="cite xref">TEMPLATE</a>]</span>. The URI Templates used by this protocol do not require
 any variables, and this document does not define any; implementations or
-extensions <span class="bcp14">MAY</span> specify their own. URI Templates specified for this protocol <span class="bcp14">MAY</span>
-use the well-known location <span>[<a href="#WELL-KNOWN" class="cite xref">WELL-KNOWN</a>]</span> registered by this document
-(see <a href="#iana-suffix" class="auto internal xref">Section 11.2</a>).<a href="#section-3-1" class="pilcrow">¶</a></p>
+extensions <span class="bcp14">MAY</span> specify their own. The optionality of variables needs to be
+considered when defining the template so that variables are either
+self-identifying or possible to exclude in the syntax. How valid values for such
+variables are formatted, communicated, or validated is not a part of this
+protocol. URI Templates specified for this protocol <span class="bcp14">MAY</span> use the well-known
+location <span>[<a href="#WELL-KNOWN" class="cite xref">WELL-KNOWN</a>]</span> registered by this document (see
+<a href="#iana-suffix" class="auto internal xref">Section 11.2</a>).<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">Examples are shown below:<a href="#section-3-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3-3">
 <pre>
@@ -1327,51 +1331,38 @@ https://proxy.example.org:4443/masque/ethernet/
 https://masque.example.org/?user=bob
 </pre><a href="#section-3-3" class="pilcrow">¶</a>
 </div>
-<p id="section-3-4">An implementation or extension that supports connecting to multiple Ethernet
-segments might define its own variables, such as a "vlan-identifier" to specify
-the target segment. The optionality of variables needs to be considered when
-defining the template so that variables are either self-identifying or possible
-to exclude in the syntax. How valid values for such variables are formatted,
-communicated, or validated is not a part of this protocol.<a href="#section-3-4" class="pilcrow">¶</a></p>
-<p id="section-3-5">Hypothetical examples are shown below:<a href="#section-3-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3-6">
-<pre>
-https://proxy.example.org:4443/masque/ethernet?vlan={vlan-identifier}
-https://etherproxy.example.org/{vlan-identifier}
-</pre><a href="#section-3-6" class="pilcrow">¶</a>
-</div>
-<p id="section-3-7">The following requirements apply to the URI Template:<a href="#section-3-7" class="pilcrow">¶</a></p>
+<p id="section-3-4">The following requirements apply to the URI Template:<a href="#section-3-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3-8.1">
-          <p id="section-3-8.1.1">The URI Template <span class="bcp14">MUST</span> be a template of type level 3 or lower (see <span><a href="https://rfc-editor.org/rfc/rfc6570#section-1.2" class="relref">Section 1.2</a> of [<a href="#TEMPLATE" class="cite xref">TEMPLATE</a>]</span>).<a href="#section-3-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3-5.1">
+          <p id="section-3-5.1.1">The URI Template <span class="bcp14">MUST</span> be a template of type level 3 or lower (see <span><a href="https://rfc-editor.org/rfc/rfc6570#section-1.2" class="relref">Section 1.2</a> of [<a href="#TEMPLATE" class="cite xref">TEMPLATE</a>]</span>).<a href="#section-3-5.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-3-8.2">
-          <p id="section-3-8.2.1">The URI Template <span class="bcp14">MUST</span> be in absolute form (see <span><a href="https://rfc-editor.org/rfc/rfc3986#section-4.3" class="relref">Section 4.3</a> of [<a href="#URI" class="cite xref">URI</a>]</span>)
-and <span class="bcp14">MUST</span> include non-empty scheme, authority, and path components.<a href="#section-3-8.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-3-5.2">
+          <p id="section-3-5.2.1">The URI Template <span class="bcp14">MUST</span> be in absolute form (see <span><a href="https://rfc-editor.org/rfc/rfc3986#section-4.3" class="relref">Section 4.3</a> of [<a href="#URI" class="cite xref">URI</a>]</span>)
+and <span class="bcp14">MUST</span> include non-empty scheme, authority, and path components.<a href="#section-3-5.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-3-8.3">
-          <p id="section-3-8.3.1">The path component of the URI Template <span class="bcp14">MUST</span> start with a slash "/".<a href="#section-3-8.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-3-5.3">
+          <p id="section-3-5.3.1">The path component of the URI Template <span class="bcp14">MUST</span> start with a slash "/".<a href="#section-3-5.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-3-8.4">
-          <p id="section-3-8.4.1">All template variables <span class="bcp14">MUST</span> be within the path or query components of the URI.<a href="#section-3-8.4.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-3-5.4">
+          <p id="section-3-5.4.1">All template variables <span class="bcp14">MUST</span> be within the path or query components of the URI.<a href="#section-3-5.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-3-8.5">
-          <p id="section-3-8.5.1">The URI Template <span class="bcp14">MUST NOT</span> contain any non-ASCII Unicode characters and <span class="bcp14">MUST</span>
+        <li class="normal" id="section-3-5.5">
+          <p id="section-3-5.5.1">The URI Template <span class="bcp14">MUST NOT</span> contain any non-ASCII Unicode characters and <span class="bcp14">MUST</span>
 only contain ASCII characters in the range 0x21-0x7E inclusive (note that
-percent-encoding is allowed; see <span><a href="https://rfc-editor.org/rfc/rfc3986#section-2.1" class="relref">Section 2.1</a> of [<a href="#URI" class="cite xref">URI</a>]</span>).<a href="#section-3-8.5.1" class="pilcrow">¶</a></p>
+percent-encoding is allowed; see <span><a href="https://rfc-editor.org/rfc/rfc3986#section-2.1" class="relref">Section 2.1</a> of [<a href="#URI" class="cite xref">URI</a>]</span>).<a href="#section-3-5.5.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-3-8.6">
-          <p id="section-3-8.6.1">The URI Template <span class="bcp14">MUST NOT</span> use Reserved Expansion ("+" operator), Fragment
+        <li class="normal" id="section-3-5.6">
+          <p id="section-3-5.6.1">The URI Template <span class="bcp14">MUST NOT</span> use Reserved Expansion ("+" operator), Fragment
 Expansion ("#" operator), Label Expansion with Dot-Prefix, Path Segment
 Expansion with Slash-Prefix, nor Path-Style Parameter Expansion with
-Semicolon-Prefix.<a href="#section-3-8.6.1" class="pilcrow">¶</a></p>
+Semicolon-Prefix.<a href="#section-3-5.6.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-3-9">Clients <span class="bcp14">SHOULD</span> validate the requirements above; however, clients <span class="bcp14">MAY</span> use a
+<p id="section-3-6">Clients <span class="bcp14">SHOULD</span> validate the requirements above; however, clients <span class="bcp14">MAY</span> use a
 general-purpose URI Template implementation that lacks this specific
 validation. If a client detects that any of the requirements above are not met
 by a URI Template, the client <span class="bcp14">MUST</span> reject its configuration and abort the
-request without sending it to the Ethernet proxy.<a href="#section-3-9" class="pilcrow">¶</a></p>
+request without sending it to the Ethernet proxy.<a href="#section-3-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="tunnelling-ethernet-frames-over-http">
@@ -1443,8 +1434,8 @@ and optional port of the Ethernet proxy.<a href="#section-4.2-2.2.1" class="pilc
 </li>
         </ul>
 <p id="section-4.2-3">An Ethernet proxying request that does not conform to these restrictions is
-malformed. The recipient of such a malformed request <span class="bcp14">MUST</span> respond with an error
-and <span class="bcp14">SHOULD</span> use the 400 (Bad Request) status code.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
+malformed. The recipient of such a malformed request <span class="bcp14">MUST</span> respond with a 4xx
+(Client Error) status code and <span class="bcp14">SHOULD</span> use the 400 (Bad Request) status code.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
 <p id="section-4.2-4">For example, if the client is configured with the URI Template
 "https://example.org/.well-known/masque/ethernet/" and wishes to open an
 Ethernet tunnel, it could send the following request.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
@@ -1607,10 +1598,10 @@ semantics, similar to the extension mechanisms specified in <span><a href="https
 additional data or compress Ethernet frame header fields. To provide this
 extension point, all HTTP Datagrams associated with Ethernet proxying request
 streams start with a Context ID field; see <a href="#payload-format" class="auto internal xref">Section 6</a>.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2">Context IDs are 62-bit integers (0-2<sup>62</sup>-1). Context IDs are encoded as
+<p id="section-5-2">Context IDs are 62-bit integers (0 to 2<sup>62</sup>-1). Context IDs are encoded as
 variable-length integers; see <span><a href="https://rfc-editor.org/rfc/rfc9000#section-16" class="relref">Section 16</a> of [<a href="#QUIC" class="cite xref">QUIC</a>]</span>. The Context ID value of 0
 is reserved for Ethernet payloads, while non-zero values are dynamically
-allocated. Non-zero even-numbered Context-IDs are client allocated, and
+allocated. Non-zero even-numbered Context IDs are client-allocated, and
 odd-numbered Context IDs are proxy-allocated. The Context ID namespace is tied
 to a given HTTP request; it is possible for a Context ID with the same numeric
 value to be simultaneously allocated in distinct requests, potentially with
@@ -1675,13 +1666,13 @@ field. Note that this field can be empty.<a href="#section-6-4.4.1" class="pilcr
 <p id="section-6-5">Ethernet frames are encoded using HTTP Datagrams with the Context ID set to
 zero. When the Context ID is set to zero, the Payload field contains a full
 Layer 2 Ethernet Frame (from the start of the Destination Address field through
-the end of the Frame Check Sequence field), as defined by IEEE 802.3
-<span>[<a href="#IEEE802.3" class="cite xref">IEEE802.3</a>]</span>. A complete frame could include an IEEE 802.1Q <span>[<a href="#IEEE802.1Q" class="cite xref">IEEE802.1Q</a>]</span> tag
-(see <a href="#vlan-recommendations" class="auto internal xref">Section 9.2</a>).<a href="#section-6-5" class="pilcrow">¶</a></p>
-<p id="section-6-6">The Frame Check Sequence field is included in the proxied Ethernet frame rather
-than being omitted and recomputed by the Ethernet proxying endpoints for
-simplicity and to reduce compute requirements, though a future extension could
-introduce a different encoding.<a href="#section-6-6" class="pilcrow">¶</a></p>
+the last byte before the Frame Check Sequence (FCS) field), as defined by IEEE
+802.3 <span>[<a href="#IEEE802.3" class="cite xref">IEEE802.3</a>]</span>. A complete frame could include an IEEE 802.1Q
+<span>[<a href="#IEEE802.1Q" class="cite xref">IEEE802.1Q</a>]</span> tag (see <a href="#vlan-recommendations" class="auto internal xref">Section 9.2</a>).<a href="#section-6-5" class="pilcrow">¶</a></p>
+<p id="section-6-6">The Frame Check Sequence field is omitted from proxied Ethernet frames to reduce
+overhead and because standard network interfaces strip the FCS on ingress and
+regenerate it on egress. A future extension could introduce an encoding that
+includes the FCS.<a href="#section-6-6" class="pilcrow">¶</a></p>
 <p id="section-6-7">If an Ethernet proxy receives an HTTP Datagram before it has received the
 corresponding request, it <span class="bcp14">SHALL</span> either drop that HTTP Datagram silently or
 buffer it temporarily (on the order of a round trip) while awaiting the
@@ -1699,25 +1690,27 @@ per-stream, per-context, or per-connection basis.<a href="#section-6-8" class="p
       <h2 id="name-ethernet-frame-handling">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-ethernet-frame-handling" class="section-name selfRef">Ethernet Frame Handling</a>
       </h2>
-<p id="section-7-1">This document defines a tunnelling mechanism that is conceptually an Ethernet
-link. An Ethernet proxying connection established between two Ethernet proxying
-endpoints emulates a single Ethernet link between those two endpoints. This
-provides an Ethernet MAC service that will deliver each Ethernet frame that is
-received at the ingress to the egress at the other end of the tunnel.<a href="#section-7-1" class="pilcrow">¶</a></p>
-<p id="section-7-2">Endpoints implementing this mechanism might need to handle some of the
-responsibilities of an Ethernet switch or bridge if they do not delegate them to
-another component of the endpoint such as a kernel. Those responsibilities are
-beyond the scope of this document, and include, but are not limited to, the
-forwarding of broadcast and multicast frames, and the local termination of PAUSE
-frames.<a href="#section-7-2" class="pilcrow">¶</a></p>
+<p id="section-7-1">This document defines a tunnelling mechanism that is conceptually a point-to-point
+Ethernet link. An Ethernet proxying connection established between two Ethernet
+proxying endpoints emulates a single Ethernet link between those two endpoints,
+providing an Ethernet Media Access Control (MAC) service that delivers each
+Ethernet frame received at the ingress to the egress at the other end of the
+tunnel.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-2">When an endpoint attaches this emulated link to an external network, it might
+need to handle some of the responsibilities of an Ethernet switch or bridge if
+it does not delegate them to another component, such as an operating system kernel.
+Those responsibilities are beyond the scope of this document, and include, but
+are not limited to, the forwarding of broadcast and multicast frames, and the
+local termination of PAUSE frames.<a href="#section-7-2" class="pilcrow">¶</a></p>
 <p id="section-7-3">When bridging Ethernet segments, undetected forwarding loops can lead to
 broadcast storms that exhaust tunnel capacity, cause congestion and Ethernet
 frame loss, and disrupt tunneled control protocols. Implementations that bridge
-Ethernet segments <span class="bcp14">SHOULD</span> employ loop prevention mechanisms, such as STP or RSTP
-<span>[<a href="#IEEE802.1Q" class="cite xref">IEEE802.1Q</a>]</span>, unless they delegate that responsibility to another component of
-the endpoint such as a kernel. Implementations can also monitor frame rates for
-unexpected traffic spikes and apply rate limits to broadcast and multicast
-Ethernet frames.<a href="#section-7-3" class="pilcrow">¶</a></p>
+Ethernet segments <span class="bcp14">SHOULD</span> employ loop prevention mechanisms, such as the Spanning
+Tree Protocol (STP) or Rapid Spanning Tree Protocol (RSTP) <span>[<a href="#IEEE802.1Q" class="cite xref">IEEE802.1Q</a>]</span>, unless
+they delegate that responsibility to another component such as an operating
+system kernel, or the topology is known to be loop-free. Implementations can also
+monitor frame rates for unexpected traffic spikes and apply rate limits to
+broadcast and multicast Ethernet frames.<a href="#section-7-3" class="pilcrow">¶</a></p>
 <p id="section-7-4">If an Ethernet proxying endpoint fails to deliver an Ethernet frame to an
 underlying Ethernet segment, the endpoint <span class="bcp14">MUST</span> drop the Ethernet frame.<a href="#section-7-4" class="pilcrow">¶</a></p>
 </section>
@@ -1943,23 +1936,33 @@ DATAGRAM frame.<a href="#section-9-3" class="pilcrow">¶</a></p>
         </h3>
 <p id="section-9.1-1">Ethernet proxying supports two modes of operation with different implications
 for supported frame size and ordering: QUIC DATAGRAM frames and HTTP DATAGRAM
-capsules. When using HTTP/3 with the QUIC Datagram extension
-<span>[<a href="#QUIC-DGRAM" class="cite xref">QUIC-DGRAM</a>]</span>, Ethernet frames can be transmitted in QUIC DATAGRAM
-frames. Since DATAGRAM frames cannot be fragmented, they can only carry Ethernet
-frames up to a given length determined by the QUIC connection configuration and
-the Path MTU (PMTU). Implementations <span class="bcp14">MAY</span> rely on <span>[<a href="#QUIC" class="cite xref">QUIC</a>]</span>'s use of
+capsules. The trade-off between supporting a larger MTU and avoiding
+fragmentation should be considered when deciding which mode to operate in.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
+<p id="section-9.1-2">When using HTTP/3 with the QUIC Datagram extension <span>[<a href="#QUIC-DGRAM" class="cite xref">QUIC-DGRAM</a>]</span>,
+Ethernet frames can be transmitted in QUIC DATAGRAM frames. Since DATAGRAM frames
+cannot be fragmented, they can only carry Ethernet frames up to the maximum QUIC
+DATAGRAM payload size minus HTTP Datagram framing overhead (see
+<a href="#payload-format" class="auto internal xref">Section 6</a>). Implementations <span class="bcp14">MAY</span> rely on <span>[<a href="#QUIC" class="cite xref">QUIC</a>]</span>'s use of
 <span>[<a href="#DPLPMTUD" class="cite xref">DPLPMTUD</a>]</span> to probe and discover the PMTU over the connection's
-lifetime, and adjust any associated interface MTU as needed. Furthermore, the
-UDP packets carrying these frames could be reordered by the network.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
-<p id="section-9.1-2">When using HTTP/1.1 or HTTP/2, and when using HTTP/3 without the QUIC Datagram
+lifetime, and adjust any associated interface MTU as needed. If an arriving
+Ethernet frame exceeds the available capacity of a QUIC DATAGRAM frame, the
+endpoint <span class="bcp14">MUST</span> drop the frame and <span class="bcp14">MUST NOT</span> send it in a DATAGRAM capsule (see
+<span><a href="https://rfc-editor.org/rfc/rfc9297#section-3.5" class="relref">Section 3.5</a> of [<a href="#HTTP-DGRAM" class="cite xref">HTTP-DGRAM</a>]</span>). Furthermore, the UDP packets carrying these
+frames could be reordered by the network.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
+<p id="section-9.1-3">When using HTTP/1.1 or HTTP/2, and when using HTTP/3 without the QUIC Datagram
 extension <span>[<a href="#QUIC-DGRAM" class="cite xref">QUIC-DGRAM</a>]</span>, Ethernet frames are transmitted in DATAGRAM capsules as
 defined in <span>[<a href="#HTTP-DGRAM" class="cite xref">HTTP-DGRAM</a>]</span>. DATAGRAM capsules are transmitted reliably over an
-underlying stream, maintaining frame order, though they could be split across
-multiple QUIC or TCP packets.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
-<p id="section-9.1-3">The trade-off between supporting a larger MTU and avoiding fragmentation should
-be considered when deciding what mode(s) to operate in. Implementations <span class="bcp14">SHOULD NOT</span> intentionally reorder Ethernet frames, but are not required to provide
-guaranteed in-order delivery. If in-order delivery of Ethernet frames is
-required, DATAGRAM capsules can be used.<a href="#section-9.1-3" class="pilcrow">¶</a></p>
+underlying stream, allowing frames larger than the PMTU to be carried across
+multiple TCP or QUIC packets.<a href="#section-9.1-3" class="pilcrow">¶</a></p>
+<p id="section-9.1-4">Regardless of the operating mode, if a decapsulated Ethernet frame exceeds the
+maximum frame size supported by the egress interface, destination network, or
+receiving endpoint, the frame <span class="bcp14">MUST</span> be dropped. Implementations <span class="bcp14">SHOULD</span> maintain a
+counter of dropped oversized frames.<a href="#section-9.1-4" class="pilcrow">¶</a></p>
+<p id="section-9.1-5">Implementations <span class="bcp14">SHOULD NOT</span> intentionally reorder Ethernet frames, but are not
+required to provide guaranteed in-order delivery. If in-order delivery of
+Ethernet frames is required, DATAGRAM capsules can be used in deployments
+without intermediaries that re-encode capsules to QUIC DATAGRAM frames (see
+<span><a href="https://rfc-editor.org/rfc/rfc9297#section-3.5" class="relref">Section 3.5</a> of [<a href="#HTTP-DGRAM" class="cite xref">HTTP-DGRAM</a>]</span>).<a href="#section-9.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="vlan-recommendations">
@@ -1968,18 +1971,18 @@ required, DATAGRAM capsules can be used.<a href="#section-9.1-3" class="pilcrow"
 <a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-ieee-8021q-tagging" class="section-name selfRef">IEEE 802.1Q tagging</a>
         </h3>
 <p id="section-9.2-1">When the proxy transports Ethernet frames that carry an IEEE 802.1Q
-<span>[<a href="#IEEE802.1Q" class="cite xref">IEEE802.1Q</a>]</span> VLAN tag, these are by default transparently forwarded through
-the tunnel. When the tunnel ingress and/or egress interprets the tags, there
-must be agreement (signaled or manually configured) on how to consistently
-process each tag at the ingress and the egress. The procedure for this
-signalling/configuration is not defined in this document.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<span>[<a href="#IEEE802.1Q" class="cite xref">IEEE802.1Q</a>]</span> Virtual Local Area Network (VLAN) tag, these are by default
+transparently forwarded through the tunnel. When the tunnel ingress and/or egress
+interprets the tags, there must be agreement (signaled or manually configured)
+on how to consistently process each tag at the ingress and the egress. The
+procedure for this signalling/configuration is not defined in this document.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
 <p id="section-9.2-2">A proxy that is used for access to multiple VLANs <span class="bcp14">MAY</span> map each individual
 VLAN to a distinct URI, such that each Ethernet proxying request is
-associated with only one VLAN. This provides flexibility in forwarding,
-while meeting the requirements for the relative priority and ordering
-between frames associated with a VLAN. To reduce overhead, the IEEE 802.1Q
-field could be stripped and, when required, could be reapplied at the egress
-associating the frame with the appropriate priority and VLAN.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
+associated with only one VLAN. This provides flexibility in forwarding and
+allows independent scheduling and policy enforcement for each VLAN. To
+reduce overhead, the IEEE 802.1Q field could be stripped and, when required,
+could be reapplied at the egress associating the frame with the appropriate
+priority and VLAN.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1991,18 +1994,21 @@ associating the frame with the appropriate priority and VLAN.<a href="#section-9
       </h2>
 <p id="section-10-1">There are risks in allowing arbitrary clients to establish a tunnel to a Layer 2
 network. Bad actors could abuse this capability to attack hosts on that network
-that they would otherwise be unable to reach. HTTP servers that support Ethernet
-proxying <span class="bcp14">SHOULD</span> restrict its use to authorized users who have properly
-authenticated to the HTTP server. Depending on the deployment, possible
-authentication mechanisms include mutual TLS between Ethernet proxying endpoints
-and HTTP-based authentication via the HTTP Authorization header field
-<span>[<a href="#HTTP" class="cite xref">HTTP</a>]</span>. Once authenticated, proxies can enforce policies on authorized users
-to further constrain client behavior or deal with possible abuse. For example,
-proxies can rate limit individual clients that send an excessively large amount
-of traffic through the proxy. Additionally, an attacker could attempt to consume
-server resources by sending datagrams with unknown Context IDs or before
-establishing an HTTP request stream; implementations mitigate this risk by
-enforcing the buffering limits described in <a href="#payload-format" class="auto internal xref">Section 6</a>.<a href="#section-10-1" class="pilcrow">¶</a></p>
+that they would otherwise be unable to reach. HTTP servers that support
+Ethernet proxying <span class="bcp14">SHOULD</span> restrict its use to authorized users who have properly
+authenticated to the HTTP server. Authentication might be omitted in closed
+testing or development environments, or when access to the proxy is already
+restricted by other network-layer security mechanisms. Depending on the
+deployment, possible authentication mechanisms include mutual TLS between
+Ethernet proxying endpoints and HTTP-based authentication via the HTTP
+Authorization header field <span>[<a href="#HTTP" class="cite xref">HTTP</a>]</span>. Once authenticated, proxies can enforce
+policies on authorized users to further constrain client behavior or deal with
+possible abuse. For example, proxies can rate limit individual clients that send
+an excessively large amount of traffic through the proxy. Additionally, an
+attacker could attempt to consume server resources by sending datagrams with
+unknown Context IDs or before establishing an HTTP request stream;
+implementations mitigate this risk by enforcing the buffering limits described
+in <a href="#payload-format" class="auto internal xref">Section 6</a>.<a href="#section-10-1" class="pilcrow">¶</a></p>
 <p id="section-10-2">Users of this protocol may send arbitrary Ethernet frames through the tunnel,
 including frames with arbitrary source MAC addresses. This could allow
 impersonation of other hosts, poisoning of ARP <span>[<a href="#RFC826" class="cite xref">RFC826</a>]</span>, NDP <span>[<a href="#RFC4861" class="cite xref">RFC4861</a>]</span> and
@@ -2037,8 +2043,8 @@ parsed a successful Ethernet proxying response.<a href="#section-10-4" class="pi
         <h3 id="name-http-upgrade-token">
 <a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-http-upgrade-token" class="section-name selfRef">HTTP Upgrade Token</a>
         </h3>
-<p id="section-11.1-1">This document will request IANA to register "connect-ethernet" in the HTTP
-Upgrade Token Registry maintained at
+<p id="section-11.1-1">IANA is requested to register "connect-ethernet" in the HTTP Upgrade Token
+Registry maintained at
 &lt;<span><a href="https://www.iana.org/assignments/http-upgrade-tokens">https://www.iana.org/assignments/http-upgrade-tokens</a></span>&gt;.<a href="#section-11.1-1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlCompact dlParallel" id="section-11.1-2">
           <dt id="section-11.1-2.1">Value:</dt>
@@ -2069,9 +2075,9 @@ Upgrade Token Registry maintained at
         <h3 id="name-updates-to-the-masque-uri-s">
 <a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-updates-to-the-masque-uri-s" class="section-name selfRef">Updates to the MASQUE URI Suffixes Registry</a>
         </h3>
-<p id="section-11.2-1">This document will request IANA to register "ethernet" in the MASQUE URI
-Suffixes Registry maintained at &lt;<span><a href="https://www.iana.org/assignments/masque">https://www.iana.org/assignments/masque</a></span>&gt;,
-created by <span><a href="https://rfc-editor.org/rfc/rfc9484#section-12.2" class="relref">Section 12.2</a> of [<a href="#CONNECT-IP" class="cite xref">CONNECT-IP</a>]</span>.<a href="#section-11.2-1" class="pilcrow">¶</a></p>
+<p id="section-11.2-1">IANA is requested to register "ethernet" in the MASQUE URI Suffixes Registry
+maintained at &lt;<span><a href="https://www.iana.org/assignments/masque">https://www.iana.org/assignments/masque</a></span>&gt;, created by
+<span><a href="https://rfc-editor.org/rfc/rfc9484#section-12.2" class="relref">Section 12.2</a> of [<a href="#CONNECT-IP" class="cite xref">CONNECT-IP</a>]</span>.<a href="#section-11.2-1" class="pilcrow">¶</a></p>
 <span id="name-new-masque-uri-suffixes"></span><div id="iana-suffixes-table">
 <table class="center" id="table-1">
           <caption>
@@ -2109,14 +2115,6 @@ created by <span><a href="https://rfc-editor.org/rfc/rfc9484#section-12.2" class
 <a href="#section-12.1" class="section-number selfRef">12.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
-<dt id="CONNECT-IP">[CONNECT-IP]</dt>
-        <dd>
-<span class="refAuthor">Pauly, T., Ed.</span>, <span class="refAuthor">Schinazi, D.</span>, <span class="refAuthor">Chernyakhovsky, A.</span>, <span class="refAuthor">Kühlewind, M.</span>, and <span class="refAuthor">M. Westerlund</span>, <span class="refTitle">"Proxying IP in HTTP"</span>, <span class="seriesInfo">RFC 9484</span>, <span class="seriesInfo">DOI 10.17487/RFC9484</span>, <time datetime="2023-10" class="refDate">October 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9484">https://www.rfc-editor.org/rfc/rfc9484</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="CONNECT-UDP">[CONNECT-UDP]</dt>
-        <dd>
-<span class="refAuthor">Schinazi, D.</span>, <span class="refTitle">"Proxying UDP in HTTP"</span>, <span class="seriesInfo">RFC 9298</span>, <span class="seriesInfo">DOI 10.17487/RFC9298</span>, <time datetime="2022-08" class="refDate">August 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9298">https://www.rfc-editor.org/rfc/rfc9298</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="DPLPMTUD">[DPLPMTUD]</dt>
         <dd>
 <span class="refAuthor">Fairhurst, G.</span>, <span class="refAuthor">Jones, T.</span>, <span class="refAuthor">Tüxen, M.</span>, <span class="refAuthor">Rüngeler, I.</span>, and <span class="refAuthor">T. Völker</span>, <span class="refTitle">"Packetization Layer Path MTU Discovery for Datagram Transports"</span>, <span class="seriesInfo">RFC 8899</span>, <span class="seriesInfo">DOI 10.17487/RFC8899</span>, <time datetime="2020-09" class="refDate">September 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8899">https://www.rfc-editor.org/rfc/rfc8899</a>&gt;</span>. </dd>
@@ -2173,10 +2171,6 @@ created by <span><a href="https://rfc-editor.org/rfc/rfc9484#section-12.2" class
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="TCP">[TCP]</dt>
-        <dd>
-<span class="refAuthor">Eddy, W., Ed.</span>, <span class="refTitle">"Transmission Control Protocol (TCP)"</span>, <span class="seriesInfo">STD 7</span>, <span class="seriesInfo">RFC 9293</span>, <span class="seriesInfo">DOI 10.17487/RFC9293</span>, <time datetime="2022-08" class="refDate">August 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9293">https://www.rfc-editor.org/rfc/rfc9293</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="TEMPLATE">[TEMPLATE]</dt>
         <dd>
 <span class="refAuthor">Gregorio, J.</span>, <span class="refAuthor">Fielding, R.</span>, <span class="refAuthor">Hadley, M.</span>, <span class="refAuthor">Nottingham, M.</span>, and <span class="refAuthor">D. Orchard</span>, <span class="refTitle">"URI Template"</span>, <span class="seriesInfo">RFC 6570</span>, <span class="seriesInfo">DOI 10.17487/RFC6570</span>, <time datetime="2012-03" class="refDate">March 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6570">https://www.rfc-editor.org/rfc/rfc6570</a>&gt;</span>. </dd>
@@ -2198,6 +2192,14 @@ created by <span><a href="https://rfc-editor.org/rfc/rfc9484#section-12.2" class
 <a href="#section-12.2" class="section-number selfRef">12.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
+<dt id="CONNECT-IP">[CONNECT-IP]</dt>
+        <dd>
+<span class="refAuthor">Pauly, T., Ed.</span>, <span class="refAuthor">Schinazi, D.</span>, <span class="refAuthor">Chernyakhovsky, A.</span>, <span class="refAuthor">Kühlewind, M.</span>, and <span class="refAuthor">M. Westerlund</span>, <span class="refTitle">"Proxying IP in HTTP"</span>, <span class="seriesInfo">RFC 9484</span>, <span class="seriesInfo">DOI 10.17487/RFC9484</span>, <time datetime="2023-10" class="refDate">October 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9484">https://www.rfc-editor.org/rfc/rfc9484</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="CONNECT-UDP">[CONNECT-UDP]</dt>
+        <dd>
+<span class="refAuthor">Schinazi, D.</span>, <span class="refTitle">"Proxying UDP in HTTP"</span>, <span class="seriesInfo">RFC 9298</span>, <span class="seriesInfo">DOI 10.17487/RFC9298</span>, <time datetime="2022-08" class="refDate">August 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9298">https://www.rfc-editor.org/rfc/rfc9298</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="ETHERIP">[ETHERIP]</dt>
         <dd>
 <span class="refAuthor">Housley, R.</span> and <span class="refAuthor">S. Hollenbeck</span>, <span class="refTitle">"EtherIP: Tunneling Ethernet Frames in IP Datagrams"</span>, <span class="seriesInfo">RFC 3378</span>, <span class="seriesInfo">DOI 10.17487/RFC3378</span>, <time datetime="2002-09" class="refDate">September 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3378">https://www.rfc-editor.org/rfc/rfc3378</a>&gt;</span>. </dd>
@@ -2225,6 +2227,10 @@ created by <span><a href="https://rfc-editor.org/rfc/rfc9484#section-12.2" class
 <dt id="RFC4861">[RFC4861]</dt>
         <dd>
 <span class="refAuthor">Narten, T.</span>, <span class="refAuthor">Nordmark, E.</span>, <span class="refAuthor">Simpson, W.</span>, and <span class="refAuthor">H. Soliman</span>, <span class="refTitle">"Neighbor Discovery for IP version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 4861</span>, <span class="seriesInfo">DOI 10.17487/RFC4861</span>, <time datetime="2007-09" class="refDate">September 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4861">https://www.rfc-editor.org/rfc/rfc4861</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="TCP">[TCP]</dt>
+        <dd>
+<span class="refAuthor">Eddy, W., Ed.</span>, <span class="refTitle">"Transmission Control Protocol (TCP)"</span>, <span class="seriesInfo">STD 7</span>, <span class="seriesInfo">RFC 9293</span>, <span class="seriesInfo">DOI 10.17487/RFC9293</span>, <time datetime="2022-08" class="refDate">August 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9293">https://www.rfc-editor.org/rfc/rfc9293</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="UDP-USAGE">[UDP-USAGE]</dt>
       <dd>
