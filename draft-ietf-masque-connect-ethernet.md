@@ -437,7 +437,7 @@ local termination of PAUSE frames.
 When bridging Ethernet segments, undetected forwarding loops can lead to
 broadcast storms that exhaust tunnel capacity, cause congestion and Ethernet
 frame loss, and disrupt tunneled control protocols. Implementations that bridge
-Ethernet segments SHOULD employ loop prevention mechanisms, such as the Spanning
+Ethernet segments MUST employ loop prevention mechanisms, such as the Spanning
 Tree Protocol (STP) or Rapid Spanning Tree Protocol (RSTP) {{IEEE802.1Q}}, unless
 they delegate that responsibility to another component such as an operating
 system kernel, or the topology is known to be loop-free. Implementations can also
