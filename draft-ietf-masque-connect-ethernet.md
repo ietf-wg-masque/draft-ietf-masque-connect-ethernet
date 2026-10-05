@@ -588,7 +588,7 @@ multiple TCP or QUIC packets.
 
 Regardless of the operating mode, if a decapsulated Ethernet frame exceeds the
 maximum frame size supported by the egress interface, destination network, or
-receiving endpoint, the frame MUST be dropped. Implementations SHOULD maintain a
+receiving endpoint, the frame MUST be dropped. Implementations should maintain a
 counter of dropped oversized frames.
 
 Implementations SHOULD NOT intentionally reorder Ethernet frames, but are not
