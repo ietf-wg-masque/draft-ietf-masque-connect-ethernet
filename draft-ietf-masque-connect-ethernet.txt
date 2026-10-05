@@ -4,8 +4,8 @@
 
 Multiplexed Application Substrate over QUIC Encryption      A. R. Sedeño
 Internet-Draft                                                Google LLC
-Intended status: Standards Track                       30 September 2026
-Expires: 3 April 2027
+Intended status: Standards Track                          5 October 2026
+Expires: 8 April 2027
 
 
                     Proxying Ethernet Frames in HTTP
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 April 2027.
+   This Internet-Draft will expire on 8 April 2027.
 
 Copyright Notice
 
@@ -126,7 +126,12 @@ Table of Contents
 
    This protocol necessarily incurs additional encapsulation overhead.
    When possible, users should use higher-level proxying protocols, such
-   as [CONNECT-IP] or [CONNECT-UDP].
+   as [CONNECT-IP] or [CONNECT-UDP].  Furthermore, because frames are
+   tunneled over HTTP and may be carried over unreliable, out-of-order
+   datagram transports, applications or protocols that require strict
+   in-order frame delivery, lossless transmission, or real-time delivery
+   guarantees should not be expected to function properly over this
+   protocol.
 
 2.  Conventions and Definitions
 
@@ -487,7 +492,7 @@ Table of Contents
    When bridging Ethernet segments, undetected forwarding loops can lead
    to broadcast storms that exhaust tunnel capacity, cause congestion
    and Ethernet frame loss, and disrupt tunneled control protocols.
-   Implementations that bridge Ethernet segments SHOULD employ loop
+   Implementations that bridge Ethernet segments MUST employ loop
    prevention mechanisms, such as the Spanning Tree Protocol (STP) or
    Rapid Spanning Tree Protocol (RSTP) [IEEE802.1Q], unless they
    delegate that responsibility to another component such as an
@@ -509,11 +514,11 @@ Table of Contents
 8.1.  Remote Access L2VPN
 
    The following example shows a point to point VPN setup where a client
-   appears to be connected to a remote Layer 2 network.
+   appears to be connected to a remote Ethernet broadcast domain.
 
    +--------+                    +--------+            +---> HOST 1
-   |        +--------------------+   L2   |  Layer 2   |
-   | Client |<--Layer 2 Tunnel---|  Proxy +------------+---> HOST 2
+   |        +--------------------+Ethernet|  Ethernet  |
+   | Client |<--Ethernet Tunnel--|  Proxy +------------+---> HOST 2
    |        +--------------------+        |  Broadcast |
    +--------+                    +--------+  Domain    +---> HOST 3
 
@@ -562,17 +567,17 @@ Table of Contents
    joins a locally attached broadcast domain to a remote broadcast
    domain through the Proxy.
 
-            +--------+               +--------+
-            |        +---------------+   L2   |
-            | Client |---L2 Tunnel---|  Proxy |
-            |        +---------------+        |
-            +-+------+               +------+-+
-              |                             |
-   HOST A <---+ Layer 2             Layer 2 +---> HOST 1
-              | Broadcast         Broadcast |
-   HOST B <---+ Domain               Domain +---> HOST 2
-              |                             |
-   HOST C <---+                             +---> HOST 3
+            +--------+                 +--------+
+            |        +-----------------+Ethernet|
+            | Client |-Ethernet Tunnel-|  Proxy |
+            |        +-----------------+        |
+            +-+------+                 +------+-+
+              |                               |
+   HOST A <---+ Ethernet             Ethernet +---> HOST 1
+              | Broadcast           Broadcast |
+   HOST B <---+ Domain                 Domain +---> HOST 2
+              |                               |
+   HOST C <---+                               +---> HOST 3
 
                     Figure 8: Site-to-site L2VPN Example
 
@@ -640,7 +645,7 @@ Table of Contents
    Regardless of the operating mode, if a decapsulated Ethernet frame
    exceeds the maximum frame size supported by the egress interface,
    destination network, or receiving endpoint, the frame MUST be
-   dropped.  Implementations SHOULD maintain a counter of dropped
+   dropped.  Implementations should maintain a counter of dropped
    oversized frames.
 
    Implementations SHOULD NOT intentionally reorder Ethernet frames, but
@@ -901,7 +906,8 @@ Acknowledgments
    Schinazi for their advice while preparing this document, and Etienne
    Dechamps for useful discussion on the subject material.
    Additionally, Mirja Kühlewind, Magnus Westerlund, Martin Thompson,
-   and Gorry Fairhurst provided valuable feedback on the document.
+   Gorry Fairhurst, and Ketan Talaulikar provided valuable feedback on
+   the document.
 
 Author's Address
 
