@@ -89,7 +89,11 @@ defined in {{Section 7.8 of HTTP}}.
 
 This protocol necessarily incurs additional encapsulation overhead. When
 possible, users should use higher-level proxying protocols, such as
-{{CONNECT-IP}} or {{CONNECT-UDP}}.
+{{CONNECT-IP}} or {{CONNECT-UDP}}. Furthermore, because frames are tunneled over
+HTTP and may be carried over unreliable, out-of-order datagram transports,
+applications or protocols that require strict in-order frame delivery, lossless
+transmission, or real-time delivery guarantees should not be expected to
+function properly over this protocol.
 
 # Conventions and Definitions
 
