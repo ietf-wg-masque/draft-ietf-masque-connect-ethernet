@@ -705,5 +705,5 @@ Much of the initial version of this draft borrows heavily from {{CONNECT-IP}}.
 The author would like to thank Alexander Chernyakhovsky and David Schinazi
 for their advice while preparing this document, and Etienne Dechamps for
 useful discussion on the subject material. Additionally, Mirja Kühlewind,
-Magnus Westerlund, Martin Thompson, and Gorry Fairhurst provided valuable
-feedback on the document.
+Magnus Westerlund, Martin Thompson, Gorry Fairhurst, and Ketan Talaulikar
+provided valuable feedback on the document.
