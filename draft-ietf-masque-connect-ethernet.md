@@ -456,13 +456,13 @@ proxying can be used.
 ## Remote Access L2VPN {#example-remote}
 
 The following example shows a point to point VPN setup where a client
-appears to be connected to a remote Layer 2 network.
+appears to be connected to a remote Ethernet broadcast domain.
 
 ~~~ aasvg
 
 +--------+                    +--------+            +---> HOST 1
-|        +--------------------+   L2   |  Layer 2   |
-| Client |<--Layer 2 Tunnel---|  Proxy +------------+---> HOST 2
+|        +--------------------+Ethernet|  Ethernet  |
+| Client |<--Ethernet Tunnel--|  Proxy +------------+---> HOST 2
 |        +--------------------+        |  Broadcast |
 +--------+                    +--------+  Domain    +---> HOST 3
 
@@ -515,17 +515,17 @@ through the Proxy.
 
 ~~~ aasvg
 
-         +--------+               +--------+
-         |        +---------------+   L2   |
-         | Client |---L2 Tunnel---|  Proxy |
-         |        +---------------+        |
-         +-+------+               +------+-+
-           |                             |
-HOST A <---+ Layer 2             Layer 2 +---> HOST 1
-           | Broadcast         Broadcast |
-HOST B <---+ Domain               Domain +---> HOST 2
-           |                             |
-HOST C <---+                             +---> HOST 3
+         +--------+                 +--------+
+         |        +-----------------+Ethernet|
+         | Client |-Ethernet Tunnel-|  Proxy |
+         |        +-----------------+        |
+         +-+------+                 +------+-+
+           |                               |
+HOST A <---+ Ethernet             Ethernet +---> HOST 1
+           | Broadcast           Broadcast |
+HOST B <---+ Domain                 Domain +---> HOST 2
+           |                               |
+HOST C <---+                               +---> HOST 3
 
 
 
