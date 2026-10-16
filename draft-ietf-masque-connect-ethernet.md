@@ -78,7 +78,7 @@ This document describes a protocol for exchanging IEEE 802.3 {{IEEE802.3}}
 Ethernet frames with an HTTP server. Either participant in the HTTP connection
 can then relay Ethernet frames to and from a local or virtual interface. This
 can be used by a node to support remote bridging of two Ethernet broadcast
-domains to establish a Layer 2 VPN. This can simplify connectivity to
+domains to establish a Layer 2 VPN (L2VPN). This can simplify connectivity to
 network-connected appliances that are configured to only interact with peers
 connected to the same Ethernet broadcast domain.
 
@@ -574,10 +574,10 @@ Ethernet frames can be transmitted in QUIC DATAGRAM frames. Since DATAGRAM frame
 cannot be fragmented, they can only carry Ethernet frames up to the maximum QUIC
 DATAGRAM payload size minus HTTP Datagram framing overhead (see
 {{payload-format}}). Implementations MAY rely on {{QUIC}}'s use of
-{{!DPLPMTUD=RFC8899}} to probe and discover the PMTU over the connection's
-lifetime, and adjust any associated interface MTU as needed. If an arriving
-Ethernet frame exceeds the available capacity of a QUIC DATAGRAM frame, the
-endpoint MUST drop the frame and MUST NOT send it in a DATAGRAM capsule (see
+{{!DPLPMTUD=RFC8899}} to probe and discover the Path MTU (PMTU) over the
+connection's lifetime, and adjust any associated interface MTU as needed. If an
+arriving Ethernet frame exceeds the available capacity of a QUIC DATAGRAM frame,
+the endpoint MUST drop the frame and MUST NOT send it in a DATAGRAM capsule (see
 {{Section 3.5 of HTTP-DGRAM}}). Furthermore, the UDP packets carrying these
 frames could be reordered by the network.
 
