@@ -58,7 +58,8 @@ This document specifies how to proxy Ethernet frames in HTTP. This protocol
 is similar to IP proxying in HTTP, but for Layer 2 instead of Layer 3. More
 specifically, this document defines a protocol that allows an HTTP client to
 create a tunnel to exchange Layer 2 Ethernet frames through an HTTP server
-with an attached physical or virtual Ethernet segment.
+with an attached physical or virtual Ethernet segment. The protocol does not
+guarantee in-order frame delivery.
 
 
 --- middle
