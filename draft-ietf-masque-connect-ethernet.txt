@@ -4,8 +4,8 @@
 
 Multiplexed Application Substrate over QUIC Encryption      A. R. Sedeño
 Internet-Draft                                                Google LLC
-Intended status: Standards Track                          5 October 2026
-Expires: 8 April 2027
+Intended status: Standards Track                         16 October 2026
+Expires: 19 April 2027
 
 
                     Proxying Ethernet Frames in HTTP
@@ -18,7 +18,8 @@ Abstract
    of Layer 3.  More specifically, this document defines a protocol that
    allows an HTTP client to create a tunnel to exchange Layer 2 Ethernet
    frames through an HTTP server with an attached physical or virtual
-   Ethernet segment.
+   Ethernet segment.  The protocol does not guarantee in-order frame
+   delivery.
 
 About This Document
 
@@ -53,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 April 2027.
+   This Internet-Draft will expire on 19 April 2027.
 
 Copyright Notice
 
